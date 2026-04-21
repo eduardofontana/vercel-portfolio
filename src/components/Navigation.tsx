@@ -4,20 +4,21 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const navItems = [
-  { name: "Sobre", href: "#about" },
-  { name: "Projetos", href: "#projects" },
-  { name: "Habilidades", href: "#skills" },
-  { name: "Contato", href: "#contact" },
+  { name: "Sobre", href: "#about", section: "about" },
+  { name: "Projetos", href: "#projects", section: "projects" },
+  { name: "Habilidades", href: "#skills", section: "skills" },
+  { name: "Contato", href: "#contact", section: "contact" },
 ];
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      
+
       // Determine active section
       const sections = ["about", "projects", "skills", "contact"];
       for (const section of sections.reverse()) {
@@ -32,6 +33,16 @@ export default function Navigation() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      return;
+    }
+
+    const closeMenu = () => setMobileMenuOpen(false);
+    window.addEventListener("resize", closeMenu);
+    return () => window.removeEventListener("resize", closeMenu);
+  }, [mobileMenuOpen]);
 
   return (
     <motion.nav
@@ -60,7 +71,7 @@ export default function Navigation() {
                 key={item.name}
                 href={item.href}
                 className={`px-4 py-2 text-sm font-mono transition-colors relative ${
-                  activeSection === item.name.toLowerCase()
+                  activeSection === item.section
                     ? "text-accent"
                     : "text-text-secondary hover:text-text-primary"
                 }`}
@@ -68,7 +79,7 @@ export default function Navigation() {
                 whileTap={{ scale: 0.95 }}
               >
                 {item.name}
-                {activeSection === item.name.toLowerCase() && (
+                {activeSection === item.section && (
                   <motion.div
                     layoutId="activeIndicator"
                     className="absolute bottom-0 left-4 right-4 h-px bg-accent"
@@ -90,16 +101,69 @@ export default function Navigation() {
 
           {/* Mobile Menu Button */}
           <motion.button
+            type="button"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
+            aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             className="md:hidden p-2"
             whileTap={{ scale: 0.95 }}
+            onClick={() => setMobileMenuOpen((open) => !open)}
           >
             <div className="w-6 h-5 flex flex-col justify-between">
-              <span className="w-full h-0.5 bg-text-primary" />
-              <span className="w-full h-0.5 bg-text-primary" />
-              <span className="w-full h-0.5 bg-text-primary" />
+              <span
+                className={`w-full h-0.5 bg-text-primary transition-transform duration-300 ${
+                  mobileMenuOpen ? "translate-y-[9px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`w-full h-0.5 bg-text-primary transition-opacity duration-300 ${
+                  mobileMenuOpen ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`w-full h-0.5 bg-text-primary transition-transform duration-300 ${
+                  mobileMenuOpen ? "-translate-y-[9px] -rotate-45" : ""
+                }`}
+              />
             </div>
           </motion.button>
         </div>
+
+        {mobileMenuOpen && (
+          <motion.div
+            id="mobile-navigation"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            className="md:hidden pb-4"
+          >
+            <div className="border border-border bg-bg-secondary/95 backdrop-blur-md">
+              <div className="flex flex-col p-2">
+                {navItems.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-4 py-3 font-mono text-sm transition-colors ${
+                      activeSection === item.section
+                        ? "text-accent"
+                        : "text-text-secondary"
+                    }`}
+                  >
+                    {item.name}
+                  </a>
+                ))}
+                <a
+                  href="#contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="mt-2 inline-flex items-center justify-center px-4 py-3 border border-accent text-accent text-sm font-mono"
+                >
+                  FALE_COMIGO
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </div>
     </motion.nav>
   );

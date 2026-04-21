@@ -46,7 +46,6 @@
   
   html {
     scroll-behavior: smooth;
-    cursor: none;
   }
   
   body {
@@ -54,7 +53,6 @@
     color: var(--text-primary);
     font-family: var(--font-sans), system-ui, sans-serif;
     overflow-x: hidden;
-    cursor: none;
   }
   
   ::selection {
@@ -130,5 +128,12 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+}
+
+@media (pointer: fine) {
+  html,
+  body {
+    cursor: none;
   }
 }

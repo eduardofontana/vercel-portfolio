@@ -22,11 +22,9 @@ const mindset = [
 export default function About() {
   return (
     <section id="about" className="relative min-h-screen py-24 px-4 lg:px-8 overflow-hidden">
-      {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-secondary to-bg-primary" />
       <div className="absolute inset-0 grid-pattern opacity-20" />
 
-      {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -42,7 +40,6 @@ export default function About() {
       </motion.div>
 
       <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-12 gap-8">
-        {/* Main Bio Panel */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -61,8 +58,8 @@ export default function About() {
           </p>
 
           <p className="text-text-secondary leading-relaxed mb-6">
-            Minha jornada começou com curiosidade sobre como as coisas funcionam. Essa curiosidade evoluiu para
-            entender vulnerabilidades, e então preveni-las. Agora construo sistemas tão belos quanto seguros.
+            Minha jornada começou com curiosidade sobre como as coisas funcionam. Essa curiosidade evoluiu para entender
+            vulnerabilidades, e então preveni-las. Agora construo sistemas tão belos quanto seguros.
           </p>
 
           <div className="grid grid-cols-2 gap-4 mt-8">
@@ -93,7 +90,6 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Mindset Panel */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -129,7 +125,6 @@ export default function About() {
             </div>
           </div>
 
-          {/* Stats Panel */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

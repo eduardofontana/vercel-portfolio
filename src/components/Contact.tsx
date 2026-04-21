@@ -10,7 +10,7 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
   const [copied, setCopied] = useState(false);
   const { scrollYProgress } = useScroll();
-  
+
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   const copyEmail = () => {
@@ -33,15 +33,10 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative min-h-screen py-24 px-4 lg:px-8 overflow-hidden flex items-center">
-      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-secondary to-bg-primary" />
       <div className="absolute inset-0 grid-pattern opacity-20" />
-      
-      {/* Animated Grid Lines */}
-      <motion.div
-        style={{ y }}
-        className="absolute inset-0"
-      >
+
+      <motion.div style={{ y }} className="absolute inset-0">
         {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
@@ -60,7 +55,6 @@ export default function Contact() {
       </motion.div>
 
       <div className="relative z-10 max-w-5xl mx-auto w-full">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -76,7 +70,6 @@ export default function Contact() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Left: Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -86,12 +79,11 @@ export default function Contact() {
             <div className="mb-8">
               <h3 className="text-2xl font-bold mb-4">Vamos Trabalhar Juntos</h3>
               <p className="text-text-secondary leading-relaxed">
-                Estou sempre aberto para discutir novos projetos, auditorias de segurança, ou 
-                oportunidades em desenvolvimento web e cibersegurança.
+                Estou sempre aberto para discutir novos projetos, auditorias de segurança, ou oportunidades em
+                desenvolvimento web e cibersegurança.
               </p>
             </div>
 
-            {/* Contact Methods */}
             <div className="space-y-4">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -103,14 +95,14 @@ export default function Contact() {
                 <div className="w-12 h-12 border border-accent/30 flex items-center justify-center">
                   <Mail className="w-6 h-6 text-accent" />
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <div className="text-sm text-text-muted font-mono">EMAIL</div>
                   <div className="flex items-center gap-2">
-                    <span className="text-text-primary">fontana.df@gmail.com</span>
+                    <span className="text-text-primary break-all">fontana.df@gmail.com</span>
                     <button
                       onClick={copyEmail}
                       aria-label={copied ? "Email copiado" : "Copiar email"}
-                      className="p-1 hover:text-accent transition-colors"
+                      className="p-1 hover:text-accent transition-colors shrink-0"
                     >
                       {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
                     </button>
@@ -135,7 +127,6 @@ export default function Contact() {
               </motion.div>
             </div>
 
-            {/* Status */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -151,7 +142,6 @@ export default function Contact() {
             </motion.div>
           </motion.div>
 
-          {/* Right: Terminal Form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -159,7 +149,6 @@ export default function Contact() {
             viewport={{ once: true }}
             className="border border-border bg-bg-card rounded-lg overflow-hidden"
           >
-            {/* Terminal Header */}
             <div className="flex items-center gap-2 px-4 py-2 border-b border-border bg-bg-secondary">
               <div className="w-3 h-3 rounded-full bg-red-500/50" />
               <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
@@ -167,7 +156,6 @@ export default function Contact() {
               <span className="ml-4 text-text-muted text-xs font-mono">root@portfolio:~/contato</span>
             </div>
 
-            {/* Form */}
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <AnimatePresence mode="wait">
                 {sent ? (
@@ -181,11 +169,7 @@ export default function Contact() {
                     ✓ Mensagem enviada com sucesso!
                   </motion.div>
                 ) : (
-                  <motion.div
-                    key="form-content"
-                    initial={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
+                  <motion.div key="form-content" initial={{ opacity: 1 }} exit={{ opacity: 0 }}>
                     <div>
                       <label htmlFor="email" className="block text-xs font-mono text-text-muted mb-2">
                         <span className="text-accent">$</span> Digite seu email:
@@ -198,7 +182,7 @@ export default function Contact() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="seu@email.com"
-                          className="flex-1 bg-transparent px-2 py-3 font-mono text-sm outline-none placeholder:text-text-muted"
+                          className="flex-1 bg-transparent px-2 py-3 font-mono text-sm outline-none placeholder:text-text-muted min-w-0"
                           required
                           autoComplete="email"
                         />
@@ -218,7 +202,7 @@ export default function Contact() {
                             onChange={(e) => setMessage(e.target.value)}
                             placeholder="Sua mensagem aqui..."
                             rows={4}
-                            className="flex-1 bg-transparent px-2 py-3 font-mono text-sm outline-none placeholder:text-text-muted resize-none"
+                            className="flex-1 bg-transparent px-2 py-3 font-mono text-sm outline-none placeholder:text-text-muted resize-none min-w-0"
                             required
                           />
                         </div>
@@ -241,7 +225,6 @@ export default function Contact() {
           </motion.div>
         </div>
 
-        {/* Footer */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -250,7 +233,7 @@ export default function Contact() {
           className="mt-16 text-center text-text-muted text-sm font-mono"
         >
           <p>Projetado e Construído por Eduardo</p>
-          <p className="mt-2">© {new Date().getFullYear()} — Todos os sistemas operacionais</p>
+          <p className="mt-2">© {new Date().getFullYear()} - Todos os sistemas operacionais</p>
         </motion.div>
       </div>
     </section>

@@ -80,11 +80,9 @@ export default function Skills() {
 
   return (
     <section id="skills" className="relative min-h-screen py-24 px-4 lg:px-8 overflow-hidden bg-bg-primary">
-      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-secondary to-bg-primary" />
       <div className="absolute inset-0 grid-pattern opacity-20" />
 
-      {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -100,7 +98,6 @@ export default function Skills() {
       </motion.div>
 
       <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-12 gap-8">
-        {/* Terminal Panel */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -108,7 +105,6 @@ export default function Skills() {
           viewport={{ once: true }}
           className="lg:col-span-7 border border-border bg-bg-card rounded-lg overflow-hidden font-mono text-sm"
         >
-          {/* Terminal Header */}
           <div className="flex items-center gap-2 px-4 py-2 border-b border-border bg-bg-secondary">
             <div className="w-3 h-3 rounded-full bg-red-500/50" />
             <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
@@ -116,7 +112,6 @@ export default function Skills() {
             <span className="ml-4 text-text-muted text-xs">root@portfolio:~/skills</span>
           </div>
 
-          {/* Terminal Content */}
           <div className="p-4 space-y-1 max-h-[400px] overflow-y-auto">
             {commands.map((cmd, i) => (
               <motion.div
@@ -137,10 +132,10 @@ export default function Skills() {
                     cmd.type === "success"
                       ? "text-green-400"
                       : cmd.type === "error"
-                      ? "text-red-400"
-                      : cmd.type === "path"
-                      ? "text-accent"
-                      : "text-text-secondary"
+                        ? "text-red-400"
+                        : cmd.type === "path"
+                          ? "text-accent"
+                          : "text-text-secondary"
                   } pl-4`}
                 >
                   {cmd.output}
@@ -148,7 +143,6 @@ export default function Skills() {
               </motion.div>
             ))}
 
-            {/* Blinking Cursor */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -161,7 +155,6 @@ export default function Skills() {
           </div>
         </motion.div>
 
-        {/* Skills Categories */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -169,7 +162,6 @@ export default function Skills() {
           viewport={{ once: true }}
           className="lg:col-span-5 space-y-4"
         >
-          {/* Category Tabs */}
           <div className="flex flex-wrap gap-2">
             {skillCategories.map((cat, i) => (
               <button
@@ -186,7 +178,6 @@ export default function Skills() {
             ))}
           </div>
 
-          {/* Skills List */}
           <div className="border border-border bg-bg-secondary/50 backdrop-blur-sm p-4 space-y-3">
             {skillCategories[activeCategory].skills.map((skill, i) => (
               <motion.div
@@ -216,7 +207,6 @@ export default function Skills() {
             ))}
           </div>
 
-          {/* Stats */}
           <div className="grid grid-cols-2 gap-4">
             <div className="border border-border bg-bg-secondary/50 p-4 text-center">
               <div className="text-2xl font-bold text-accent">15+</div>
