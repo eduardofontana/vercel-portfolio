@@ -1,0 +1,135 @@
+@import "../styles/theme.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: var(--font-sans), sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(101, 231, 255, 0.14), transparent 38%),
+    radial-gradient(circle at 86% 16%, rgba(142, 255, 201, 0.08), transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(60, 84, 123, 0.24), transparent 38%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 50%, transparent 92%);
+  opacity: 0.35;
+  z-index: -1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.26);
+  color: #f8fafc;
+}
+
+.container-shell {
+  @apply mx-auto w-full max-w-6xl px-5 md:px-8;
+}
+
+.section-title {
+  @apply font-display text-3xl font-semibold uppercase tracking-[0.14em] text-slate-100 md:text-4xl;
+}
+
+.section-subtitle {
+  @apply mt-3 max-w-2xl text-sm leading-7 text-slate-400 md:text-base;
+}
+
+.eyebrow {
+  @apply inline-flex items-center gap-2 rounded-full border border-borderStrong bg-accentSoft px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-cyan-100;
+}
+
+.panel {
+  @apply rounded-[28px] border border-borderSoft shadow-panel backdrop-blur;
+  background-color: rgba(11, 17, 24, 0.9);
+}
+
+.tech-line {
+  position: relative;
+}
+
+.tech-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(101, 231, 255, 0.42), transparent);
+}
+
+.reveal-up {
+  animation: reveal-up 0.8s ease-out both;
+}
+
+.delay-1 {
+  animation-delay: 0.12s;
+}
+
+.delay-2 {
+  animation-delay: 0.24s;
+}
+
+.delay-3 {
+  animation-delay: 0.36s;
+}
+
+.delay-4 {
+  animation-delay: 0.48s;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal-up,
+  .delay-1,
+  .delay-2,
+  .delay-3,
+  .delay-4 {
+    animation: none;
+  }
+}
