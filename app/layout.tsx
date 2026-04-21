@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, JetBrains_Mono, Oxanium } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { CustomCursor } from "@/components/CustomCursor";
+import { LanguageProvider } from "@/components/LanguageProvider";
 import "./globals.css";
 
-const oxanium = Oxanium({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
   variable: "--font-display"
 });
 
-const ibmPlexSans = IBM_Plex_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-sans"
 });
 
@@ -21,21 +24,25 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Portfolio | Web Developer & Pentester",
   description:
-    "Portfolio moderno, minimalista e responsivo para Web Developer & Pentester com foco em performance e seguranca.",
+    "Portfolio premium com motion cinematografico, design imersivo e foco em desenvolvimento web e seguranca ofensiva.",
   keywords: ["web developer", "pentester", "portfolio", "next.js", "cybersecurity"],
-  authors: [{ name: "Your Name" }],
+  authors: [{ name: "Eduardo Fontana" }],
   openGraph: {
     title: "Portfolio | Web Developer & Pentester",
-    description: "Projetos de desenvolvimento web e seguranca ofensiva.",
-    type: "website"
+    description: "Experiencia premium em desenvolvimento web, motion design e seguranca ofensiva.",
+    type: "website",
+    locale: "pt_BR"
   }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${oxanium.variable} ${ibmPlexSans.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        {children}
+      <body className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+        <LanguageProvider>
+          <CustomCursor />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

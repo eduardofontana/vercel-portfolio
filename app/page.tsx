@@ -1,99 +1,97 @@
+"use client";
+
+import { useLanguage } from "@/components/LanguageProvider";
 import { Hero } from "@/components/Hero";
+import { MotionSection, Reveal } from "@/components/Motion";
 import { Navbar } from "@/components/Navbar";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SkillsSection } from "@/components/SkillsSection";
 import { projects } from "@/data/projects";
+import { getSiteCopy } from "@/data/siteContent";
 
 export default function HomePage() {
+  const { locale } = useLanguage();
+  const copy = getSiteCopy(locale);
+
   return (
     <>
       <Navbar />
-      <main>
+      <main className="relative pb-20">
         <Hero />
 
-        <section id="sobre" className="container-shell py-14 md:py-16">
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            <div>
-              <p className="eyebrow">Profile / Threat Model</p>
-              <h2 className="section-title mt-5">Sobre</h2>
-              <p className="section-subtitle">
-                Profissional focado em construir produtos web com qualidade tecnica, escalabilidade e seguranca desde o
-                inicio do projeto.
-              </p>
+        <MotionSection id="sobre" className="container-shell section-shell py-14 md:py-20">
+          <div className="section-frame px-6 py-8 md:px-8 md:py-10">
+            <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+              <Reveal>
+                <div>
+                  <p className="eyebrow">{copy.about.eyebrow}</p>
+                  <h2 className="section-title mt-5">{copy.about.title}</h2>
+                  <p className="section-subtitle">{copy.about.description}</p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <div className="glass-card glass-card-strong glow-ring overflow-hidden rounded-[2rem] p-6">
+                  <div className="grid gap-6 md:grid-cols-3">
+                    {copy.about.stats.map(([label, value]) => (
+                      <div key={label}>
+                        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">{label}</p>
+                        <p className="mt-2 text-2xl font-semibold text-slate-100">{value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
             </div>
-            <div className="panel p-6">
-              <div className="grid gap-6 md:grid-cols-3">
-                <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">Base</p>
-                  <p className="mt-2 text-2xl font-semibold text-slate-100">Frontend</p>
-                </div>
-                <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">Lens</p>
-                  <p className="mt-2 text-2xl font-semibold text-slate-100">Security</p>
-                </div>
-                <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">Delivery</p>
-                  <p className="mt-2 text-2xl font-semibold text-slate-100">Vercel-ready</p>
-                </div>
-              </div>
+            <div className="mt-10 grid gap-5 md:grid-cols-2">
+              {copy.about.tracks.map((track, index) => (
+                <Reveal key={track.label} delay={0.12 + index * 0.08}>
+                  <article className="glass-card glass-card-strong interactive-card rounded-[2rem] p-6">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500">{track.label}</p>
+                    <h3 className="mt-2 font-display text-2xl font-semibold tracking-[-0.05em] text-sky-100">
+                      {track.title}
+                    </h3>
+                    <p className="mt-4 text-sm leading-7 text-slate-300">{track.description}</p>
+                  </article>
+                </Reveal>
+              ))}
             </div>
           </div>
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
-            <article className="panel p-6">
-              <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500">Track 01</p>
-              <h3 className="mt-2 font-display text-2xl font-semibold uppercase tracking-[0.08em] text-cyan-100">
-                Desenvolvimento Web
-              </h3>
-              <p className="mt-4 text-sm leading-7 text-slate-300">
-                Experiencia com arquitetura frontend, componentizacao, APIs e interfaces performaticas com foco em
-                conversao e manutenibilidade.
-              </p>
-            </article>
-            <article className="panel p-6">
-              <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500">Track 02</p>
-              <h3 className="mt-2 font-display text-2xl font-semibold uppercase tracking-[0.08em] text-cyan-100">
-                Seguranca / Pentest
-              </h3>
-              <p className="mt-4 text-sm leading-7 text-slate-300">
-                Praticas de analise de superficie de ataque, validacao de vulnerabilidades e aplicacao de controles
-                para reduzir risco em aplicacoes web.
-              </p>
-            </article>
-          </div>
-        </section>
+        </MotionSection>
 
-        <section id="projetos" className="container-shell py-14 md:py-16">
-          <p className="eyebrow">Selected Operations</p>
-          <h2 className="section-title mt-5">Projetos</h2>
-          <p className="section-subtitle">Projetos reais em desenvolvimento web e seguranca ofensiva.</p>
+        <MotionSection id="projetos" className="container-shell py-14 md:py-20">
+          <p className="eyebrow">{copy.projects.eyebrow}</p>
+          <h2 className="section-title mt-5">{copy.projects.title}</h2>
+          <p className="section-subtitle">{copy.projects.description}</p>
           <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {projects.map((project) => (
               <ProjectCard key={project.name} project={project} />
             ))}
           </div>
-        </section>
+        </MotionSection>
 
         <SkillsSection />
 
-        <section id="contato" className="container-shell py-14 md:py-16">
-          <div className="panel overflow-hidden p-6 md:p-8">
+        <MotionSection id="contato" className="container-shell py-14 md:py-20">
+          <div className="glass-card glass-card-strong glow-ring overflow-hidden rounded-[2rem] p-6 md:p-8">
             <div className="grid gap-8 md:grid-cols-[1fr_0.9fr] md:items-center">
-              <div>
-                <p className="eyebrow">Open Channel</p>
-                <h2 className="section-title mt-5">Contato</h2>
-                <p className="section-subtitle">
-                  Vamos conversar sobre seu projeto, auditoria ou parceria tecnica.
-                </p>
-              </div>
-              <div className="rounded-[24px] border border-borderSoft bg-[#070c12] p-5 font-mono text-xs text-slate-400">
-                <p>root@portfolio:~$ establish secure channel</p>
-                <p className="mt-2 text-cyan-200">status: awaiting message</p>
-              </div>
+              <Reveal>
+                <div>
+                  <p className="eyebrow">{copy.contact.eyebrow}</p>
+                  <h2 className="section-title mt-5">{copy.contact.title}</h2>
+                  <p className="section-subtitle">{copy.contact.description}</p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <div className="rounded-[24px] border border-white/10 bg-[#0d0d0d]/80 p-5 font-mono text-xs text-slate-400 backdrop-blur-xl">
+                  <p>{copy.contact.terminalCommand}</p>
+                  <p className="mt-2 text-sky-200">{copy.contact.terminalStatus}</p>
+                </div>
+              </Reveal>
             </div>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               <a
                 href="mailto:fontana.df@gmail.com"
-                className="rounded-2xl border border-borderSoft bg-surface p-5 transition hover:border-cyan-300/40 hover:bg-surfaceStrong"
+                className="glass-card interactive-card rounded-2xl p-5 hover:border-sky-300/40 hover:bg-white/8"
               >
                 <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">Email</p>
                 <p className="mt-3 text-sm text-slate-100">fontana.df@gmail.com</p>
@@ -103,7 +101,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 referrerPolicy="no-referrer"
-                className="rounded-2xl border border-borderSoft bg-surface p-5 transition hover:border-cyan-300/40 hover:bg-surfaceStrong"
+                className="glass-card interactive-card rounded-2xl p-5 hover:border-sky-300/40 hover:bg-white/8"
               >
                 <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">GitHub</p>
                 <p className="mt-3 text-sm text-slate-100">github.com/eduardofontana</p>
@@ -113,14 +111,14 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 referrerPolicy="no-referrer"
-                className="rounded-2xl border border-borderSoft bg-surface p-5 transition hover:border-cyan-300/40 hover:bg-surfaceStrong"
+                className="glass-card interactive-card rounded-2xl p-5 hover:border-sky-300/40 hover:bg-white/8"
               >
                 <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">Instagram</p>
                 <p className="mt-3 text-sm text-slate-100">instagram.com/duhduhfontana</p>
               </a>
             </div>
           </div>
-        </section>
+        </MotionSection>
       </main>
     </>
   );

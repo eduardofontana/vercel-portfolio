@@ -26,8 +26,8 @@ const config: Config = {
         borderStrong: "var(--border-strong)"
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(101,231,255,0.14), 0 24px 60px rgba(0,0,0,0.42)",
-        panel: "0 0 0 1px rgba(139,155,176,0.12), 0 18px 48px rgba(0,0,0,0.34)"
+        glow: "0 0 0 1px rgba(56,189,248,0.16), 0 24px 60px rgba(0,0,0,0.42), 0 0 40px rgba(74,222,128,0.08)",
+        panel: "0 0 0 1px rgba(148,163,184,0.12), 0 20px 56px rgba(0,0,0,0.42)"
       },
       backgroundImage: {
         grid: "linear-gradient(to right, rgba(139,155,176,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(139,155,176,0.08) 1px, transparent 1px)",
