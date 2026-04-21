@@ -1,85 +1,36 @@
-# Vercel Portfolio
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Portfolio pessoal desenvolvido com foco em apresentacao profissional, performance e deploy simples na Vercel.
+## Getting Started
 
-O projeto segue uma proposta visual dark com identidade tech/editorial, pensado para um perfil de `Web Developer & Pentester`.
-
-## Stack
-
-- Next.js 15 (App Router)
-- React 19
-- TypeScript
-- Tailwind CSS
-
-## Caracteristicas
-
-- Layout responsivo
-- Navbar fixa com scroll suave
-- Hero com efeito typewriter
-- Secoes de Sobre, Projetos, Skills e Contato
-- Dados de projetos separados em `data/projects.ts`
-- Componentes reutilizaveis
-- Headers basicos de hardening no `Next.js`
-
-## Estrutura
-
-```text
-app/
-components/
-data/
-public/
-styles/
-```
-
-## Como rodar localmente
+First, run the development server:
 
 ```bash
-npm install
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Abra `http://localhost:3000` no navegador.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Build de producao
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```bash
-npm run build
-npm run start
-```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Personalizacao
+## Learn More
 
-Os pontos principais para editar o conteudo sao:
+To learn more about Next.js, take a look at the following resources:
 
-- `app/page.tsx`: textos principais e secao de contato
-- `data/projects.ts`: lista de projetos
-- `components/`: blocos reutilizaveis da interface
-- `styles/theme.css`: tokens visuais da paleta
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Seguranca
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-O projeto inclui medidas basicas de hardening no `next.config.ts`, incluindo:
+## Deploy on Vercel
 
-- `Content-Security-Policy`
-- `X-Frame-Options`
-- `X-Content-Type-Options`
-- `Referrer-Policy`
-- `Permissions-Policy`
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## Deploy
-
-O deploy recomendado e na Vercel.
-
-Passos gerais:
-
-1. Importar este repositorio na Vercel.
-2. Manter os comandos padrao detectados pelo Next.js.
-3. Publicar.
-
-## Autor
-
-Eduardo Fontana
-
-- GitHub: `https://github.com/eduardofontana`
-- Instagram: `https://www.instagram.com/duhduhfontana/`
-- Email: `fontana.df@gmail.com`
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
