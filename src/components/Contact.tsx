@@ -21,7 +21,10 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email && message) {
+    const trimmedEmail = email.trim();
+    const trimmedMessage = message.trim();
+
+    if (trimmedEmail && trimmedMessage.length >= 10) {
       setSent(true);
       setTimeout(() => {
         setSent(false);
@@ -185,6 +188,9 @@ export default function Contact() {
                           className="flex-1 bg-transparent px-2 py-3 font-mono text-sm outline-none placeholder:text-text-muted min-w-0"
                           required
                           autoComplete="email"
+                          maxLength={120}
+                          inputMode="email"
+                          spellCheck={false}
                         />
                       </div>
                     </div>
@@ -204,9 +210,15 @@ export default function Contact() {
                             rows={4}
                             className="flex-1 bg-transparent px-2 py-3 font-mono text-sm outline-none placeholder:text-text-muted resize-none min-w-0"
                             required
+                            minLength={10}
+                            maxLength={2000}
+                            spellCheck={false}
                           />
                         </div>
                       </div>
+                      <p className="mt-2 text-xs text-text-muted font-mono">
+                        Min. 10 caracteres. Max. 2000.
+                      </p>
                     </div>
 
                     <motion.button
