@@ -20,7 +20,6 @@ const mindset = [
 ];
 
 export default function About() {
-
   return (
     <section id="about" className="relative min-h-screen py-24 px-4 lg:px-8 overflow-hidden">
       {/* Background Elements */}
@@ -55,14 +54,14 @@ export default function About() {
             <div className="w-2 h-2 rounded-full bg-accent" />
             <span className="font-mono text-xs text-text-muted">ANÁLISE_DO_SISTEMA</span>
           </div>
-          
+
           <p className="text-lg md:text-xl text-text-primary leading-relaxed mb-6">
-            Eu sou um <span className="text-accent">desenvolvedor full-stack</span> com mentalidade focada em segurança. 
-            Não apenas construo sites—eu crio <span className="text-accent">fortalezas digitais</span>.
+            Eu sou um <span className="text-accent">desenvolvedor full-stack</span> com mentalidade focada em segurança.
+            Não apenas construo sites, eu crio <span className="text-accent">fortalezas digitais</span>.
           </p>
-          
+
           <p className="text-text-secondary leading-relaxed mb-6">
-            Minha jornada começou com curiosidade sobre como as coisas funcionam. Essa curiosidade evoluiu para 
+            Minha jornada começou com curiosidade sobre como as coisas funcionam. Essa curiosidade evoluiu para
             entender vulnerabilidades, e então preveni-las. Agora construo sistemas tão belos quanto seguros.
           </p>
 
@@ -107,7 +106,7 @@ export default function About() {
               <div className="w-2 h-2 rounded-full bg-yellow-500" />
               <span className="font-mono text-xs text-text-muted">MENTALIDADE_BASE</span>
             </div>
-            
+
             <div className="space-y-6">
               {mindset.map((item, i) => (
                 <motion.div

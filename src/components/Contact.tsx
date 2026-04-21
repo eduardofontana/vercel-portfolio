@@ -14,7 +14,7 @@ export default function Contact() {
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("eduardo@email.com");
+    navigator.clipboard.writeText("fontana.df@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -106,7 +106,7 @@ export default function Contact() {
                 <div className="flex-1">
                   <div className="text-sm text-text-muted font-mono">EMAIL</div>
                   <div className="flex items-center gap-2">
-                    <span className="text-text-primary">eduardo@email.com</span>
+                    <span className="text-text-primary">fontana.df@gmail.com</span>
                     <button
                       onClick={copyEmail}
                       aria-label={copied ? "Email copiado" : "Copiar email"}
