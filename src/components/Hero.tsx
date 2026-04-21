@@ -148,9 +148,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-text-muted text-sm md:text-base max-w-xl mx-auto font-mono"
         >
-          Construindo sistemas seguros. Quebrando-os para torná-los mais fortes.
+          Construo sistemas seguros. Testo seus limites antes que alguém teste por você.
           <br />
-          <span className="text-accent/60">Código sem segurança é só um bug esperando para acontecer.</span>
+          <span className="text-accent/60">Segurança não é detalhe. É base.</span>
         </motion.p>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="mt-12 flex justify-center gap-4">
