@@ -19,7 +19,6 @@ export default function Navigation() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      // Determine active section
       const sections = ["about", "projects", "skills", "contact"];
       for (const section of sections.reverse()) {
         const el = document.getElementById(section);
@@ -55,7 +54,6 @@ export default function Navigation() {
     >
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
           <motion.a
             href="#"
             className="text-lg font-bold tracking-tight"
@@ -64,7 +62,6 @@ export default function Navigation() {
             <span className="text-gradient">E</span>
           </motion.a>
 
-          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <motion.a
@@ -89,7 +86,6 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* CTA Button */}
           <motion.a
             href="#contact"
             className="hidden md:inline-flex px-4 py-2 border border-accent text-accent text-sm font-mono hover:bg-accent hover:text-bg-primary transition-colors"
@@ -99,7 +95,6 @@ export default function Navigation() {
             FALE_COMIGO
           </motion.a>
 
-          {/* Mobile Menu Button */}
           <motion.button
             type="button"
             aria-expanded={mobileMenuOpen}

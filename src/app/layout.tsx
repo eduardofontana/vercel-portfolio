@@ -16,21 +16,24 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Eduardo | Desenvolvedor Web & Pentester",
-  description: "Portfolio de Eduardo - Desenvolvedor Web & Especialista em Cibersegurança",
+  description:
+    "Portfólio de Eduardo, desenvolvedor web com foco em performance, experiência visual e segurança.",
   keywords: ["Desenvolvedor Web", "Pentester", "Cybersecurity", "Next.js", "React", "TypeScript"],
   authors: [{ name: "Eduardo" }],
   creator: "Eduardo",
   metadataBase: new URL("https://eduardo.dev"),
   openGraph: {
     title: "Eduardo | Desenvolvedor Web & Pentester",
-    description: "Portfolio de Eduardo - Desenvolvedor Web & Especialista em Cibersegurança",
+    description:
+      "Portfólio de Eduardo, desenvolvedor web com foco em performance, experiência visual e segurança.",
     type: "website",
     locale: "pt_BR",
   },
   twitter: {
     card: "summary_large_image",
     title: "Eduardo | Desenvolvedor Web & Pentester",
-    description: "Portfolio de Eduardo - Desenvolvedor Web & Especialista em Cibersegurança",
+    description:
+      "Portfólio de Eduardo, desenvolvedor web com foco em performance, experiência visual e segurança.",
   },
 };
 

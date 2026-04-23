@@ -7,8 +7,9 @@ import { ExternalLink, Terminal } from "lucide-react";
 interface Project {
   id: number;
   title: string;
-  description: string;
-  tags: string[];
+  problem: string;
+  delivery: string;
+  stack: string[];
   link: string;
   github: string;
 }
@@ -16,43 +17,69 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: "SECURE_VAULT",
-    description: "Sistema de gerenciamento de senhas empresarial com criptografia de conhecimento zero e autenticação biométrica.",
-    tags: ["Next.js", "Criptografia", "WebAuthn", "PostgreSQL"],
-    link: "#",
-    github: "#",
+    title: "botjohn",
+    problem:
+      "Comunidades no Discord costumam crescer com estrutura inconsistente, configuração manual excessiva e pouca automação para operação contínua.",
+    delivery:
+      "Desenvolvi um bot modular capaz de analisar templates, recriar servidores com estrutura otimizada, aplicar regras de progressão e acoplar alertas de live via Twitch.",
+    stack: ["Node.js", "discord.js", "Twitch API", "Axios"],
+    link: "https://github.com/eduardofontana/botjohn/blob/main/README.md",
+    github: "https://github.com/eduardofontana/botjohn",
   },
   {
     id: 2,
-    title: "PENETRATE_CLI",
-    description: "Kit de ferramentas personalizado para testes de penetração com varredura automatizada de vulnerabilidades e relatórios.",
-    tags: ["Python", "FastAPI", "Docker", "Nmap"],
-    link: "#",
-    github: "#",
+    title: "pixelia-game2D",
+    problem:
+      "Criar um platformer 2D consistente exige controle de gameplay, progressão de fase e estrutura técnica capaz de sustentar combate e chefes sem perder ritmo.",
+    delivery:
+      "Construí um jogo em Godot com combate corpo a corpo, progressão de cenário e batalhas contra chefes, mantendo o projeto organizado para evolução contínua.",
+    stack: ["Godot 4.6", "2D Platformer", "Game Dev", "Boss Fights"],
+    link: "https://github.com/eduardofontana/pixelia-game2D/blob/main/README.md",
+    github: "https://github.com/eduardofontana/pixelia-game2D",
   },
   {
     id: 3,
-    title: "NETSCAN_PRO",
-    description: "Sistema de monitoramento de rede em tempo real e detecção de intrusões com análise de ameaças com IA.",
-    tags: ["React", "Node.js", "TensorFlow", "Wireshark"],
-    link: "#",
-    github: "#",
+    title: "vercel-portfolio",
+    problem:
+      "Um portfólio pessoal precisa comunicar nível técnico e direção visual sem cair em aparência genérica ou em excesso de efeito sem função.",
+    delivery:
+      "Implementei um portfólio em Next.js 16 com identidade visual forte, motion controlado e base moderna para apresentar trabalho, perfil e posicionamento profissional.",
+    stack: ["Next.js 16", "React 19", "Tailwind 4", "Framer Motion"],
+    link: "https://github.com/eduardofontana/vercel-portfolio/blob/main/README.md",
+    github: "https://github.com/eduardofontana/vercel-portfolio",
   },
   {
     id: 4,
-    title: "CIPHER_CHAT",
-    description: "Plataforma de mensagens criptografadas de ponta a ponta com mensagens autodestrutivas e compartilhamento seguro de arquivos.",
-    tags: ["WebRTC", "Signal", "TypeScript", "Redis"],
-    link: "#",
-    github: "#",
+    title: "nextjs-portfolio",
+    problem:
+      "Antes da versão atual, era necessário estruturar uma presença online mais sólida, com base em React e Next.js, para validar direção visual e organização do conteúdo.",
+    delivery:
+      "Desenvolvi uma versão anterior do portfólio em Next.js 13 como base de exploração visual, organização de conteúdo e evolução gradual da apresentação online.",
+    stack: ["Next.js 13", "React 18", "Tailwind 3", "TypeScript"],
+    link: "https://github.com/eduardofontana/nextjs-portfolio/blob/main/README.md",
+    github: "https://github.com/eduardofontana/nextjs-portfolio",
   },
   {
     id: 5,
-    title: "VULN_SCANNER",
-    description: "Scanner automatizado de vulnerabilidades de aplicações web com capacidades de detecção OWASP Top 10.",
-    tags: ["Python", "Selenium", "SQLMap", "Burp Suite"],
-    link: "#",
-    github: "#",
+    title: "my-portfolio",
+    problem:
+      "Era necessário consolidar uma presença pessoal online em uma stack React tradicional, com deploy simples e estrutura suficiente para apresentar perfil e trajetória.",
+    delivery:
+      "Desenvolvi um portfólio pessoal com React, Bootstrap, Sass e deploy na Vercel, servindo como etapa concreta de posicionamento e apresentação profissional.",
+    stack: ["React 18", "Bootstrap", "Sass", "Vercel"],
+    link: "https://github.com/eduardofontana/my-portfolio/blob/main/README.md",
+    github: "https://github.com/eduardofontana/my-portfolio",
+  },
+  {
+    id: 6,
+    title: "my_demo_reactjs",
+    problem:
+      "Antes de projetos mais refinados, era importante validar a base prática de criação, execução e estruturação de aplicações React em um fluxo simples e reproduzível.",
+    delivery:
+      "Montei um projeto demonstrativo em React com Create React App para consolidar setup, scripts e fundamentos de desenvolvimento front-end na prática.",
+    stack: ["React 18", "Create React App", "JavaScript", "React Scripts"],
+    link: "https://github.com/eduardofontana/my_demo_reactjs/blob/main/README.md",
+    github: "https://github.com/eduardofontana/my_demo_reactjs",
   },
 ];
 
@@ -60,12 +87,12 @@ export default function Projects() {
   const [activeProject, setActiveProject] = useState<number | null>(null);
 
   return (
-    <section id="projects" className="relative min-h-screen py-24 overflow-hidden">
+    <section id="projects" className="relative min-h-screen overflow-hidden py-20 sm:py-24">
       <div className="absolute inset-0 bg-bg-secondary" />
       <div className="absolute inset-0 grid-pattern opacity-10" />
 
       <motion.div
-        className="absolute inset-0 pointer-events-none"
+        className="pointer-events-none absolute inset-0"
         style={{
           background: "linear-gradient(transparent 50%, rgba(0, 255, 136, 0.02) 50%)",
           backgroundSize: "100% 4px",
@@ -77,17 +104,17 @@ export default function Projects() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="relative z-10 mb-16 px-4 lg:px-8"
+        className="relative z-10 mb-12 px-4 sm:mb-16 sm:px-6 lg:px-8"
       >
-        <div className="flex items-center gap-4 mb-4">
-          <span className="text-accent font-mono text-sm">02</span>
-          <div className="h-px bg-border flex-1" />
+        <div className="mb-4 flex items-center gap-4">
+          <span className="font-mono text-sm text-accent">02</span>
+          <div className="h-px flex-1 bg-border" />
         </div>
-        <h2 className="text-4xl md:text-6xl font-bold">PROJETOS</h2>
+        <h2 className="text-3xl font-bold sm:text-5xl md:text-6xl">PROJETOS</h2>
       </motion.div>
 
-      <div className="relative px-4 lg:px-8 pb-8">
-        <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 2xl:grid-cols-3">
+      <div className="relative px-4 pb-8 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 xl:grid-cols-3 xl:gap-8">
           {projects.map((project, i) => (
             <motion.div
               key={project.id}
@@ -100,7 +127,16 @@ export default function Projects() {
               <motion.div
                 onHoverStart={() => setActiveProject(project.id)}
                 onHoverEnd={() => setActiveProject(null)}
-                className="relative flex h-full flex-col border border-border bg-bg-card overflow-hidden group cursor-pointer"
+                onClick={() => window.open(project.github, "_blank", "noopener,noreferrer")}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    window.open(project.github, "_blank", "noopener,noreferrer");
+                  }
+                }}
+                role="link"
+                tabIndex={0}
+                className="group relative flex h-full cursor-pointer flex-col overflow-hidden border border-border bg-bg-card"
               >
                 <AnimatePresence>
                   {activeProject === project.id && (
@@ -123,26 +159,26 @@ export default function Projects() {
                   )}
                 </AnimatePresence>
 
-                <div className="flex h-full flex-col p-6 md:p-8">
-                  <div className="flex justify-between items-start mb-6">
+                <div className="flex h-full flex-col p-5 sm:p-6 md:p-8">
+                  <div className="mb-6 flex items-start justify-between gap-4">
                     <motion.span
-                      className="text-6xl md:text-7xl font-bold text-border"
+                      className="text-5xl font-bold text-border sm:text-6xl md:text-7xl"
                       animate={{
                         color: activeProject === project.id ? "#00ff88" : "#1a1a1a",
                       }}
                     >
                       {String(project.id).padStart(2, "0")}
                     </motion.span>
-                    <div className="flex gap-2">
+                    <div className="flex shrink-0 gap-2">
                       <motion.a
                         href={project.github}
                         rel="noopener noreferrer"
                         target="_blank"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
-                        className="w-10 h-10 border border-border flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
+                        className="flex h-10 w-10 items-center justify-center border border-border transition-colors hover:border-accent hover:text-accent"
                       >
-                        <Terminal className="w-5 h-5" />
+                        <Terminal className="h-5 w-5" />
                       </motion.a>
                       <motion.a
                         href={project.link}
@@ -150,41 +186,63 @@ export default function Projects() {
                         target="_blank"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
-                        className="w-10 h-10 border border-border flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
+                        className="flex h-10 w-10 items-center justify-center border border-border transition-colors hover:border-accent hover:text-accent"
                       >
-                        <ExternalLink className="w-5 h-5" />
+                        <ExternalLink className="h-5 w-5" />
                       </motion.a>
                     </div>
                   </div>
 
                   <motion.h3
-                    className="text-2xl md:text-3xl font-bold mb-3"
+                    className="mb-4 text-xl font-bold sm:text-2xl md:text-3xl"
                     animate={{
-                      textShadow: activeProject === project.id ? "0 0 20px rgba(0, 255, 136, 0.5)" : "none",
+                      textShadow:
+                        activeProject === project.id ? "0 0 20px rgba(0, 255, 136, 0.5)" : "none",
                     }}
                   >
                     {project.title}
                   </motion.h3>
 
-                  <p className="text-text-secondary mb-6 leading-relaxed">{project.description}</p>
+                  <div className="mb-5">
+                    <div className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-accent sm:text-xs">
+                      Problema
+                    </div>
+                    <p className="text-sm leading-7 text-text-secondary sm:text-base">
+                      {project.problem}
+                    </p>
+                  </div>
 
-                  <div className="mt-auto flex flex-wrap gap-2">
-                    {project.tags.map((tag, j) => (
-                      <motion.span
-                        key={tag}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.1 * j }}
-                        viewport={{ once: true }}
-                        className="px-3 py-1 text-xs font-mono border border-border text-text-secondary hover:border-accent hover:text-accent transition-colors"
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
+                  <div className="mb-6">
+                    <div className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-accent sm:text-xs">
+                      Entrega
+                    </div>
+                    <p className="text-sm leading-7 text-text-secondary sm:text-base">
+                      {project.delivery}
+                    </p>
+                  </div>
+
+                  <div className="mt-auto">
+                    <div className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-accent sm:text-xs">
+                      Stack
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {project.stack.map((tag, j) => (
+                        <motion.span
+                          key={tag}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.1 * j }}
+                          viewport={{ once: true }}
+                          className="border border-border px-3 py-1 text-[11px] font-mono text-text-secondary transition-colors hover:border-accent hover:text-accent sm:text-xs"
+                        >
+                          {tag}
+                        </motion.span>
+                      ))}
+                    </div>
                   </div>
 
                   <motion.div
-                    className="absolute inset-0 border-2 border-accent pointer-events-none"
+                    className="pointer-events-none absolute inset-0 border-2 border-accent"
                     initial={{ opacity: 0 }}
                     animate={{
                       opacity: activeProject === project.id ? 1 : 0,
@@ -205,11 +263,11 @@ export default function Projects() {
         </div>
       </div>
 
-      <div className="fixed right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-2 z-10">
+      <div className="fixed right-8 top-1/2 z-10 hidden -translate-y-1/2 flex-col gap-2 lg:flex">
         {projects.map((_, i) => (
-          <motion.div key={i} className="w-1 h-8 bg-border overflow-hidden">
+          <motion.div key={i} className="h-8 w-1 overflow-hidden bg-border">
             <motion.div
-              className="w-full h-full bg-accent"
+              className="h-full w-full bg-accent"
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               viewport={{ once: true }}

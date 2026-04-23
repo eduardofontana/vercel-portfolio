@@ -19,44 +19,44 @@ const skillCategories = [
     category: "FRONTEND",
     icon: Globe,
     skills: [
-      { name: "Next.js", level: 95, desc: "App router, Server Actions, API Routes" },
-      { name: "React", level: 92, desc: "Hooks, Context, Suspense" },
-      { name: "TypeScript", level: 90, desc: "Type safety, Generics, Mapped types" },
-      { name: "Tailwind", level: 95, desc: "Custom themes, Animações" },
-      { name: "Framer Motion", level: 85, desc: "Scroll triggers, Gestos" },
+      { name: "Next.js", level: 95, desc: "App Router, Server Actions e interfaces com padrão alto de performance" },
+      { name: "React", level: 92, desc: "Arquitetura de componentes, fluidez de interface e escalabilidade" },
+      { name: "TypeScript", level: 90, desc: "Modelagem segura, tipos avançados e manutenção previsível" },
+      { name: "Tailwind", level: 95, desc: "Refinamento visual, temas e velocidade real de execução" },
+      { name: "Framer Motion", level: 85, desc: "Transições, animações e acabamento de interação" },
     ],
   },
   {
     category: "BACKEND",
     icon: Database,
     skills: [
-      { name: "Node.js", level: 88, desc: "Express, Fastify, NestJS" },
-      { name: "Python", level: 85, desc: "Django, FastAPI, Flask" },
-      { name: "PostgreSQL", level: 82, desc: "Consultas, Indexação, Replicação" },
-      { name: "Redis", level: 80, desc: "Cache, Pub/Sub, Streams" },
-      { name: "GraphQL", level: 78, desc: "Apollo, Prisma, Resolvers" },
+      { name: "Node.js", level: 88, desc: "APIs, integrações e serviços para aplicações web robustas" },
+      { name: "Python", level: 85, desc: "Automação, análise e desenvolvimento orientado a eficiência" },
+      { name: "PostgreSQL", level: 82, desc: "Consultas, modelagem e estruturação confiável de dados" },
+      { name: "Redis", level: 80, desc: "Cache, filas e comunicação em tempo real" },
+      { name: "GraphQL", level: 78, desc: "Schema design, resolvers e consumo eficiente de dados" },
     ],
   },
   {
     category: "SEGURANÇA",
     icon: Lock,
     skills: [
-      { name: "OWASP", level: 90, desc: "Top 10, Testes, Mitigação" },
-      { name: "Pentest", level: 85, desc: "Web, Rede, Mobile" },
-      { name: "Burp Suite", level: 88, desc: "Proxy, Scanner, Intruder" },
-      { name: "Metasploit", level: 75, desc: "Exploração, Payloads" },
-      { name: "Wireshark", level: 72, desc: "Análise de pacotes, Dissecção de protocolos" },
+      { name: "OWASP", level: 90, desc: "Boas práticas, análise de risco e mitigação orientada a impacto" },
+      { name: "Pentest", level: 85, desc: "Web, rede e validação ofensiva de superfície crítica" },
+      { name: "Burp Suite", level: 88, desc: "Inspeção, exploração e revisão aprofundada de tráfego" },
+      { name: "Metasploit", level: 75, desc: "Exploração controlada e simulação de cenário" },
+      { name: "Wireshark", level: 72, desc: "Leitura de pacotes e análise de protocolo" },
     ],
   },
   {
     category: "FERRAMENTAS",
     icon: Code,
     skills: [
-      { name: "Git", level: 90, desc: "Workflows, Hooks, Bisect" },
-      { name: "Docker", level: 85, desc: "Compose, Multi-stage, Swarm" },
-      { name: "AWS", level: 78, desc: "EC2, S3, Lambda, VPC" },
-      { name: "Linux", level: 88, desc: "Bash, Systemd, Rede" },
-      { name: "Vim", level: 95, desc: "Bindings, Macros, Plugins" },
+      { name: "Git", level: 90, desc: "Versionamento, workflows e organização limpa de entrega" },
+      { name: "Docker", level: 85, desc: "Ambientes reproduzíveis e deploy consistente" },
+      { name: "AWS", level: 78, desc: "Infraestrutura, storage e serviços sob demanda" },
+      { name: "Linux", level: 88, desc: "Shell, processos e administração de ambiente" },
+      { name: "Vim", level: 95, desc: "Produtividade extrema na edição e navegação" },
     ],
   },
 ];
@@ -79,7 +79,7 @@ export default function Skills() {
   }, []);
 
   return (
-    <section id="skills" className="relative min-h-screen py-24 px-4 lg:px-8 overflow-hidden bg-bg-primary">
+    <section id="skills" className="relative min-h-screen overflow-hidden bg-bg-primary px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
       <div className="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-secondary to-bg-primary" />
       <div className="absolute inset-0 grid-pattern opacity-20" />
 
@@ -88,47 +88,47 @@ export default function Skills() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="relative z-10 mb-16"
+        className="relative z-10 mb-12 sm:mb-16"
       >
-        <div className="flex items-center gap-4 mb-4">
-          <span className="text-accent font-mono text-sm">03</span>
-          <div className="h-px bg-border flex-1" />
+        <div className="mb-4 flex items-center gap-4">
+          <span className="font-mono text-sm text-accent">03</span>
+          <div className="h-px flex-1 bg-border" />
         </div>
-        <h2 className="text-4xl md:text-6xl font-bold">HABILIDADES</h2>
+        <h2 className="text-3xl font-bold sm:text-5xl md:text-6xl">HABILIDADES</h2>
       </motion.div>
 
-      <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-12 gap-8">
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-6 lg:grid-cols-12 lg:gap-8">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="lg:col-span-7 border border-border bg-bg-card rounded-lg overflow-hidden font-mono text-sm"
+          className="overflow-hidden rounded-lg border border-border bg-bg-card font-mono text-sm lg:col-span-7"
         >
-          <div className="flex items-center gap-2 px-4 py-2 border-b border-border bg-bg-secondary">
-            <div className="w-3 h-3 rounded-full bg-red-500/50" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-            <div className="w-3 h-3 rounded-full bg-green-500/50" />
-            <span className="ml-4 text-text-muted text-xs">root@portfolio:~/skills</span>
+          <div className="flex items-center gap-2 border-b border-border bg-bg-secondary px-4 py-2">
+            <div className="h-3 w-3 rounded-full bg-red-500/50" />
+            <div className="h-3 w-3 rounded-full bg-yellow-500/50" />
+            <div className="h-3 w-3 rounded-full bg-green-500/50" />
+            <span className="ml-4 text-xs text-text-muted">root@portfolio:~/skills</span>
           </div>
 
-          <div className="p-4 space-y-1 max-h-[400px] overflow-y-auto">
+          <div className="max-h-[420px] space-y-1 overflow-y-auto p-4">
             {commands.map((cmd, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className="space-y-1"
+                className="space-y-1 break-words"
               >
                 {cmd.input && (
                   <div className="flex items-center gap-2">
                     <span className="text-accent">$</span>
-                    <span className="text-text-primary">{cmd.input}</span>
+                    <span className="break-all text-text-primary">{cmd.input}</span>
                   </div>
                 )}
                 <div
-                  className={`${
+                  className={`break-words pl-4 ${
                     cmd.type === "success"
                       ? "text-green-400"
                       : cmd.type === "error"
@@ -136,7 +136,7 @@ export default function Skills() {
                         : cmd.type === "path"
                           ? "text-accent"
                           : "text-text-secondary"
-                  } pl-4`}
+                  }`}
                 >
                   {cmd.output}
                 </div>
@@ -150,7 +150,7 @@ export default function Skills() {
               className="flex items-center gap-2"
             >
               <span className="text-accent">$</span>
-              <span className="w-2 h-4 bg-accent" />
+              <span className="h-4 w-2 bg-accent" />
             </motion.div>
           </div>
         </motion.div>
@@ -160,14 +160,14 @@ export default function Skills() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="lg:col-span-5 space-y-4"
+          className="space-y-4 lg:col-span-5"
         >
           <div className="flex flex-wrap gap-2">
             {skillCategories.map((cat, i) => (
               <button
                 key={cat.category}
                 onClick={() => setActiveCategory(i)}
-                className={`px-4 py-2 border text-sm font-mono transition-all ${
+                className={`border px-3 py-2 text-xs font-mono transition-all sm:px-4 sm:text-sm ${
                   activeCategory === i
                     ? "border-accent bg-accent/10 text-accent"
                     : "border-border text-text-secondary hover:border-accent/50"
@@ -178,7 +178,7 @@ export default function Skills() {
             ))}
           </div>
 
-          <div className="border border-border bg-bg-secondary/50 backdrop-blur-sm p-4 space-y-3">
+          <div className="space-y-3 border border-border bg-bg-secondary/50 p-4 backdrop-blur-sm">
             {skillCategories[activeCategory].skills.map((skill, i) => (
               <motion.div
                 key={skill.name}
@@ -187,13 +187,13 @@ export default function Skills() {
                 transition={{ delay: i * 0.1 }}
                 className="group"
               >
-                <div className="flex justify-between items-center mb-1">
-                  <span className="font-mono text-sm text-text-primary group-hover:text-accent transition-colors">
+                <div className="mb-1 flex items-center justify-between">
+                  <span className="font-mono text-sm text-text-primary transition-colors group-hover:text-accent">
                     {skill.name}
                   </span>
                   <span className="font-mono text-xs text-accent">{skill.level}%</span>
                 </div>
-                <div className="h-1 bg-border rounded-full overflow-hidden">
+                <div className="h-1 overflow-hidden rounded-full bg-border">
                   <motion.div
                     className="h-full bg-accent"
                     initial={{ width: 0 }}
@@ -202,7 +202,9 @@ export default function Skills() {
                     viewport={{ once: true }}
                   />
                 </div>
-                <p className="text-xs text-text-muted mt-1 font-mono">{skill.desc}</p>
+                <p className="mt-1 font-mono text-[11px] leading-5 text-text-muted sm:text-xs">
+                  {skill.desc}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -210,11 +212,11 @@ export default function Skills() {
           <div className="grid grid-cols-2 gap-4">
             <div className="border border-border bg-bg-secondary/50 p-4 text-center">
               <div className="text-2xl font-bold text-accent">15+</div>
-              <div className="text-xs text-text-muted font-mono">TECNOLOGIAS</div>
+              <div className="font-mono text-[10px] text-text-muted sm:text-xs">TECNOLOGIAS</div>
             </div>
             <div className="border border-border bg-bg-secondary/50 p-4 text-center">
               <div className="text-2xl font-bold text-accent">5+</div>
-              <div className="text-xs text-text-muted font-mono">ANOS EXP</div>
+              <div className="font-mono text-[10px] text-text-muted sm:text-xs">ANOS EXP</div>
             </div>
           </div>
         </motion.div>

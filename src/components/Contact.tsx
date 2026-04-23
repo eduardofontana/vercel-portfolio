@@ -35,7 +35,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative min-h-screen py-24 px-4 lg:px-8 overflow-hidden flex items-center">
+    <section
+      id="contact"
+      className="relative flex min-h-screen items-center overflow-hidden px-4 py-20 sm:px-6 sm:py-24 lg:px-8"
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-secondary to-bg-primary" />
       <div className="absolute inset-0 grid-pattern opacity-20" />
 
@@ -43,7 +46,7 @@ export default function Contact() {
         {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-px h-full bg-accent/10"
+            className="absolute h-full w-px bg-accent/10"
             style={{ left: `${(i + 1) * 10}%` }}
             animate={{
               opacity: [0.1, 0.3, 0.1],
@@ -57,22 +60,22 @@ export default function Contact() {
         ))}
       </motion.div>
 
-      <div className="relative z-10 max-w-5xl mx-auto w-full">
+      <div className="relative z-10 mx-auto w-full max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-12 sm:mb-16"
         >
-          <div className="flex items-center gap-4 mb-4">
-            <span className="text-accent font-mono text-sm">04</span>
-            <div className="h-px bg-border flex-1" />
+          <div className="mb-4 flex items-center gap-4">
+            <span className="font-mono text-sm text-accent">04</span>
+            <div className="h-px flex-1 bg-border" />
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold">CONTATO</h2>
+          <h2 className="text-3xl font-bold sm:text-5xl md:text-6xl">CONTATO</h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -80,10 +83,10 @@ export default function Contact() {
             viewport={{ once: true }}
           >
             <div className="mb-8">
-              <h3 className="text-2xl font-bold mb-4">Vamos Trabalhar Juntos</h3>
-              <p className="text-text-secondary leading-relaxed">
-                Estou sempre aberto para discutir novos projetos, auditorias de segurança, ou oportunidades em
-                desenvolvimento web e cibersegurança.
+              <h3 className="mb-4 text-2xl font-bold sm:text-3xl">Vamos construir algo que realmente se destaque</h3>
+              <p className="text-sm leading-7 text-text-secondary sm:text-base">
+                Estou aberto a projetos ambiciosos, auditorias de segurança e oportunidades em que
+                execução, presença digital e qualidade técnica precisam andar no mesmo nível.
               </p>
             </div>
 
@@ -93,21 +96,21 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
                 viewport={{ once: true }}
-                className="flex items-center gap-4 p-4 border border-border bg-bg-secondary/50"
+                className="flex items-center gap-4 border border-border bg-bg-secondary/50 p-4"
               >
-                <div className="w-12 h-12 border border-accent/30 flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-accent" />
+                <div className="flex h-12 w-12 items-center justify-center border border-accent/30">
+                  <Mail className="h-6 w-6 text-accent" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm text-text-muted font-mono">EMAIL</div>
+                <div className="min-w-0 flex-1">
+                  <div className="font-mono text-sm text-text-muted">EMAIL</div>
                   <div className="flex items-center gap-2">
-                    <span className="text-text-primary break-all">fontana.df@gmail.com</span>
+                    <span className="break-all text-text-primary">fontana.df@gmail.com</span>
                     <button
                       onClick={copyEmail}
                       aria-label={copied ? "Email copiado" : "Copiar email"}
-                      className="p-1 hover:text-accent transition-colors shrink-0"
+                      className="shrink-0 p-1 transition-colors hover:text-accent"
                     >
-                      {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                      {copied ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
                     </button>
                   </div>
                 </div>
@@ -118,14 +121,14 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
                 viewport={{ once: true }}
-                className="flex items-center gap-4 p-4 border border-border bg-bg-secondary/50"
+                className="flex items-center gap-4 border border-border bg-bg-secondary/50 p-4"
               >
-                <div className="w-12 h-12 border border-accent/30 flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-accent" />
+                <div className="flex h-12 w-12 items-center justify-center border border-accent/30">
+                  <MapPin className="h-6 w-6 text-accent" />
                 </div>
-                <div>
-                  <div className="text-sm text-text-muted font-mono">LOCALIZAÇÃO</div>
-                  <span className="text-text-primary">Remoto / Mundial</span>
+                <div className="min-w-0">
+                  <div className="font-mono text-sm text-text-muted">LOCALIZAÇÃO</div>
+                  <span className="text-text-primary">Remoto / Global</span>
                 </div>
               </motion.div>
             </div>
@@ -138,10 +141,10 @@ export default function Contact() {
               className="mt-8 flex items-center gap-3"
             >
               <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
               </span>
-              <span className="text-sm font-mono text-text-secondary">Disponível para novos projetos</span>
+              <span className="font-mono text-sm text-text-secondary">Disponível para novos projetos</span>
             </motion.div>
           </motion.div>
 
@@ -150,16 +153,16 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="border border-border bg-bg-card rounded-lg overflow-hidden"
+            className="overflow-hidden rounded-lg border border-border bg-bg-card"
           >
-            <div className="flex items-center gap-2 px-4 py-2 border-b border-border bg-bg-secondary">
-              <div className="w-3 h-3 rounded-full bg-red-500/50" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-              <div className="w-3 h-3 rounded-full bg-green-500/50" />
-              <span className="ml-4 text-text-muted text-xs font-mono">root@portfolio:~/contato</span>
+            <div className="flex items-center gap-2 border-b border-border bg-bg-secondary px-4 py-2">
+              <div className="h-3 w-3 rounded-full bg-red-500/50" />
+              <div className="h-3 w-3 rounded-full bg-yellow-500/50" />
+              <div className="h-3 w-3 rounded-full bg-green-500/50" />
+              <span className="ml-4 font-mono text-xs text-text-muted">root@portfolio:~/contato</span>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 p-5 sm:p-6">
               <AnimatePresence mode="wait">
                 {sent ? (
                   <motion.div
@@ -167,25 +170,25 @@ export default function Contact() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="p-4 border border-green-500/30 bg-green-500/10 text-green-400 font-mono text-sm"
+                    className="border border-green-500/30 bg-green-500/10 p-4 font-mono text-sm text-green-400"
                   >
                     ✓ Mensagem enviada com sucesso!
                   </motion.div>
                 ) : (
                   <motion.div key="form-content" initial={{ opacity: 1 }} exit={{ opacity: 0 }}>
                     <div>
-                      <label htmlFor="email" className="block text-xs font-mono text-text-muted mb-2">
+                      <label htmlFor="email" className="mb-2 block font-mono text-xs text-text-muted">
                         <span className="text-accent">$</span> Digite seu email:
                       </label>
-                      <div className="flex items-center border border-border bg-bg-secondary focus-within:border-accent transition-colors">
-                        <span className="px-3 text-accent font-mono">{`>`}</span>
+                      <div className="flex items-center border border-border bg-bg-secondary transition-colors focus-within:border-accent">
+                        <span className="px-3 font-mono text-accent">{`>`}</span>
                         <input
                           id="email"
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="seu@email.com"
-                          className="flex-1 bg-transparent px-2 py-3 font-mono text-sm outline-none placeholder:text-text-muted min-w-0"
+                          className="min-w-0 flex-1 bg-transparent px-2 py-3 font-mono text-sm outline-none placeholder:text-text-muted"
                           required
                           autoComplete="email"
                           maxLength={120}
@@ -195,20 +198,20 @@ export default function Contact() {
                       </div>
                     </div>
 
-                    <div>
-                      <label htmlFor="message" className="block text-xs font-mono text-text-muted mb-2">
+                    <div className="mt-4">
+                      <label htmlFor="message" className="mb-2 block font-mono text-xs text-text-muted">
                         <span className="text-accent">$</span> Digite sua mensagem:
                       </label>
-                      <div className="border border-border bg-bg-secondary focus-within:border-accent transition-colors">
+                      <div className="border border-border bg-bg-secondary transition-colors focus-within:border-accent">
                         <div className="flex items-start border-b border-border">
-                          <span className="px-3 pt-3 text-accent font-mono">{`>`}</span>
+                          <span className="px-3 pt-3 font-mono text-accent">{`>`}</span>
                           <textarea
                             id="message"
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            placeholder="Sua mensagem aqui..."
-                            rows={4}
-                            className="flex-1 bg-transparent px-2 py-3 font-mono text-sm outline-none placeholder:text-text-muted resize-none min-w-0"
+                            placeholder="Descreva o projeto, o nível de ambição da entrega e onde você sente que a experiência ainda está abaixo do que deveria."
+                            rows={5}
+                            className="min-w-0 flex-1 resize-none bg-transparent px-2 py-3 font-mono text-sm leading-6 outline-none placeholder:text-text-muted"
                             required
                             minLength={10}
                             maxLength={2000}
@@ -216,18 +219,16 @@ export default function Contact() {
                           />
                         </div>
                       </div>
-                      <p className="mt-2 text-xs text-text-muted font-mono">
-                        Min. 10 caracteres. Max. 2000.
-                      </p>
+                      <p className="mt-2 font-mono text-xs text-text-muted">Min. 10 caracteres. Max. 2000.</p>
                     </div>
 
                     <motion.button
                       type="submit"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="w-full py-3 border border-accent bg-accent/10 text-accent font-mono text-sm hover:bg-accent hover:text-bg-primary transition-colors flex items-center justify-center gap-2"
+                      className="mt-4 flex w-full items-center justify-center gap-2 border border-accent bg-accent/10 py-3 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-bg-primary"
                     >
-                      <Send className="w-4 h-4" />
+                      <Send className="h-4 w-4" />
                       ENVIAR_MENSAGEM
                     </motion.button>
                   </motion.div>
@@ -242,10 +243,10 @@ export default function Contact() {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
           viewport={{ once: true }}
-          className="mt-16 text-center text-text-muted text-sm font-mono"
+          className="mt-12 text-center font-mono text-xs text-text-muted sm:mt-16 sm:text-sm"
         >
-          <p>Projetado e Construído por Eduardo</p>
-          <p className="mt-2">© {new Date().getFullYear()} - Todos os sistemas operacionais</p>
+          <p>Projetado e construído por Eduardo</p>
+          <p className="mt-2">© {new Date().getFullYear()} - Todos os direitos reservados</p>
         </motion.div>
       </div>
     </section>

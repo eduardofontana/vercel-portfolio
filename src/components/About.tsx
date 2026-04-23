@@ -13,15 +13,15 @@ const skills = [
 ];
 
 const mindset = [
-  { icon: Shield, title: "Segurança Primeiro", desc: "Cada linha de código é uma vulnerabilidade potencial" },
-  { icon: Eye, title: "Pense como Atacante", desc: "Defesa requer conhecimento ofensivo" },
-  { icon: Cpu, title: "Precisão Importa", desc: "Decisões de arquitetura definem resiliência" },
-  { icon: Zap, title: "Eficiência é Segurança", desc: "Código limpo é código seguro" },
+  { icon: Shield, title: "Segurança Primeiro", desc: "Toda solução séria precisa nascer preparada para resistir." },
+  { icon: Eye, title: "Visão de Ataque", desc: "Entender vulnerabilidades muda a forma como um produto é desenhado." },
+  { icon: Cpu, title: "Precisão Técnica", desc: "Arquitetura, performance e manutenção são decisões de base." },
+  { icon: Zap, title: "Execução Limpa", desc: "Menos ruído, mais clareza, mais impacto e menos retrabalho." },
 ];
 
 export default function About() {
   return (
-    <section id="about" className="relative min-h-screen py-24 px-4 lg:px-8 overflow-hidden">
+    <section id="about" className="relative min-h-screen overflow-hidden px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
       <div className="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-secondary to-bg-primary" />
       <div className="absolute inset-0 grid-pattern opacity-20" />
 
@@ -30,39 +30,42 @@ export default function About() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="relative z-10 mb-16"
+        className="relative z-10 mb-12 sm:mb-16"
       >
-        <div className="flex items-center gap-4 mb-4">
-          <span className="text-accent font-mono text-sm">01</span>
-          <div className="h-px bg-border flex-1" />
+        <div className="mb-4 flex items-center gap-4">
+          <span className="font-mono text-sm text-accent">01</span>
+          <div className="h-px flex-1 bg-border" />
         </div>
-        <h2 className="text-4xl md:text-6xl font-bold">SOBRE</h2>
+        <h2 className="text-3xl font-bold sm:text-5xl md:text-6xl">SOBRE</h2>
       </motion.div>
 
-      <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-12 gap-8">
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-6 lg:grid-cols-12 lg:gap-8">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="lg:col-span-7 border border-border bg-bg-secondary/50 backdrop-blur-sm p-6 md:p-8"
+          className="border border-border bg-bg-secondary/50 p-5 backdrop-blur-sm sm:p-6 md:p-8 lg:col-span-7"
         >
-          <div className="flex items-center gap-2 mb-6">
-            <div className="w-2 h-2 rounded-full bg-accent" />
-            <span className="font-mono text-xs text-text-muted">ANÁLISE_DO_SISTEMA</span>
+          <div className="mb-6 flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-accent" />
+            <span className="font-mono text-xs text-text-muted">ANALISE_DO_SISTEMA</span>
           </div>
 
-          <p className="text-lg md:text-xl text-text-primary leading-relaxed mb-6">
-            Eu sou um <span className="text-accent">desenvolvedor full-stack</span> com mentalidade focada em segurança.
-            Não apenas construo sites, eu crio <span className="text-accent">fortalezas digitais</span>.
+          <p className="mb-6 text-base leading-relaxed text-text-primary sm:text-lg md:text-xl">
+            Sou um <span className="text-accent">desenvolvedor full-stack</span> com mentalidade orientada à segurança.
+            Não entrego apenas sites publicados. Eu construo
+            {" "}
+            <span className="text-accent">presença digital com estrutura, confiança e longevidade</span>.
           </p>
 
-          <p className="text-text-secondary leading-relaxed mb-6">
-            Minha jornada começou com curiosidade sobre como as coisas funcionam. Essa curiosidade evoluiu para entender
-            vulnerabilidades, e então preveni-las. Agora construo sistemas tão belos quanto seguros.
+          <p className="mb-6 text-sm leading-7 text-text-secondary sm:text-base">
+            Minha trajetória começou na curiosidade técnica e evoluiu para uma exigência maior com desempenho,
+            arquitetura e superfície de risco. Hoje, transformo essa combinação em produtos que sustentam estética,
+            clareza e solidez de execução no mesmo nível.
           </p>
 
-          <div className="grid grid-cols-2 gap-4 mt-8">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
             {skills.map((skill, i) => (
               <motion.div
                 key={skill.name}
@@ -72,11 +75,11 @@ export default function About() {
                 viewport={{ once: true }}
                 className="group"
               >
-                <div className="flex justify-between text-xs mb-1">
+                <div className="mb-1 flex justify-between text-xs">
                   <span className="font-mono text-text-secondary">{skill.name}</span>
                   <span className="font-mono text-accent">{skill.level}%</span>
                 </div>
-                <div className="h-1 bg-border rounded-full overflow-hidden">
+                <div className="h-1 overflow-hidden rounded-full bg-border">
                   <motion.div
                     className="h-full bg-accent"
                     initial={{ width: 0 }}
@@ -95,11 +98,11 @@ export default function About() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="lg:col-span-5 space-y-4"
+          className="space-y-4 lg:col-span-5"
         >
-          <div className="border border-border bg-bg-secondary/50 backdrop-blur-sm p-6">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-2 h-2 rounded-full bg-yellow-500" />
+          <div className="border border-border bg-bg-secondary/50 p-5 backdrop-blur-sm sm:p-6">
+            <div className="mb-6 flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-yellow-500" />
               <span className="font-mono text-xs text-text-muted">MENTALIDADE_BASE</span>
             </div>
 
@@ -111,13 +114,13 @@ export default function About() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 0.1 * i }}
                   viewport={{ once: true }}
-                  className="flex gap-4 group"
+                  className="group flex gap-4"
                 >
-                  <div className="w-10 h-10 rounded border border-border flex items-center justify-center shrink-0 group-hover:border-accent group-hover:bg-accent/10 transition-colors">
-                    <item.icon className="w-5 h-5 text-accent" />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-border transition-colors group-hover:border-accent group-hover:bg-accent/10">
+                    <item.icon className="h-5 w-5 text-accent" />
                   </div>
                   <div>
-                    <h4 className="text-text-primary font-medium mb-1">{item.title}</h4>
+                    <h4 className="mb-1 text-sm font-medium text-text-primary sm:text-base">{item.title}</h4>
                     <p className="text-sm text-text-secondary">{item.desc}</p>
                   </div>
                 </motion.div>
@@ -130,20 +133,20 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
             viewport={{ once: true }}
-            className="border border-border bg-bg-secondary/50 backdrop-blur-sm p-6"
+            className="border border-border bg-bg-secondary/50 p-5 backdrop-blur-sm sm:p-6"
           >
-            <div className="grid grid-cols-3 gap-6 text-center">
+            <div className="grid grid-cols-3 gap-4 text-center sm:gap-6">
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-accent">5+</div>
-                <div className="text-xs text-text-muted font-mono mt-1">ANOS EXP</div>
+                <div className="text-2xl font-bold text-accent sm:text-3xl md:text-4xl">5+</div>
+                <div className="mt-1 font-mono text-[10px] text-text-muted sm:text-xs">ANOS EXP</div>
               </div>
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-accent">50+</div>
-                <div className="text-xs text-text-muted font-mono mt-1">PROJETOS</div>
+                <div className="text-2xl font-bold text-accent sm:text-3xl md:text-4xl">50+</div>
+                <div className="mt-1 font-mono text-[10px] text-text-muted sm:text-xs">PROJETOS</div>
               </div>
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-accent">20+</div>
-                <div className="text-xs text-text-muted font-mono mt-1">CTFS</div>
+                <div className="text-2xl font-bold text-accent sm:text-3xl md:text-4xl">20+</div>
+                <div className="mt-1 font-mono text-[10px] text-text-muted sm:text-xs">CTFS</div>
               </div>
             </div>
           </motion.div>
