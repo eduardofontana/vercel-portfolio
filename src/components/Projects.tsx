@@ -23,6 +23,7 @@ interface GithubRepo {
   language: string | null;
   html_url: string;
   topics: string[];
+  fork: boolean;
 }
 
 const GITHUB_USERNAME = "eduardofontana";
@@ -61,7 +62,7 @@ export default function Projects() {
         if (!response.ok) throw new Error("Failed to fetch repos");
         
         const repos: GithubRepo[] = await response.json();
-        const filteredRepos = repos.filter(repo => repo.stargazers_count > 0);
+        const filteredRepos = repos.filter(repo => repo.stargazers_count > 0 && !repo.fork);
         
         const projectsWithContent = filteredRepos.map((repo, index) => ({
           ...generateProjectContent(repo),
@@ -71,7 +72,7 @@ export default function Projects() {
 
         projectsWithContent.sort((a, b) => b.stars - a.stars);
         
-        setProjects(projectsWithContent);
+        setProjects(projectsWithContent.slice(0, 6));
       } catch (error) {
         console.error("Error fetching GitHub repos:", error);
         setProjects([]);

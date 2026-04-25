@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+.unlighthouse
 
 # debug
 npm-debug.log*
