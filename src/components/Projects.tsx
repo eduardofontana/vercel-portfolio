@@ -28,9 +28,17 @@ interface GithubRepo {
 
 const GITHUB_USERNAME = "eduardofontana";
 
+const sanitize = (str: string | null): string => {
+  if (!str) return "";
+  return str.replace(/[<>&"'`]/g, (c) => {
+    const map: Record<string, string> = { "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;", "'": "&#39;", "`": "&#96;" };
+    return map[c] || c;
+  });
+};
+
 function generateProjectContent(repo: GithubRepo): Omit<Project, "id" | "stars"> {
-  const name = repo.name;
-  const description = repo.description || "Repositório sem descrição disponível.";
+  const name = sanitize(repo.name);
+  const description = repo.description ? sanitize(repo.description) : "Repositório sem descrição disponível.";
   
   const stack: string[] = [];
   if (repo.language) stack.push(repo.language);
