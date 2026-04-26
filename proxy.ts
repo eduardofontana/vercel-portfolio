@@ -3,7 +3,40 @@ import type { NextRequest } from "next/server";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
+function shouldRejectRequest(request: NextRequest) {
+  const transferEncoding = request.headers.get("transfer-encoding");
+  const contentLength = request.headers.get("content-length");
+
+  if (!transferEncoding) {
+    return false;
+  }
+
+  if (contentLength) {
+    return true;
+  }
+
+  const normalizedTransferEncoding = transferEncoding.trim().toLowerCase();
+  if (normalizedTransferEncoding !== "chunked") {
+    return true;
+  }
+
+  if (normalizedTransferEncoding.includes(",") || /[\r\n\t]/.test(transferEncoding)) {
+    return true;
+  }
+
+  return false;
+}
+
 export function proxy(request: NextRequest) {
+  if (shouldRejectRequest(request)) {
+    return new NextResponse("Bad Request", {
+      status: 400,
+      headers: {
+        "Cache-Control": "no-store",
+      },
+    });
+  }
+
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
 
   const contentSecurityPolicy = [
@@ -13,7 +46,7 @@ export function proxy(request: NextRequest) {
     "frame-ancestors 'none'",
     "object-src 'none'",
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDevelopment ? " 'unsafe-eval'" : ""}`,
-    `style-src 'self' 'nonce-${nonce}'`,
+    `style-src 'self' ${isDevelopment ? "'unsafe-inline'" : `'nonce-${nonce}'`}`,
     "img-src 'self' data: blob:",
     "font-src 'self' data:",
     "connect-src 'self'",
@@ -45,7 +78,7 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     {
-      source: "/((?!api|_next/static|_next/image|favicon.ico).*)",
+      source: "/((?!_next/static|_next/image|favicon.ico).*)",
       missing: [
         { type: "header", key: "next-router-prefetch" },
         { type: "header", key: "purpose", value: "prefetch" },
