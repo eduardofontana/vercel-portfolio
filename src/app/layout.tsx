@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Black_Ops_One, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import CinematicBackground from "@/components/CinematicBackground";
 import AmbientEffects from "@/components/AmbientEffects";
 import "./globals.css";
@@ -14,6 +14,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-fira-code",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const blackOpsOne = Black_Ops_One({
+  variable: "--font-black-ops",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -55,7 +61,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${blackOpsOne.variable}`}
+    >
       <body className="min-h-full bg-bg-primary text-text-primary overflow-x-hidden font-sans">
         <div className="ambient-background" aria-hidden="true">
           <CinematicBackground />

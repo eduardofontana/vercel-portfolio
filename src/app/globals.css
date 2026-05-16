@@ -1,12 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=hand_bones&display=swap");
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Marine Corps";
-  src: url("/fonts/marine-corps/MarineCorpsPersonalUsed-ax9Mo.otf") format("opentype");
-  font-display: swap;
-}
-
 :root {
   --bg-primary: #000000;
   --bg-secondary: #0a0a0a;
@@ -296,8 +290,8 @@
     background-clip: text;
   }
 
-  .font-marine-corps {
-    font-family: "Marine Corps", var(--font-satoshi), system-ui, sans-serif;
+  .font-cyber-title {
+    font-family: var(--font-black-ops), var(--font-satoshi), system-ui, sans-serif;
     font-weight: 400;
   }
 
