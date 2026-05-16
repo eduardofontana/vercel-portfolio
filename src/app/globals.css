@@ -291,8 +291,12 @@
   }
 
   .font-cyber-title {
-    font-family: var(--font-black-ops), var(--font-satoshi), system-ui, sans-serif;
-    font-weight: 400;
+    font-family: var(--font-orbitron), var(--font-satoshi), system-ui, sans-serif;
+    font-weight: 800;
+    text-shadow:
+      0 0 10px rgba(0, 255, 136, 0.45),
+      0 0 34px rgba(0, 180, 255, 0.22),
+      0 14px 42px rgba(0, 0, 0, 0.75);
   }
 
   .material-symbols-outlined {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Black_Ops_One, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { JetBrains_Mono, Orbitron, Space_Grotesk } from "next/font/google";
 import CinematicBackground from "@/components/CinematicBackground";
 import AmbientEffects from "@/components/AmbientEffects";
 import "./globals.css";
@@ -16,10 +16,10 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const blackOpsOne = Black_Ops_One({
-  variable: "--font-black-ops",
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -63,7 +63,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${blackOpsOne.variable}`}
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${orbitron.variable}`}
     >
       <body className="min-h-full bg-bg-primary text-text-primary overflow-x-hidden font-sans">
         <div className="ambient-background" aria-hidden="true">

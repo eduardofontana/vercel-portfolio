@@ -215,9 +215,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-cyber-title mb-4 text-6xl tracking-wide sm:text-8xl md:text-9xl lg:text-[11rem]"
+          className="font-cyber-title mb-4 text-5xl tracking-[0.08em] text-text-primary sm:text-7xl md:text-8xl lg:text-9xl"
         >
-          <span className="block">EDUARDO</span>
+          <span className="block drop-shadow-[0_0_18px_rgba(0,255,136,0.28)]">EDUARDO</span>
         </motion.h1>
 
         <motion.div
