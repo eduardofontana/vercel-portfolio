@@ -75,6 +75,10 @@ src/
 
 O projeto esta pronto para deploy na Vercel. Ao conectar o repositorio, cada push na branch `main` pode disparar um novo deploy automaticamente.
 
+## Fontes
+
+- **Marine Corps Personal Used** - usada no titulo "EDUARDO". Fonte de Lettercorner Studio, obtida via FontSpace. Licenca indicada como uso pessoal / nao comercial; para uso comercial, compre a licenca com o designer.
+
 ---
 
 Desenvolvido por [Eduardo Fontana](https://github.com/eduardofontana).

@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Marine Corps";
+  src: url("/fonts/marine-corps/MarineCorpsPersonalUsed-ax9Mo.otf") format("opentype");
+  font-display: swap;
+}
+
 :root {
   --bg-primary: #000000;
   --bg-secondary: #0a0a0a;
@@ -287,6 +293,11 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .font-marine-corps {
+    font-family: "Marine Corps", var(--font-satoshi), system-ui, sans-serif;
+    font-weight: 400;
   }
 
   .vignette-overlay {

@@ -215,7 +215,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-4 text-5xl font-bold tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
+          className="font-marine-corps mb-4 text-6xl tracking-normal sm:text-8xl md:text-9xl lg:text-[11rem]"
         >
           <span className="block">EDUARDO</span>
         </motion.h1>
