@@ -1,28 +1,26 @@
 # Eduardo Fontana | Portfolio
 
-Portfólio pessoal com tema cyber-security, partículas 3D interativas e terminal tipográfico. Desenvolvido com Next.js, React, Three.js e Tailwind CSS.
+Portfolio pessoal com tema cyber-security, background 3D interativo e terminal tipografico. Desenvolvido com Next.js, React, Three.js, Framer Motion e Tailwind CSS.
 
 ## Tecnologias
 
-- **Next.js 16** — App Router, Turbopack
-- **React 19** — Server Components + Client Components
-- **Three.js / R3F** — Background 3D com nebulosas e 700 partículas
-- **Framer Motion 12** — Animações, scroll-driven, mouse tracking
-- **Tailwind CSS 4** — Utilitário com theme customizado
-- **TypeScript** — Tipagem estática estrita
+- **Next.js 16** - App Router e Turbopack
+- **React 19** - Server Components e Client Components
+- **Three.js / React Three Fiber** - Background 3D com particulas e nebulosas
+- **Framer Motion 12** - Animacoes, efeitos por scroll e mouse tracking
+- **Tailwind CSS 4** - Tema customizado e utilitarios
+- **TypeScript** - Tipagem estatica
 
 ## Funcionalidades
 
-- Fundo 3D com partículas em disco galáctico + 4 nuvens de nebulosa
-- Mouse parallax e reatividade ao scroll no background
-- Terminal interativo com 4 comandos em loop de digitação
-- Efeitos ambientais: lens flare, vignette, scanlines, noise overlay, cinematic sweeps
-- Seções: Hero, Sobre, Projetos (GitHub API), Habilidades, Contato
-- Navegação com indicador de seção ativa e menu mobile
-- Modo cursor personalizado para dispositivos com ponteiro
-- `prefers-reduced-motion` respeitado
-- Content-Security-Policy configurada
-- Headers de segurança (HSTS, X-Frame-Options, etc.)
+- Hero com terminal animado e elementos de interface cyber-security.
+- Fundo 3D com particulas, nebulosas, parallax por mouse e reatividade ao scroll.
+- Secoes de Sobre, Projetos, Habilidades e Contato.
+- Projetos carregados pela GitHub API.
+- Menu responsivo com indicador de secao ativa.
+- Cursor personalizado em dispositivos com ponteiro fino.
+- Suporte a `prefers-reduced-motion`.
+- Headers de seguranca configurados, incluindo Content Security Policy compativel com a hidratacao do Next.js.
 
 ## Como executar
 
@@ -35,37 +33,48 @@ Abra [http://localhost:3000](http://localhost:3000).
 
 ## Scripts
 
-| Comando | Descrição |
-|---|---|
-| `npm run dev` | Inicia servidor de desenvolvimento |
-| `npm run build` | Gera build de produção estática |
-| `npm run start` | Inicia servidor de produção |
-| `npm run lint` | Executa ESLint |
+| Comando | Descricao |
+| --- | --- |
+| `npm run dev` | Inicia o servidor de desenvolvimento |
+| `npm run build` | Gera o build de producao |
+| `npm run start` | Inicia o servidor de producao apos o build |
+| `npm run lint` | Executa o ESLint |
+
+## Validacao
+
+Antes de publicar alteracoes, rode:
+
+```bash
+npm run lint
+npm run build
+```
+
+Observacao: o build usa `next/font/google`, entao precisa de acesso a internet para baixar/validar as fontes durante a compilacao.
 
 ## Estrutura
 
-```
+```text
 src/
 ├── app/
-│   ├── globals.css        # Estilos globais, temas, keyframes
-│   ├── layout.tsx         # Root layout com background 3D
-│   └── page.tsx           # Página principal
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
 ├── components/
-│   ├── AmbientEffects.tsx # Mouse glow + vignette overlay
-│   ├── CinematicBackground.tsx  # Three.js: partículas + nebulosas
-│   ├── Contact.tsx        # Formulário mailto + info contato
-│   ├── Hero.tsx           # Terminal typing + parallax
-│   ├── Navigation.tsx     # Nav fixa com indicador ativo
-│   ├── Projects.tsx       # Grid de projetos via GitHub API
-│   └── Skills.tsx         # Terminal simulado + skill bars
+│   ├── AmbientEffects.tsx
+│   ├── CinematicBackground.tsx
+│   ├── Contact.tsx
+│   ├── Hero.tsx
+│   ├── Navigation.tsx
+│   ├── Projects.tsx
+│   └── Skills.tsx
 └── public/
     └── robots.txt
 ```
 
 ## Deploy
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+O projeto esta pronto para deploy na Vercel. Ao conectar o repositorio, cada push na branch `main` pode disparar um novo deploy automaticamente.
 
 ---
 
-Desenvolvido por [Eduardo Fontana](https://github.com/eduardofontana)
+Desenvolvido por [Eduardo Fontana](https://github.com/eduardofontana).
