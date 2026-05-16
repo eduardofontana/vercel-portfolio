@@ -2,6 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    return ["about", "projects", "skills", "contact"].map((section) => ({
+      source: `/${section}`,
+      destination: "/",
+      permanent: true,
+    }));
+  },
   async headers() {
     return [
       {

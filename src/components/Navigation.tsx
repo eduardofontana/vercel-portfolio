@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const navItems = [
-  { name: "Sobre", href: "#about", section: "about" },
-  { name: "Projetos", href: "#projects", section: "projects" },
-  { name: "Habilidades", href: "#skills", section: "skills" },
-  { name: "Contato", href: "#contact", section: "contact" },
+  { name: "Sobre", section: "about" },
+  { name: "Projetos", section: "projects" },
+  { name: "Habilidades", section: "skills" },
+  { name: "Contato", section: "contact" },
 ];
 
 export default function Navigation() {
@@ -43,6 +43,30 @@ export default function Navigation() {
     return () => window.removeEventListener("resize", closeMenu);
   }, [mobileMenuOpen]);
 
+  useEffect(() => {
+    const initialSection = window.location.hash.replace("#", "");
+
+    if (initialSection && navItems.some((item) => item.section === initialSection)) {
+      document.getElementById(initialSection)?.scrollIntoView({ block: "start" });
+    }
+
+    if (window.location.hash) {
+      window.history.replaceState(null, "", "/");
+    }
+  }, []);
+
+  const scrollToSection = (section: string) => {
+    const target = section === "home" ? document.body : document.getElementById(section);
+
+    target?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+    window.history.replaceState(null, "", "/");
+    setMobileMenuOpen(false);
+  };
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -54,19 +78,21 @@ export default function Navigation() {
     >
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <motion.a
-            href="#"
+          <motion.button
+            type="button"
+            onClick={() => scrollToSection("home")}
             className="text-lg font-bold tracking-tight"
             whileHover={{ scale: 1.05 }}
           >
             <span className="text-gradient">E</span>
-          </motion.a>
+          </motion.button>
 
           <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
-              <motion.a
+              <motion.button
                 key={item.name}
-                href={item.href}
+                type="button"
+                onClick={() => scrollToSection(item.section)}
                 className={`px-4 py-2 text-sm font-mono transition-colors relative ${
                   activeSection === item.section
                     ? "text-accent"
@@ -82,18 +108,19 @@ export default function Navigation() {
                     className="absolute bottom-0 left-4 right-4 h-px bg-accent"
                   />
                 )}
-              </motion.a>
+              </motion.button>
             ))}
           </div>
 
-          <motion.a
-            href="#contact"
+          <motion.button
+            type="button"
+            onClick={() => scrollToSection("contact")}
             className="hidden md:inline-flex px-4 py-2 rounded-lg border border-accent text-accent text-sm font-mono hover:bg-accent hover:text-bg-primary transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             FALE_COMIGO
-          </motion.a>
+          </motion.button>
 
           <motion.button
             type="button"
@@ -135,26 +162,26 @@ export default function Navigation() {
             <div className="rounded-lg border border-border bg-bg-secondary/95 backdrop-blur-md">
               <div className="flex flex-col p-2">
                 {navItems.map((item) => (
-                  <a
+                  <button
                     key={item.name}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-3 font-mono text-sm transition-colors ${
+                    type="button"
+                    onClick={() => scrollToSection(item.section)}
+                    className={`px-4 py-3 text-left font-mono text-sm transition-colors ${
                       activeSection === item.section
                         ? "text-accent"
                         : "text-text-secondary"
                     }`}
                   >
                     {item.name}
-                  </a>
+                  </button>
                 ))}
-                <a
-                  href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("contact")}
                   className="mt-2 inline-flex items-center justify-center px-4 py-3 rounded-lg border border-accent text-accent text-sm font-mono"
                 >
                   FALE_COMIGO
-                </a>
+                </button>
               </div>
             </div>
           </motion.div>
