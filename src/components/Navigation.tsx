@@ -84,7 +84,13 @@ export default function Navigation() {
             className="text-lg font-bold tracking-tight"
             whileHover={{ scale: 1.05 }}
           >
-            <span className="text-gradient">E</span>
+            <span
+              className="material-symbols-outlined text-accent"
+              aria-hidden="true"
+            >
+              hand_bones
+            </span>
+            <span className="sr-only">Inicio</span>
           </motion.button>
 
           <div className="hidden md:flex items-center gap-1">
