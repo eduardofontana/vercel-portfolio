@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { HandBones } from "@material-symbols-svg/react/w400";
 
 const navItems = [
   { name: "Sobre", section: "about" },
@@ -84,12 +85,11 @@ export default function Navigation() {
             className="text-lg font-bold tracking-tight"
             whileHover={{ scale: 1.05 }}
           >
-            <span
-              className="material-symbols-outlined text-accent"
+            <HandBones
+              size={28}
+              className="text-accent drop-shadow-[0_0_10px_rgba(0,255,136,0.5)]"
               aria-hidden="true"
-            >
-              hand_bones
-            </span>
+            />
             <span className="sr-only">Inicio</span>
           </motion.button>
 
