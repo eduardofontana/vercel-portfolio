@@ -28,7 +28,8 @@ export default function Contact() {
     const trimmedEmail = email.trim();
     const trimmedMessage = message.trim();
 
-    if (trimmedEmail && trimmedMessage.length >= 10) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(trimmedEmail) && trimmedMessage.length >= 10) {
       const subject = encodeURIComponent(`Contato pelo portfolio - ${trimmedEmail}`);
       const body = encodeURIComponent(`${trimmedMessage}\n\nEmail para retorno: ${trimmedEmail}`);
 
