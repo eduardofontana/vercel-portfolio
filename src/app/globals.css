@@ -10,7 +10,7 @@
   
   --text-primary: #ffffff;
   --text-secondary: #888888;
-  --text-muted: #444444;
+  --text-muted: #777777;
   
   --accent: #00ff88;
   --accent-dim: rgba(0, 255, 136, 0.1);
@@ -33,8 +33,8 @@
   --color-accent: var(--accent);
   --color-accent-dim: var(--accent-dim);
   --color-accent-glow: var(--accent-glow);
-  --font-sans: var(--font-satoshi);
-  --font-mono: var(--font-fira-code);
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 @layer base {

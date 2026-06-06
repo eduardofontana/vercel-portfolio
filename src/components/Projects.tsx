@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Terminal, Star } from "lucide-react";
+import { Terminal, Star } from "lucide-react";
 
 interface Project {
   id: number;
@@ -10,7 +10,6 @@ interface Project {
   problem: string;
   delivery: string;
   stack: string[];
-  link: string;
   github: string;
   stars: number;
 }
@@ -35,7 +34,6 @@ const fallbackProjects: Project[] = [
     problem: "Monitoramento e defesa básica para ambientes que precisam enxergar eventos suspeitos.",
     delivery: "Projeto de segurança com foco em detecção, organização e análise técnica.",
     stack: ["Security", "IDS", "Python"],
-    link: "https://github.com/eduardofontana/sentinel",
     github: "https://github.com/eduardofontana/sentinel",
     stars: 1,
   },
@@ -45,7 +43,6 @@ const fallbackProjects: Project[] = [
     problem: "Automatizar verificações iniciais de exposição e vulnerabilidade.",
     delivery: "Ferramenta de apoio para análise técnica e aprendizado em segurança.",
     stack: ["Security", "Scanner", "CLI"],
-    link: "https://github.com/eduardofontana/vulnix",
     github: "https://github.com/eduardofontana/vulnix",
     stars: 1,
   },
@@ -55,7 +52,6 @@ const fallbackProjects: Project[] = [
     problem: "Criar uma presença pessoal moderna, rápida e alinhada ao nicho de segurança.",
     delivery: "Portfólio em Next.js com visual cyber, animações e boas práticas de publicação.",
     stack: ["Next.js", "React", "TypeScript"],
-    link: "https://github.com/eduardofontana/vercel-portfolio",
     github: "https://github.com/eduardofontana/vercel-portfolio",
     stars: 1,
   },
@@ -76,7 +72,6 @@ function generateProjectContent(repo: GithubRepo): Omit<Project, "id" | "stars">
     problem: `Projeto ${name} no GitHub.`,
     delivery: description,
     stack: stack.length > 0 ? stack : ["GitHub"],
-    link: `${repo.html_url}#readme`,
     github: repo.html_url,
   };
 }
@@ -149,7 +144,8 @@ export default function Projects() {
         </div>
       ) : projects.length === 0 ? (
         <div className="px-4 text-center text-text-secondary">
-          <p>Nenhum projeto encontrado.</p>
+          <p className="font-mono text-sm">Nenhum projeto público com estrelas encontrado no GitHub.</p>
+          <p className="mt-2 font-mono text-xs text-text-muted">Os repositórios precisam ter ao menos 1 estrela para aparecer aqui.</p>
         </div>
       ) : (
         <div className="relative px-4 pb-8 sm:px-6 lg:px-8">
@@ -224,16 +220,6 @@ export default function Projects() {
                           className="flex h-10 w-10 items-center justify-center border border-border transition-colors hover:border-accent hover:text-accent"
                         >
                           <Terminal className="h-5 w-5" />
-                        </motion.a>
-                        <motion.a
-                          href={project.link}
-                          rel="noopener noreferrer"
-                          target="_blank"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="flex h-10 w-10 items-center justify-center border border-border transition-colors hover:border-accent hover:text-accent"
-                        >
-                          <ExternalLink className="h-5 w-5" />
                         </motion.a>
                       </div>
                     </div>

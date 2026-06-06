@@ -20,8 +20,8 @@ export default function Navigation() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = ["about", "projects", "skills", "contact"];
-      for (const section of sections.reverse()) {
+      const sections = ["contact", "skills", "projects", "about"];
+      for (const section of sections) {
         const el = document.getElementById(section);
         if (el && el.getBoundingClientRect().top <= 150) {
           setActiveSection(section);
@@ -181,13 +181,6 @@ export default function Navigation() {
                     {item.name}
                   </button>
                 ))}
-                <button
-                  type="button"
-                  onClick={() => scrollToSection("contact")}
-                  className="mt-2 inline-flex items-center justify-center px-4 py-3 rounded-lg border border-accent text-accent text-sm font-mono"
-                >
-                  FALE_COMIGO
-                </button>
               </div>
             </div>
           </motion.div>

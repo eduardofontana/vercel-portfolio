@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://eduardofontana.com.br/sitemap.xml

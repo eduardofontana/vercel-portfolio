@@ -5,13 +5,13 @@ import AmbientEffects from "@/components/AmbientEffects";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
-  variable: "--font-satoshi",
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-fira-code",
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
@@ -68,6 +68,12 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${orbitron.variable}`}
     >
       <body className="min-h-full bg-bg-primary text-text-primary overflow-x-hidden font-sans">
+        <a
+          href="#main-content"
+          className="fixed left-4 top-4 z-[100] -translate-y-full rounded border border-accent bg-bg-primary px-4 py-2 font-mono text-sm text-accent transition-transform focus:translate-y-0 focus:outline-none"
+        >
+          Pular para conteúdo
+        </a>
         <div className="ambient-background" aria-hidden="true">
           <CinematicBackground />
           <div className="ambient-grid" />
@@ -83,7 +89,7 @@ export default function RootLayout({
         <AmbientEffects />
         <div className="noise-overlay" />
         <div className="scanlines" />
-        <div className="relative z-10">{children}</div>
+        <div id="main-content" className="relative z-10">{children}</div>
       </body>
     </html>
   );
