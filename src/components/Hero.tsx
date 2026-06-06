@@ -5,10 +5,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 const commands = [
-  { cmd: "./scan.sh --target portfolio", output: "[OK] 3 vulnerabilidades encontradas" },
-  { cmd: "cat habilidades.json", output: "next.js, react, typescript, node, python" },
-  { cmd: "git push --force security", output: "deploy seguro realizado" },
-  { cmd: "curl -s https://eduardo.dev | grep -c 'secure'", output: "42" },
+  { cmd: "./briefing.sh --projeto", output: "site bonito, rápido e com base segura" },
+  { cmd: "cat stack.json", output: "next.js, react, typescript, node, python" },
+  { cmd: "npm run build", output: "deploy pronto para produção" },
+  { cmd: "./check-security.sh", output: "boas práticas aplicadas" },
 ];
 
 function TypingTerminal() {
@@ -86,34 +86,16 @@ function TypingTerminal() {
 }
 
 export default function Hero() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [showCursor, setShowCursor] = useState(false);
   const { scrollY } = useScroll();
+
+  const scrollToSection = (section: string) => {
+    document.getElementById(section)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(pointer: fine)");
-    const updateCursorMode = () => setShowCursor(mediaQuery.matches);
-
-    updateCursorMode();
-    mediaQuery.addEventListener("change", updateCursorMode);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-
-    if (mediaQuery.matches) {
-      window.addEventListener("mousemove", handleMouseMove);
-    }
-
-    return () => {
-      mediaQuery.removeEventListener("change", updateCursorMode);
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
 
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20 lg:px-8">
@@ -207,7 +189,7 @@ export default function Hero() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/5 px-3 py-1 text-[10px] font-mono text-accent sm:text-xs">
             <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-            DISPONÍVEL PARA PROJETOS SELETIVOS
+            FREELANCER EM WEB + SEGURANÇA
           </span>
         </motion.div>
 
@@ -227,7 +209,7 @@ export default function Hero() {
           className="mb-5 sm:mb-6"
         >
           <h2 className="text-lg font-light text-text-primary sm:text-2xl lg:text-3xl">
-            Desenvolvedor Web <span className="text-accent">::</span> Pentester
+            Sites modernos <span className="text-accent">::</span> Performance <span className="text-accent">::</span> Segurança
           </h2>
         </motion.div>
 
@@ -237,8 +219,31 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mx-auto max-w-xs font-mono text-xs leading-6 text-text-primary sm:max-w-xl sm:text-sm md:text-base"
         >
-          Eu construo experiências digitais de alto padrão — interface forte, performance real e segurança como base.
+          Crio sites e interfaces para profissionais e pequenos negócios, com visual moderno,
+          carregamento rápido e cuidado real com segurança desde o início.
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.75 }}
+          className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row"
+        >
+          <button
+            type="button"
+            onClick={() => scrollToSection("contact")}
+            className="rounded-lg border border-accent bg-accent px-5 py-3 font-mono text-xs font-semibold text-bg-primary transition-all hover:shadow-[0_0_24px_rgba(0,255,136,0.28)] sm:text-sm"
+          >
+            FALE_COMIGO
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToSection("projects")}
+            className="rounded-lg border border-border bg-bg-secondary/60 px-5 py-3 font-mono text-xs text-text-primary transition-colors hover:border-accent hover:text-accent sm:text-sm"
+          >
+            VER_PROJETOS
+          </button>
+        </motion.div>
 
         <TypingTerminal />
       </motion.div>
@@ -259,19 +264,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {showCursor && (
-        <motion.div
-          className="pointer-events-none fixed z-[10000] h-6 w-6 rounded-full border border-accent mix-blend-difference"
-          style={{
-            left: mousePos.x - 12,
-            top: mousePos.y - 12,
-          }}
-          animate={{
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 0.5, repeat: Infinity }}
-        />
-      )}
     </section>
   );
 }

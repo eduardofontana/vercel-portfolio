@@ -10,48 +10,48 @@ interface Command {
 }
 
 const initialCommands: Command[] = [
-  { input: "./list-skills.sh", output: "Carregando stack técnico...", type: "info" },
+  { input: "./list-services.sh", output: "Organizando formas de ajudar...", type: "info" },
 ];
 
 const skillCategories = [
   {
-    category: "FRONTEND",
+    category: "SERVIÇOS",
     skills: [
-      { name: "Next.js", level: 95, desc: "App Router, Server Actions e interfaces com padrão alto de performance" },
-      { name: "React", level: 92, desc: "Arquitetura de componentes, fluidez de interface e escalabilidade" },
-      { name: "TypeScript", level: 90, desc: "Modelagem segura, tipos avançados e manutenção previsível" },
-      { name: "Tailwind", level: 95, desc: "Refinamento visual, temas e velocidade real de execução" },
-      { name: "Framer Motion", level: 85, desc: "Transições, animações e acabamento de interação" },
+      { name: "Sites profissionais", level: 95, desc: "Páginas modernas, responsivas e fáceis de apresentar para clientes" },
+      { name: "Landing pages", level: 92, desc: "Estrutura direta para divulgar serviços, captar contatos e vender melhor" },
+      { name: "Portfólios", level: 90, desc: "Presença pessoal com identidade visual, projetos e contato claro" },
+      { name: "Ajustes em sites", level: 88, desc: "Correções, melhorias de layout, performance e experiência" },
+      { name: "Publicação", level: 85, desc: "Deploy, domínio, SEO básico e cuidados iniciais de segurança" },
     ],
   },
   {
-    category: "BACKEND",
+    category: "STACK",
     skills: [
-      { name: "Node.js", level: 88, desc: "APIs, integrações e serviços para aplicações web robustas" },
-      { name: "Python", level: 85, desc: "Automação, análise e desenvolvimento orientado a eficiência" },
-      { name: "PostgreSQL", level: 82, desc: "Consultas, modelagem e estruturação confiável de dados" },
-      { name: "Redis", level: 80, desc: "Cache, filas e comunicação em tempo real" },
-      { name: "GraphQL", level: 78, desc: "Schema design, resolvers e consumo eficiente de dados" },
+      { name: "Next.js", level: 95, desc: "Sites rápidos, modernos e preparados para crescimento" },
+      { name: "React", level: 92, desc: "Interfaces dinâmicas, organizadas e reutilizáveis" },
+      { name: "TypeScript", level: 90, desc: "Código mais previsível, seguro e fácil de manter" },
+      { name: "Node.js", level: 88, desc: "APIs, integrações e lógica para aplicações web" },
+      { name: "Python", level: 85, desc: "Automação, scripts e análise técnica" },
     ],
   },
   {
     category: "SEGURANÇA",
     skills: [
-      { name: "OWASP", level: 90, desc: "Boas práticas, análise de risco e mitigação orientada a impacto" },
-      { name: "Pentest", level: 85, desc: "Web, rede e validação ofensiva de superfície crítica" },
-      { name: "Burp Suite", level: 88, desc: "Inspeção, exploração e revisão aprofundada de tráfego" },
-      { name: "Metasploit", level: 75, desc: "Exploração controlada e simulação de cenário" },
-      { name: "Wireshark", level: 72, desc: "Leitura de pacotes e análise de protocolo" },
+      { name: "OWASP", level: 90, desc: "Boas práticas para reduzir riscos comuns em aplicações web" },
+      { name: "Pentest Web", level: 85, desc: "Validação controlada de falhas em páginas, APIs e fluxos" },
+      { name: "Burp Suite", level: 88, desc: "Inspeção de tráfego e testes de segurança em aplicações" },
+      { name: "Hardening", level: 80, desc: "Headers, configuração, dependências e superfície de exposição" },
+      { name: "Orientação", level: 78, desc: "Explicação clara dos riscos e próximos passos" },
     ],
   },
   {
-    category: "FERRAMENTAS",
+    category: "PROCESSO",
     skills: [
-      { name: "Git", level: 90, desc: "Versionamento, workflows e organização limpa de entrega" },
-      { name: "Docker", level: 85, desc: "Ambientes reproduzíveis e deploy consistente" },
-      { name: "AWS", level: 78, desc: "Infraestrutura, storage e serviços sob demanda" },
-      { name: "Linux", level: 88, desc: "Shell, processos e administração de ambiente" },
-      { name: "Vim", level: 95, desc: "Produtividade extrema na edição e navegação" },
+      { name: "Briefing", level: 90, desc: "Entendimento simples do objetivo antes de começar" },
+      { name: "Design limpo", level: 88, desc: "Visual moderno sem excesso e com boa leitura" },
+      { name: "Responsivo", level: 92, desc: "Experiência bem cuidada em celular, tablet e desktop" },
+      { name: "Entrega clara", level: 88, desc: "Código organizado, deploy e orientação de uso" },
+      { name: "Melhoria contínua", level: 82, desc: "Ajustes depois do feedback para deixar o resultado redondo" },
     ],
   },
 ];
@@ -63,11 +63,11 @@ export default function Skills() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setCommands([
-        { input: "./list-skills.sh", output: "Carregando stack técnico...", type: "info" },
-        { input: "cat > frontend.txt", output: "✓ Frontend: Next.js 95%, React 92%, TypeScript 90%", type: "success" },
-        { input: "cat > backend.txt", output: "✓ Backend: Node.js 88%, Python 85%, PostgreSQL 82%", type: "success" },
-        { input: "cat > security.txt", output: "✓ Segurança: OWASP 90%, Pentest 85%, Burp Suite 88%", type: "success" },
-        { input: "make build", output: "Todos os módulos carregados com sucesso.", type: "path" },
+        { input: "./list-services.sh", output: "Organizando formas de ajudar...", type: "info" },
+        { input: "cat > servicos.txt", output: "✓ Sites, landing pages, portfólios e ajustes" , type: "success" },
+        { input: "cat > stack.txt", output: "✓ Next.js, React, TypeScript, Node.js e Python", type: "success" },
+        { input: "cat > seguranca.txt", output: "✓ OWASP, pentest web e hardening básico", type: "success" },
+        { input: "make entrega", output: "Processo simples, visual limpo e deploy pronto.", type: "path" },
       ]);
     }, 500);
     return () => clearTimeout(timer);
@@ -89,7 +89,7 @@ export default function Skills() {
           <span className="font-mono text-sm text-accent">03</span>
           <div className="h-px flex-1 bg-border" />
         </div>
-        <h2 className="text-3xl font-bold sm:text-5xl md:text-6xl">HABILIDADES</h2>
+        <h2 className="text-3xl font-bold sm:text-5xl md:text-6xl">SERVIÇOS</h2>
       </motion.div>
 
       <div className="relative z-10 mx-auto grid max-w-7xl gap-6 lg:grid-cols-12 lg:gap-8">

@@ -572,8 +572,7 @@
 }
 
 @media (pointer: fine) {
-  html,
   body {
-    cursor: none;
+    cursor: auto;
   }
 }

@@ -13,10 +13,10 @@ const skills = [
 ];
 
 const mindset: { icon: LucideIcon; title: string; desc: string }[] = [
-  { icon: Shield, title: "Segurança Primeiro", desc: "Toda solução séria precisa nascer preparada para resistir." },
-  { icon: Eye, title: "Visão de Ataque", desc: "Entender vulnerabilidades muda a forma como um produto é desenhado." },
-  { icon: Cpu, title: "Precisão Técnica", desc: "Arquitetura, performance e manutenção são decisões de base." },
-  { icon: Zap, title: "Execução Limpa", desc: "Menos ruído, mais clareza, mais impacto e menos retrabalho." },
+  { icon: Shield, title: "Segurança desde o início", desc: "Cuidados básicos evitam problemas depois da publicação." },
+  { icon: Eye, title: "Olhar de detalhe", desc: "Interface, conteúdo e navegação precisam conversar com o visitante." },
+  { icon: Cpu, title: "Base técnica sólida", desc: "Performance, responsividade e manutenção fazem parte da entrega." },
+  { icon: Zap, title: "Execução direta", desc: "Processo simples, comunicação clara e foco no que gera resultado." },
 ];
 
 export default function About() {
@@ -53,16 +53,15 @@ export default function About() {
           </div>
 
           <p className="mb-6 text-base leading-relaxed text-text-primary sm:text-lg md:text-xl">
-            Sou um <span className="text-accent">Dev Full-Stack</span> com mentalidade orientada à segurança.
-            Não entrego apenas sites publicados. Eu construo
+            Sou <span className="text-accent">freelancer em desenvolvimento web</span> com olhar técnico para segurança.
+            Meu foco é criar
             {" "}
-            <span className="text-accent">presença digital segura e escalável</span>.
+            <span className="text-accent">sites bonitos, rápidos e confiáveis</span>.
           </p>
 
           <p className="mb-6 text-sm leading-7 text-text-secondary sm:text-base">
-            Minha trajetória começou na curiosidade técnica e evoluiu para uma exigência maior com desempenho,
-            arquitetura e superfície de risco. Hoje, transformo essa combinação em produtos que sustentam estética,
-            clareza e solidez de execução no mesmo nível.
+            Gosto de unir estética, clareza e código bem cuidado. Cada projeto precisa funcionar bem,
+            carregar rápido, ser fácil de navegar e transmitir confiança para quem visita.
           </p>
 
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">

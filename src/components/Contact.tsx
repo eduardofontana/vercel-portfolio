@@ -15,7 +15,7 @@ export default function Contact() {
 
   const copyEmail = () => {
     navigator.clipboard
-      .writeText("fontana.df@gmail.com")
+      .writeText("contato@eduardofontana.com.br")
       .then(() => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
@@ -33,7 +33,7 @@ export default function Contact() {
       const subject = encodeURIComponent(`Contato pelo portfolio - ${trimmedEmail}`);
       const body = encodeURIComponent(`${trimmedMessage}\n\nEmail para retorno: ${trimmedEmail}`);
 
-      window.location.href = `mailto:fontana.df@gmail.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:contato@eduardofontana.com.br?subject=${subject}&body=${body}`;
       setSubmitted(true);
       setTimeout(() => {
         setSubmitted(false);
@@ -92,10 +92,10 @@ export default function Contact() {
             viewport={{ once: true }}
           >
             <div className="mb-8">
-              <h3 className="mb-4 text-2xl font-bold sm:text-3xl">Vamos construir algo que realmente se destaque</h3>
+              <h3 className="mb-4 text-2xl font-bold sm:text-3xl">Vamos tirar sua ideia do papel?</h3>
               <p className="text-sm leading-7 text-text-secondary sm:text-base">
-                Estou aberto a projetos ambiciosos, auditorias de segurança e oportunidades em que
-                execução, presença digital e qualidade técnica precisam andar no mesmo nível.
+                Me conte o que você precisa: site, landing page, portfólio, ajuste visual ou revisão de segurança.
+                Respondo de forma direta e sem complicar o processo.
               </p>
             </div>
 
@@ -113,7 +113,7 @@ export default function Contact() {
                 <div className="min-w-0 flex-1">
                   <div className="font-mono text-sm text-text-muted">EMAIL</div>
                   <div className="flex items-center gap-2">
-                    <span className="break-all text-text-primary">fontana.df@gmail.com</span>
+                    <span className="break-all text-text-primary">contato@eduardofontana.com.br</span>
                     <button
                       onClick={copyEmail}
                       aria-label={copied ? "Email copiado" : "Copiar email"}

@@ -28,6 +28,39 @@ interface GithubRepo {
 
 const GITHUB_USERNAME = "eduardofontana";
 
+const fallbackProjects: Project[] = [
+  {
+    id: 1,
+    title: "SentinelFW IDS",
+    problem: "Monitoramento e defesa básica para ambientes que precisam enxergar eventos suspeitos.",
+    delivery: "Projeto de segurança com foco em detecção, organização e análise técnica.",
+    stack: ["Security", "IDS", "Python"],
+    link: "https://github.com/eduardofontana/sentinel",
+    github: "https://github.com/eduardofontana/sentinel",
+    stars: 1,
+  },
+  {
+    id: 2,
+    title: "Vulnix Scanner",
+    problem: "Automatizar verificações iniciais de exposição e vulnerabilidade.",
+    delivery: "Ferramenta de apoio para análise técnica e aprendizado em segurança.",
+    stack: ["Security", "Scanner", "CLI"],
+    link: "https://github.com/eduardofontana/vulnix",
+    github: "https://github.com/eduardofontana/vulnix",
+    stars: 1,
+  },
+  {
+    id: 3,
+    title: "Portfolio Web",
+    problem: "Criar uma presença pessoal moderna, rápida e alinhada ao nicho de segurança.",
+    delivery: "Portfólio em Next.js com visual cyber, animações e boas práticas de publicação.",
+    stack: ["Next.js", "React", "TypeScript"],
+    link: "https://github.com/eduardofontana/vercel-portfolio",
+    github: "https://github.com/eduardofontana/vercel-portfolio",
+    stars: 1,
+  },
+];
+
 function generateProjectContent(repo: GithubRepo): Omit<Project, "id" | "stars"> {
   const name = repo.name;
   const description = repo.description || "Repositório sem descrição disponível.";
@@ -72,10 +105,9 @@ export default function Projects() {
 
         projectsWithContent.sort((a, b) => b.stars - a.stars);
         
-        setProjects(projectsWithContent.slice(0, 6));
-      } catch (error) {
-        console.error("Error fetching GitHub repos:", error);
-        setProjects([]);
+        setProjects(projectsWithContent.length > 0 ? projectsWithContent.slice(0, 6) : fallbackProjects);
+      } catch {
+        setProjects(fallbackProjects);
       } finally {
         setLoading(false);
       }

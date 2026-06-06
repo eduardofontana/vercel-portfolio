@@ -23,13 +23,15 @@ const orbitron = Orbitron({
 });
 
 export const metadata: Metadata = {
-  title: "Eduardo Fontana | Desenvolvedor Web & Pentester",
+  title: "Eduardo Fontana | Freelancer Web & Segurança Digital",
   description:
-    "Portfólio de Eduardo, desenvolvedor web com foco em performance, experiência visual e segurança.",
+    "Portfólio de Eduardo Fontana, freelancer em desenvolvimento web, sites modernos, performance e segurança digital.",
   keywords: [
-    "Desenvolvedor Web",
-    "Pentester",
-    "Cybersecurity",
+    "Freelancer Web",
+    "Sites Profissionais",
+    "Landing Page",
+    "Portfólio",
+    "Segurança Digital",
     "Next.js",
     "React",
     "TypeScript",
@@ -41,17 +43,17 @@ export const metadata: Metadata = {
   creator: "Eduardo",
   metadataBase: new URL("https://eduardofontana.com.br"),
   openGraph: {
-    title: "Eduardo Fontana | Desenvolvedor Web & Pentester",
+    title: "Eduardo Fontana | Freelancer Web & Segurança Digital",
     description:
-      "Portfólio de Eduardo, desenvolvedor web com foco em performance, experiência visual e segurança.",
+      "Sites modernos, rápidos e seguros para profissionais, freelancers e pequenos negócios.",
     type: "website",
     locale: "pt_BR",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Eduardo Fontana | Desenvolvedor Web & Pentester",
+    title: "Eduardo Fontana | Freelancer Web & Segurança Digital",
     description:
-      "Portfólio de Eduardo, desenvolvedor web com foco em performance, experiência visual e segurança.",
+      "Sites modernos, rápidos e seguros para profissionais, freelancers e pequenos negócios.",
   },
 };
 

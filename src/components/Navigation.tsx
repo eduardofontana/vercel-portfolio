@@ -7,7 +7,7 @@ import { HandBones } from "@material-symbols-svg/react/w400";
 const navItems = [
   { name: "Sobre", section: "about" },
   { name: "Projetos", section: "projects" },
-  { name: "Habilidades", section: "skills" },
+  { name: "Serviços", section: "skills" },
   { name: "Contato", section: "contact" },
 ];
 
