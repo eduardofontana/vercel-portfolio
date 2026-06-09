@@ -40,10 +40,6 @@ const nextConfig: NextConfig = {
             value: "require-corp",
           },
           {
-            key: "Access-Control-Allow-Origin",
-            value: "https://eduardofontana.com.br",
-          },
-          {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
           },
