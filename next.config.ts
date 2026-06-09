@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  productionBrowserSourceMaps: false,
   async redirects() {
     return ["about", "projects", "skills", "contact"].map((section) => ({
       source: `/${section}`,
@@ -39,6 +40,10 @@ const nextConfig: NextConfig = {
             value: "require-corp",
           },
           {
+            key: "Access-Control-Allow-Origin",
+            value: "https://eduardofontana.com.br",
+          },
+          {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
           },
@@ -66,7 +71,7 @@ const nextConfig: NextConfig = {
               "form-action 'self'",
               "frame-ancestors 'none'",
               "object-src 'none'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+              "script-src 'self' 'unsafe-inline'",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob:",
               "font-src 'self' data:",

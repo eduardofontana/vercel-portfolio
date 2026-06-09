@@ -1,0 +1,13 @@
+# Security Contact
+# ================
+
+# If you find a security vulnerability in eduardofontana.com.br,
+# please report it responsibly.
+
+Contact: mailto:contato@eduardofontana.com.br
+Preferred-Languages: pt, en
+Canonical: https://eduardofontana.com.br/.well-known/security.txt
+Policy: https://eduardofontana.com.br
+
+# This file expires after one year.
+Expires: 2027-06-09T23:00:00.000Z
