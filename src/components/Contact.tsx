@@ -1,19 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Send, Mail, MapPin, Copy, Check } from "lucide-react";
+
+const RATE_LIMIT_MS = 30000;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function sanitizeInput(input: string): string {
+  return input
+    .replace(/[<>]/g, "")
+    .replace(/javascript:/gi, "")
+    .replace(/on\w+=/gi, "");
+}
 
 export default function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const lastSubmit = useRef(0);
   const { scrollYProgress } = useScroll();
 
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
-  const copyEmail = () => {
+  const copyEmail = useCallback(() => {
     navigator.clipboard
       .writeText("contato@eduardofontana.com.br")
       .then(() => {
@@ -21,27 +33,50 @@ export default function Contact() {
         setTimeout(() => setCopied(false), 2000);
       })
       .catch(() => setCopied(false));
-  };
+  }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    const trimmedEmail = email.trim();
-    const trimmedMessage = message.trim();
+    setError("");
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailRegex.test(trimmedEmail) && trimmedMessage.length >= 10) {
-      const subject = encodeURIComponent(`Contato pelo portfolio - ${trimmedEmail}`);
-      const body = encodeURIComponent(`${trimmedMessage}\n\nEmail para retorno: ${trimmedEmail}`);
-
-      window.location.href = `mailto:contato@eduardofontana.com.br?subject=${subject}&body=${body}`;
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setEmail("");
-        setMessage("");
-      }, 3000);
+    const now = Date.now();
+    if (now - lastSubmit.current < RATE_LIMIT_MS) {
+      const wait = Math.ceil((RATE_LIMIT_MS - (now - lastSubmit.current)) / 1000);
+      setError(`Aguarde ${wait}s antes de enviar outra mensagem.`);
+      return;
     }
-  };
+
+    const trimmedEmail = sanitizeInput(email.trim());
+    const trimmedMessage = sanitizeInput(message.trim());
+
+    if (!EMAIL_REGEX.test(trimmedEmail)) {
+      setError("Insira um email válido.");
+      return;
+    }
+
+    if (trimmedMessage.length < 10) {
+      setError("Mensagem deve ter no mínimo 10 caracteres.");
+      return;
+    }
+
+    if (trimmedMessage.length > 2000) {
+      setError("Mensagem deve ter no máximo 2000 caracteres.");
+      return;
+    }
+
+    lastSubmit.current = now;
+
+    const subject = encodeURIComponent(`Contato pelo portfolio - ${trimmedEmail}`);
+    const body = encodeURIComponent(`${trimmedMessage}\n\nEmail para retorno: ${trimmedEmail}`);
+
+    window.location.href = `mailto:contato@eduardofontana.com.br?subject=${subject}&body=${body}`;
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setEmail("");
+      setMessage("");
+    }, 3000);
+  }, [email, message]);
 
   return (
     <section
@@ -172,6 +207,15 @@ export default function Contact() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4 p-5 sm:p-6">
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="border border-red-500/30 bg-red-500/10 p-3 font-mono text-xs text-red-400"
+                >
+                  {error}
+                </motion.div>
+              )}
               <AnimatePresence mode="wait">
                 {submitted ? (
                   <motion.div

@@ -2,12 +2,18 @@
 # ================
 
 # If you find a security vulnerability in eduardofontana.com.br,
-# please report it responsibly.
+# please report it responsibly. Reports are acknowledged within 72 hours.
 
 Contact: mailto:contato@eduardofontana.com.br
 Preferred-Languages: pt, en
 Canonical: https://eduardofontana.com.br/.well-known/security.txt
 Policy: https://eduardofontana.com.br
+Hiring: https://eduardofontana.com.br
+
+# PGP key for encrypted disclosure (recommended):
+# To generate: gpg --full-generate-key
+# Then publish your key and add the fingerprint below:
+# Encryption: https://keys.openpgp.org/vks/v1/by-fingerprint/YOUR_KEY_FINGERPRINT_HERE
 
 # This file expires after one year.
 Expires: 2027-06-09T23:00:00.000Z
