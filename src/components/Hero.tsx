@@ -223,6 +223,28 @@ export default function Hero() {
           carregamento rápido e cuidado real com segurança desde o início.
         </motion.p>
 
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.75 }}
+          className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row"
+        >
+          <button
+            type="button"
+            onClick={() => scrollToSection("contact")}
+            className="rounded-lg border border-accent bg-accent px-5 py-3 font-mono text-xs font-semibold text-bg-primary transition-all hover:shadow-[0_0_24px_rgba(0,255,136,0.28)] sm:text-sm"
+          >
+            FALE_COMIGO
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToSection("projects")}
+            className="rounded-lg border border-border bg-bg-secondary/60 px-5 py-3 font-mono text-xs text-text-primary transition-colors hover:border-accent hover:text-accent sm:text-sm"
+          >
+            VER_PROJETOS
+          </button>
+        </motion.div>
+
         <TypingTerminal />
       </motion.div>
 
