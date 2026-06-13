@@ -356,6 +356,19 @@
     animation: lens-flare-dot 22s ease-in-out infinite;
     animation-delay: -1.5s;
   }
+
+  .hero-blob {
+    top: 12%;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    animation: hero-blob-float 10s ease-in-out infinite alternate;
+  }
+
+  .contact-lines {
+    opacity: 0.35;
+    transform: translateY(0);
+    animation: contact-lines-drift 12s ease-in-out infinite alternate;
+  }
 }
 
 @keyframes ambient-drift {
@@ -474,6 +487,24 @@
   }
 }
 
+@keyframes hero-blob-float {
+  0% {
+    transform: translate3d(-50%, 0, 0) translateY(0) scale(1);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0) translateY(18px) scale(1.03);
+  }
+}
+
+@keyframes contact-lines-drift {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-18px);
+  }
+}
+
 @keyframes ambient-orbit-a {
   0% {
     opacity: 0.36;
@@ -544,7 +575,9 @@
   .ambient-beam,
   .cinematic-sweep,
   .lens-flare,
-  .noise-overlay {
+  .noise-overlay,
+  .hero-blob,
+  .contact-lines {
     animation: none;
   }
 
@@ -568,6 +601,10 @@
 
   .noise-overlay {
     opacity: 0.02;
+  }
+
+  .hero-blob {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 

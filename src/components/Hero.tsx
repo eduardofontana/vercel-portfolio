@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 const commands = [
@@ -86,33 +86,15 @@ function TypingTerminal() {
 }
 
 export default function Hero() {
-  const { scrollY } = useScroll();
-
   const scrollToSection = (section: string) => {
     document.getElementById(section)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
-
 
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20 lg:px-8">
       <div className="absolute inset-0 grid-pattern opacity-30" />
 
-      <motion.div
-        className="absolute h-[420px] w-[420px] rounded-full bg-accent/5 blur-[120px] sm:h-[520px] sm:w-[520px] lg:h-[600px] lg:w-[600px] lg:blur-[150px]"
-        style={{
-          x: useTransform(scrollY, [0, 500], [0, -100]),
-          y: useTransform(scrollY, [0, 500], [0, 100]),
-        }}
-        animate={{
-          x: [0, 50, 0],
-          y: [0, 30, 0],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
+      <div className="hero-blob absolute h-[420px] w-[420px] rounded-full bg-accent/5 blur-[120px] sm:h-[520px] sm:w-[520px] lg:h-[600px] lg:w-[600px] lg:blur-[150px]" />
 
       <div className="absolute top-20 left-8 hidden h-56 w-80 overflow-hidden rounded-lg border border-border bg-bg-secondary/50 backdrop-blur-sm lg:block">
         <div className="flex items-center gap-2 border-b border-border px-3 py-2">
@@ -177,10 +159,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <motion.div
-        style={{ y, opacity, scale }}
-        className="relative z-10 mx-auto max-w-5xl text-center"
-      >
+      <div className="relative z-10 mx-auto max-w-5xl text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -246,7 +225,7 @@ export default function Hero() {
         </motion.div>
 
         <TypingTerminal />
-      </motion.div>
+      </div>
 
       <motion.div
         initial={{ opacity: 0 }}

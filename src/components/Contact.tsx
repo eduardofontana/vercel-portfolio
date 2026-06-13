@@ -1,11 +1,23 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Send, Mail, MapPin, Copy, Check } from "lucide-react";
 
 const RATE_LIMIT_MS = 30000;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const GRID_COLUMNS = [
+  "left-[10%]",
+  "left-[20%]",
+  "left-[30%]",
+  "left-[40%]",
+  "left-[50%]",
+  "left-[60%]",
+  "left-[70%]",
+  "left-[80%]",
+  "left-[90%]",
+  "left-[100%]",
+] as const;
 
 function sanitizeInput(input: string): string {
   return input
@@ -21,9 +33,6 @@ export default function Contact() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
   const lastSubmit = useRef(0);
-  const { scrollYProgress } = useScroll();
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   const copyEmail = useCallback(() => {
     navigator.clipboard
@@ -86,23 +95,11 @@ export default function Contact() {
       <div className="absolute inset-0 bg-gradient-to-b from-bg-primary/90 via-bg-secondary/75 to-bg-primary/90" />
       <div className="absolute inset-0 grid-pattern opacity-20" />
 
-      <motion.div style={{ y }} className="absolute inset-0">
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-full w-px bg-accent/10"
-            style={{ left: `${(i + 1) * 10}%` }}
-            animate={{
-              opacity: [0.1, 0.3, 0.1],
-            }}
-            transition={{
-              duration: 3,
-              delay: i * 0.2,
-              repeat: Infinity,
-            }}
-          />
+      <div className="contact-lines absolute inset-0 pointer-events-none">
+        {GRID_COLUMNS.map((column) => (
+          <div key={column} className={`absolute h-full w-px bg-accent/10 ${column}`} />
         ))}
-      </motion.div>
+      </div>
 
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         <motion.div
