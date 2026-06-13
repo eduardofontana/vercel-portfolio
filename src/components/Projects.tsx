@@ -117,11 +117,7 @@ export default function Projects() {
       <div className="absolute inset-0 grid-pattern opacity-10" />
 
       <motion.div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: "linear-gradient(transparent 50%, rgba(0, 255, 136, 0.02) 50%)",
-          backgroundSize: "100% 4px",
-        }}
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,255,136,0.02)_50%)] bg-[length:100%_4px]"
       />
 
       <motion.div
@@ -180,15 +176,13 @@ export default function Projects() {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 0.1 }}
                           exit={{ opacity: 0 }}
-                          className="absolute inset-0 bg-accent"
-                          style={{ clipPath: "polygon(0 0, 100% 0, 100% 45%, 0 45%)" }}
+                          className="absolute inset-0 bg-accent [clip-path:polygon(0_0,100%_0,100%_45%,0_45%)]"
                         />
                         <motion.div
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 0.1 }}
                           exit={{ opacity: 0 }}
-                          className="absolute inset-0 bg-accent"
-                          style={{ clipPath: "polygon(0 55%, 100% 55%, 100% 100%, 0 100%)" }}
+                          className="absolute inset-0 bg-accent [clip-path:polygon(0_55%,100%_55%,100%_100%,0_100%)]"
                         />
                       </>
                     )}
@@ -297,13 +291,12 @@ export default function Projects() {
 
       <div className="fixed right-8 top-1/2 z-10 hidden -translate-y-1/2 flex-col gap-2 lg:flex">
         {projects.slice(0, 6).map((_, i) => (
-          <motion.div key={i} className="h-8 w-1 overflow-hidden bg-border">
-            <motion.div
-              className="h-full w-full bg-accent"
+            <motion.div key={i} className="h-8 w-1 overflow-hidden bg-border">
+              <motion.div
+              className="h-full w-full origin-top bg-accent"
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               viewport={{ once: true }}
-              style={{ originY: 0 }}
             />
           </motion.div>
         ))}

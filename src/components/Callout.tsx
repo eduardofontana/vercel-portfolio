@@ -110,7 +110,6 @@ export default function Callout() {
         transition={{ duration: 1.2, delay: 0.8 }}
         viewport={{ once: true }}
         className="absolute bottom-12 left-1/2 h-px w-3/4 max-w-3xl -translate-x-1/2 origin-center sm:bottom-16"
-        style={{ transformOrigin: "center center" }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/20 to-transparent blur-[4px]" />
