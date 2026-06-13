@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, MessageCircle, ShieldAlert } from "lucide-react";
+import { ExternalLink, ShieldAlert } from "lucide-react";
 
 export default function Callout() {
   return (
@@ -78,17 +78,6 @@ export default function Callout() {
           >
             <ExternalLink className="h-4 w-4" />
             CONHECER ORÁCULO AI
-          </motion.a>
-          <motion.a
-            href="https://web.whatsapp.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 rounded-lg border border-border bg-bg-secondary/60 px-6 py-3 font-mono text-xs text-text-primary transition-colors hover:border-accent hover:text-accent sm:text-sm"
-          >
-            <MessageCircle className="h-4 w-4" />
-            FALAR NO WHATSAPP
           </motion.a>
           <motion.a
             href="https://www.oraculoai.cloud/ferramentas"
