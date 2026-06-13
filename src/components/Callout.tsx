@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, MessageCircle } from "lucide-react";
+import { ExternalLink, MessageCircle, ShieldAlert } from "lucide-react";
 
 export default function Callout() {
   return (
@@ -21,7 +21,7 @@ export default function Callout() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/5 px-3 py-1 text-[10px] font-mono text-accent sm:text-xs">
             <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
-            DESTAQUE
+            NOVIDADE
           </span>
         </motion.div>
 
@@ -44,7 +44,7 @@ export default function Callout() {
           viewport={{ once: true }}
           className="mx-auto mb-8 max-w-xl text-base leading-relaxed text-text-primary sm:text-lg md:text-xl"
         >
-          Tecnologia, Hospedagem e Segurança Digital
+          Tecnologia, Hospedagem, Segurança Digital e verificação de vazamentos
         </motion.p>
 
         <motion.div
@@ -56,7 +56,7 @@ export default function Callout() {
         >
           <span>3 serviços</span>
           <span className="text-accent/50">•</span>
-          <span>60+ ferramentas</span>
+          <span>60+ ferramentas + vazamentos</span>
           <span className="text-accent/50">•</span>
           <span>24h suporte</span>
         </motion.div>
@@ -89,6 +89,17 @@ export default function Callout() {
           >
             <MessageCircle className="h-4 w-4" />
             FALAR NO WHATSAPP
+          </motion.a>
+          <motion.a
+            href="https://haveibeenpwned.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-2 rounded-lg border border-border bg-bg-secondary/60 px-6 py-3 font-mono text-xs text-text-primary transition-colors hover:border-accent hover:text-accent sm:text-sm"
+          >
+            <ShieldAlert className="h-4 w-4" />
+            CONSULTAR HAVE I BEEN PWNED
           </motion.a>
         </motion.div>
       </div>
