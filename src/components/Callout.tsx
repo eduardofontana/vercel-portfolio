@@ -91,7 +91,7 @@ export default function Callout() {
             FALAR NO WHATSAPP
           </motion.a>
           <motion.a
-            href="https://haveibeenpwned.com/"
+            href="https://www.oraculoai.cloud/ferramentas"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
