@@ -168,7 +168,7 @@ export default function Hero() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/5 px-3 py-1 text-[10px] font-mono text-accent sm:text-xs">
             <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-            FREELANCER EM WEB + SEGURANÇA
+            FREELANCER · FULLSTACK · CYBERSECURITY
           </span>
         </motion.div>
 
@@ -198,8 +198,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mx-auto max-w-xs font-mono text-xs leading-6 text-text-primary sm:max-w-xl sm:text-sm md:text-base"
         >
-          Crio sites e interfaces para profissionais e pequenos negócios, com visual moderno,
-          carregamento rápido e cuidado real com segurança desde o início.
+          Desenvolvimento web, inteligência artificial e segurança ofensiva.
+          Transformo ideias em soluções digitais — de sites e sistemas inteligentes
+          até análises técnicas e proteção contra ameaças reais.
         </motion.p>
 
         <motion.div

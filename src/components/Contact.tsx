@@ -126,8 +126,8 @@ export default function Contact() {
             <div className="mb-8">
               <h3 className="mb-4 text-2xl font-bold sm:text-3xl">Vamos tirar sua ideia do papel?</h3>
               <p className="text-sm leading-7 text-text-secondary sm:text-base">
-                Me conte o que você precisa: site, landing page, portfólio, ajuste visual ou revisão de segurança.
-                Respondo de forma direta e sem complicar o processo.
+                Me conte o que você precisa: site, landing page, portfólio, API, integração com IA, 
+                automação ou uma revisão de segurança. Respondo de forma direta e sem complicação.
               </p>
             </div>
 
