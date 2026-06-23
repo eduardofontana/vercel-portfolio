@@ -15,7 +15,7 @@ export default function Callout() {
 
       <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/5 blur-[120px] sm:h-[520px] sm:w-[520px] lg:h-[600px] lg:w-[600px]" />
 
-      <div className="relative z-10 mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
