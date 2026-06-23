@@ -1,9 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, ShieldAlert } from "lucide-react";
+import PasswordCheckModal from "./PasswordCheckModal";
 
 export default function Callout() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section className="relative flex min-h-[40vh] items-center justify-center overflow-hidden py-20 sm:min-h-[50vh] sm:py-24 lg:min-h-[60vh]">
       <div className="absolute inset-0 bg-gradient-to-b from-bg-primary/90 via-bg-secondary/75 to-bg-primary/90" />
@@ -79,17 +83,18 @@ export default function Callout() {
             <ExternalLink className="h-4 w-4" />
             CONHECER ORÁCULO AI
           </motion.a>
-          <motion.a
-            href="https://www.oraculoai.cloud/ferramentas"
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-haspopup="dialog"
+            aria-expanded={isModalOpen}
             className="inline-flex items-center gap-2 rounded-lg border border-border bg-bg-secondary/60 px-6 py-3 font-mono text-xs text-text-primary transition-colors hover:border-accent hover:text-accent sm:text-sm"
           >
             <ShieldAlert className="h-4 w-4" />
             CONSULTAR HAVE I BEEN PWNED
-          </motion.a>
+          </motion.button>
         </motion.div>
       </div>
 
@@ -103,6 +108,11 @@ export default function Callout() {
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/20 to-transparent blur-[4px]" />
       </motion.div>
+
+      <PasswordCheckModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 }
