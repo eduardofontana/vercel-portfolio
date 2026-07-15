@@ -14,10 +14,12 @@ Portfolio pessoal com tema cyber-security, background 3D interativo e terminal t
 ## Funcionalidades
 
 - Hero com terminal animado e elementos de interface cyber-security.
-- Fundo 3D com particulas, nebulosas, parallax por mouse e reatividade ao scroll.
+- Fundo 3D cinematico com particulas, nebulosas, parallax por mouse e reatividade ao scroll (carregado de forma dinamica via `CinematicBackgroundWrapper`).
 - Secoes de Sobre, Projetos, Habilidades e Contato.
 - Projetos carregados pela GitHub API.
 - Menu responsivo com indicador de secao ativa.
+- Icones sociais reutilizaveis (GitHub, LinkedIn, Instagram).
+- Modal de verificacao de senha integrado ao HIBP (Have I Been Pwned).
 - Cursor personalizado em dispositivos com ponteiro fino.
 - Suporte a `prefers-reduced-motion`.
 - Headers de seguranca configurados, incluindo Content Security Policy compativel com a hidratacao do Next.js.
@@ -39,6 +41,7 @@ Abra [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Gera o build de producao |
 | `npm run start` | Inicia o servidor de producao apos o build |
 | `npm run lint` | Executa o ESLint |
+| `npm run typecheck` | Verifica tipos com TypeScript |
 
 ## Validacao
 
@@ -46,6 +49,7 @@ Antes de publicar alteracoes, rode:
 
 ```bash
 npm run lint
+npm run typecheck
 npm run build
 ```
 
@@ -56,17 +60,23 @@ Observacao: o build usa `next/font/google`, entao precisa de acesso a internet p
 ```text
 src/
 ├── app/
+│   ├── favicon.ico
 │   ├── globals.css
 │   ├── layout.tsx
 │   └── page.tsx
 ├── components/
+│   ├── About.tsx
 │   ├── AmbientEffects.tsx
+│   ├── Callout.tsx
 │   ├── CinematicBackground.tsx
+│   ├── CinematicBackgroundWrapper.tsx
 │   ├── Contact.tsx
 │   ├── Hero.tsx
 │   ├── Navigation.tsx
+│   ├── PasswordCheckModal.tsx
 │   ├── Projects.tsx
-│   └── Skills.tsx
+│   ├── Skills.tsx
+│   └── SocialIcon.tsx
 └── public/
     └── robots.txt
 ```

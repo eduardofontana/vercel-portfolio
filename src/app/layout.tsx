@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Orbitron, Space_Grotesk } from "next/font/google";
-import CinematicBackground from "@/components/CinematicBackground";
 import AmbientEffects from "@/components/AmbientEffects";
+import CinematicBackground from "@/components/CinematicBackgroundWrapper";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({

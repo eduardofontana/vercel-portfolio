@@ -26,13 +26,20 @@ interface GithubRepo {
 }
 
 const GITHUB_USERNAME = "eduardofontana";
+const CACHE_KEY = "github-repos-cache";
+const CACHE_TTL = 30 * 60 * 1000;
+
+interface CacheEntry {
+  data: Project[];
+  timestamp: number;
+}
 
 const fallbackProjects: Project[] = [
   {
     id: 1,
     title: "SentinelFW IDS",
-    problem: "Monitoramento e defesa básica para ambientes que precisam enxergar eventos suspeitos.",
-    delivery: "Projeto de segurança com foco em detecção, organização e análise técnica.",
+    problem: "Monitorar e defender ambientes que precisam enxergar eventos suspeitos em tempo real.",
+    delivery: "Sistema de detecção com foco em organização, alertas e análise técnica de incidentes.",
     stack: ["Security", "IDS", "Python"],
     github: "https://github.com/eduardofontana/sentinel",
     stars: 1,
@@ -40,8 +47,8 @@ const fallbackProjects: Project[] = [
   {
     id: 2,
     title: "Vulnix Scanner",
-    problem: "Automatizar verificações iniciais de exposição e vulnerabilidade.",
-    delivery: "Ferramenta de apoio para análise técnica e aprendizado em segurança.",
+    problem: "Automatizar verificações iniciais de exposição e vulnerabilidade em infraestruturas web.",
+    delivery: "Ferramenta de apoio para análise técnica, diagnóstico rápido e aprendizado em segurança ofensiva.",
     stack: ["Security", "Scanner", "CLI"],
     github: "https://github.com/eduardofontana/vulnix",
     stars: 1,
@@ -49,9 +56,9 @@ const fallbackProjects: Project[] = [
   {
     id: 3,
     title: "Portfolio Web",
-    problem: "Criar uma presença pessoal moderna, rápida e alinhada ao nicho de segurança.",
-    delivery: "Portfólio em Next.js com visual cyber, animações e boas práticas de publicação.",
-    stack: ["Next.js", "React", "TypeScript"],
+    problem: "Criar uma presença pessoal moderna, rápida e alinhada ao universo de segurança digital.",
+    delivery: "Portfólio em Next.js com visual cyber, animações 3D, verificação de vazamentos e boas práticas de publicação.",
+    stack: ["Next.js", "React", "TypeScript", "Three.js"],
     github: "https://github.com/eduardofontana/vercel-portfolio",
     stars: 1,
   },
@@ -84,6 +91,16 @@ export default function Projects() {
   useEffect(() => {
     async function fetchRepos() {
       try {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const parsed: CacheEntry = JSON.parse(cached);
+          if (Date.now() - parsed.timestamp < CACHE_TTL) {
+            setProjects(parsed.data);
+            setLoading(false);
+            return;
+          }
+        }
+
         const response = await fetch(
           `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=stars&per_page=100&type=public`
         );
@@ -100,9 +117,18 @@ export default function Projects() {
 
         projectsWithContent.sort((a, b) => b.stars - a.stars);
         
-        setProjects(projectsWithContent.length > 0 ? projectsWithContent.slice(0, 6) : fallbackProjects);
+        const result = projectsWithContent.length > 0 ? projectsWithContent.slice(0, 6) : fallbackProjects;
+        setProjects(result);
+
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ data: result, timestamp: Date.now() }));
       } catch {
-        setProjects(fallbackProjects);
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const parsed: CacheEntry = JSON.parse(cached);
+          setProjects(parsed.data);
+        } else {
+          setProjects(fallbackProjects);
+        }
       } finally {
         setLoading(false);
       }
@@ -171,20 +197,24 @@ export default function Projects() {
                 >
                   <AnimatePresence>
                     {activeProject === project.id && (
-                      <>
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 0.1 }}
-                          exit={{ opacity: 0 }}
-                          className="absolute inset-0 bg-accent [clip-path:polygon(0_0,100%_0,100%_45%,0_45%)]"
-                        />
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 0.1 }}
-                          exit={{ opacity: 0 }}
-                          className="absolute inset-0 bg-accent [clip-path:polygon(0_55%,100%_55%,100%_100%,0_100%)]"
-                        />
-                      </>
+                      <motion.div
+                        key="accent-overlay-top"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 bg-accent [clip-path:polygon(0_0,100%_0,100%_45%,0_45%)]"
+                      />
+                    )}
+                  </AnimatePresence>
+                  <AnimatePresence>
+                    {activeProject === project.id && (
+                      <motion.div
+                        key="accent-overlay-bottom"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 bg-accent [clip-path:polygon(0_55%,100%_55%,100%_100%,0_100%)]"
+                      />
                     )}
                   </AnimatePresence>
 

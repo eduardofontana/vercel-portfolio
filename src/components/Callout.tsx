@@ -58,7 +58,7 @@ export default function Callout() {
           className="mx-auto mb-6 max-w-lg text-sm leading-7 text-text-secondary sm:text-base"
         >
           Descubra se sua senha já vazou em ataques reais. A consulta é
-          segura — sua senha <span className="text-accent">nunca sai do navegador</span>.
+          100% segura — sua senha <span className="text-accent">nunca sai do navegador</span>.
         </motion.p>
 
         <motion.div

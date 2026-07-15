@@ -9,14 +9,14 @@ const skills = [
   { name: "TypeScript", level: 90 },
   { name: "Node.js", level: 88 },
   { name: "Python", level: 85 },
-  { name: "Cybersecurity", level: 80 },
+  { name: "Segurança Web", level: 82 },
 ];
 
 const mindset: { icon: LucideIcon; title: string; desc: string }[] = [
-  { icon: Shield, title: "Segurança desde o início", desc: "Cuidados básicos evitam problemas depois da publicação." },
+  { icon: Shield, title: "Segurança desde o início", desc: "Cuidados básicos que evitam dor de cabeça depois da publicação." },
   { icon: Eye, title: "Olhar de detalhe", desc: "Interface, conteúdo e navegação precisam conversar com o visitante." },
-  { icon: Cpu, title: "Base técnica sólida", desc: "Performance, responsividade e manutenção fazem parte da entrega." },
-  { icon: Zap, title: "Execução direta", desc: "Processo simples, comunicação clara e foco no que gera resultado." },
+  { icon: Cpu, title: "Base técnica sólida", desc: "Performance, responsividade e boas práticas fazem parte da entrega." },
+  { icon: Zap, title: "Execução direta", desc: "Processo enxuto, comunicação clara e foco no que gera resultado." },
 ];
 
 export default function About() {
@@ -60,8 +60,8 @@ export default function About() {
           </p>
 
           <p className="mb-6 text-sm leading-7 text-text-secondary sm:text-base">
-            Gosto de unir estética, clareza e código bem cuidado. Cada projeto precisa funcionar bem,
-            carregar rápido, ser fácil de navegar e transmitir confiança para quem visita.
+            Gosto de unir estética, clareza e código bem feito. Cada projeto precisa funcionar bem,
+            carregar rápido, ser fácil de navegar e, acima de tudo, passar confiança para quem visita.
           </p>
 
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -132,7 +132,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
             viewport={{ once: true }}
-            className="border border-border bg-bg-secondary/50 p-5 backdrop-blur-sm sm:p-6"
+            className="rounded-lg border border-border bg-bg-secondary/50 p-5 backdrop-blur-sm sm:p-6"
           >
             <div className="grid grid-cols-3 gap-4 text-center sm:gap-6">
               <div>

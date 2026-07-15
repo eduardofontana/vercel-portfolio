@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 const commands = [
-  { cmd: "./briefing.sh --projeto", output: "site bonito, rápido e com base segura" },
-  { cmd: "cat stack.json", output: "next.js, react, typescript, node, python" },
-  { cmd: "npm run build", output: "deploy pronto para produção" },
-  { cmd: "./check-security.sh", output: "boas práticas aplicadas" },
+  { cmd: "./briefing.sh --projeto", output: "entendimento claro do objetivo e entrega alinhada" },
+  { cmd: "cat stack.json", output: "next.js, react, typescript, node, python, segurança" },
+  { cmd: "npm run build", output: "deploy otimizado para produção" },
+  { cmd: "./check-security.sh", output: "boas práticas de segurança aplicadas" },
 ];
 
 function TypingTerminal() {
@@ -86,6 +86,15 @@ function TypingTerminal() {
 }
 
 export default function Hero() {
+  const [showScrollIndicator] = useState(true);
+  const indicatorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (window.scrollY > 0 && indicatorRef.current) {
+      indicatorRef.current.style.display = "none";
+    }
+  }, []);
+
   const scrollToSection = (section: string) => {
     document.getElementById(section)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -188,7 +197,7 @@ export default function Hero() {
           className="mb-5 sm:mb-6"
         >
           <h2 className="text-lg font-light text-text-primary sm:text-2xl lg:text-3xl">
-            Sites modernos <span className="text-accent">::</span> Performance <span className="text-accent">::</span> Segurança
+            Sites inteligentes <span className="text-accent">::</span> Performance <span className="text-accent">::</span> Cibersegurança
           </h2>
         </motion.div>
 
@@ -199,8 +208,8 @@ export default function Hero() {
           className="mx-auto max-w-xs font-mono text-xs leading-6 text-text-primary sm:max-w-xl sm:text-sm md:text-base"
         >
           Desenvolvimento web, inteligência artificial e segurança ofensiva.
-          Transformo ideias em soluções digitais — de sites e sistemas inteligentes
-          até análises técnicas e proteção contra ameaças reais.
+          Transformo ideias em produtos digitais — de sites e sistemas inteligentes
+          até análises de segurança e proteção contra ameaças reais.
         </motion.p>
 
         <motion.div
@@ -228,21 +237,25 @@ export default function Hero() {
         <TypingTerminal />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-5 left-1/2 -translate-x-1/2 sm:bottom-8"
-      >
+      {showScrollIndicator && (
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-text-muted"
+          ref={indicatorRef}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ delay: 2 }}
+          className="absolute bottom-5 left-1/2 -translate-x-1/2 sm:bottom-8"
         >
-          <span className="font-mono text-[10px] sm:text-xs">ROLE</span>
-          <ChevronDown className="h-5 w-5" />
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="flex flex-col items-center gap-2 text-text-muted"
+          >
+            <span className="font-mono text-[10px] sm:text-xs">ROLE</span>
+            <ChevronDown className="h-5 w-5" />
+          </motion.div>
         </motion.div>
-      </motion.div>
+      )}
 
     </section>
   );
