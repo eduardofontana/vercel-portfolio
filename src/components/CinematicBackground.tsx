@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo, useEffect, useState } from "react";
+import { useRef, useMemo, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -195,34 +195,8 @@ function Scene({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: number
 
 export default function CinematicBackground() {
   const mouseRef = useRef({ x: 0, y: 0 });
-  const [shouldRenderCanvas, setShouldRenderCanvas] = useState(false);
 
   useEffect(() => {
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const screenQuery = window.matchMedia("(max-width: 768px)");
-    let frame = 0;
-
-    const updateCanvasPreference = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        setShouldRenderCanvas(!motionQuery.matches && !screenQuery.matches);
-      });
-    };
-
-    updateCanvasPreference();
-    motionQuery.addEventListener("change", updateCanvasPreference);
-    screenQuery.addEventListener("change", updateCanvasPreference);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      motionQuery.removeEventListener("change", updateCanvasPreference);
-      screenQuery.removeEventListener("change", updateCanvasPreference);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!shouldRenderCanvas) return;
-
     let ticking = false;
     const handleMouse = (e: MouseEvent) => {
       if (!ticking) {
@@ -236,15 +210,12 @@ export default function CinematicBackground() {
     };
     window.addEventListener("mousemove", handleMouse, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouse);
-  }, [shouldRenderCanvas]);
-
-  if (!shouldRenderCanvas) {
-    return null;
-  }
+  }, []);
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
       <Canvas
+        fallback={null}
         camera={{ position: [0, 0.5, 10], fov: 58 }}
         dpr={[0.7, 1]}
         gl={{

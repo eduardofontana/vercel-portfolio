@@ -181,18 +181,13 @@ export default function Projects() {
                 viewport={{ once: true }}
                 className="relative h-full"
               >
-                <motion.div
+                <motion.a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Ver projeto ${project.title} no GitHub`}
                   onHoverStart={() => setActiveProject(project.id)}
                   onHoverEnd={() => setActiveProject(null)}
-                  onClick={() => window.open(project.github, "_blank", "noopener,noreferrer")}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      window.open(project.github, "_blank", "noopener,noreferrer");
-                    }
-                  }}
-                  role="link"
-                  tabIndex={0}
                   className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-lg border border-border bg-bg-card"
                 >
                   <AnimatePresence>
@@ -235,16 +230,13 @@ export default function Projects() {
                             {project.stars}
                           </span>
                         </div>
-                        <motion.a
-                          href={project.github}
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <motion.span
+                          aria-hidden="true"
                           whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
                           className="flex h-10 w-10 items-center justify-center border border-border transition-colors hover:border-accent hover:text-accent"
                         >
                           <Terminal className="h-5 w-5" />
-                        </motion.a>
+                        </motion.span>
                       </div>
                     </div>
 
@@ -312,7 +304,7 @@ export default function Projects() {
                     whileInView={{ width: activeProject === project.id ? "100%" : "0%" }}
                     transition={{ duration: 0.3 }}
                   />
-                </motion.div>
+                </motion.a>
               </motion.div>
             ))}
           </div>

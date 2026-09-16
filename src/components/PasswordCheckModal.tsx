@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, ShieldAlert, ShieldCheck, X, Eye, EyeOff, AlertCircle } from "lucide-react";
 
@@ -30,8 +30,14 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
   const [showPassword, setShowPassword] = useState(false);
   const [status, setStatus] = useState<CheckStatus>("idle");
   const [count, setCount] = useState(0);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+  const controllerRef = useRef<AbortController | null>(null);
 
   const handleClose = useCallback(() => {
+    controllerRef.current?.abort();
+    controllerRef.current = null;
     setPassword("");
     setShowPassword(false);
     setStatus("idle");
@@ -40,23 +46,50 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
   }, [onClose]);
 
   useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape" && isOpen) handleClose();
-    }
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [handleClose, isOpen]);
+    if (!isOpen) return;
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    previousFocusRef.current = document.activeElement as HTMLElement | null;
+    const focusFrame = requestAnimationFrame(() => inputRef.current?.focus());
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        handleClose();
+        return;
+      }
+
+      if (e.key !== "Tab" || !dialogRef.current) return;
+
+      const focusable = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      const first = focusable[0];
+      const last = focusable.at(-1);
+
+      if (!first || !last) return;
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     }
+
+    document.addEventListener("keydown", handleKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     return () => {
-      document.body.style.overflow = "";
+      cancelAnimationFrame(focusFrame);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      previousFocusRef.current?.focus();
+      previousFocusRef.current = null;
     };
-  }, [isOpen]);
+  }, [handleClose, isOpen]);
 
   const checkPassword = useCallback(async () => {
     if (!password) return;
@@ -65,6 +98,8 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
     setCount(0);
 
     const controller = new AbortController();
+    controllerRef.current?.abort();
+    controllerRef.current = controller;
     const timeout = window.setTimeout(() => controller.abort(), 10_000);
 
     try {
@@ -90,9 +125,10 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
         setStatus("safe");
       }
     } catch {
-      setStatus("error");
+      if (controllerRef.current === controller) setStatus("error");
     } finally {
       window.clearTimeout(timeout);
+      if (controllerRef.current === controller) controllerRef.current = null;
       setPassword("");
     }
   }, [password]);
@@ -114,10 +150,12 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
             onClick={handleClose}
             className="absolute inset-0 bg-black/70 backdrop-blur-sm cursor-default"
             aria-hidden="true"
+            tabIndex={-1}
             type="button"
           />
 
           <motion.div
+            ref={dialogRef}
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -155,6 +193,7 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
                 <div className="flex items-center border border-border bg-bg-secondary transition-colors focus-within:border-accent">
                   <span className="px-3 font-mono text-accent">{`>`}</span>
                   <input
+                    ref={inputRef}
                     id="hibp-password"
                     type={showPassword ? "text" : "password"}
                     value={password}
@@ -200,75 +239,77 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
                 )}
               </button>
 
-              <AnimatePresence mode="wait">
-                {status === "pwned" && (
-                  <motion.div
-                    key="pwned"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="mt-4 border border-red-500/30 bg-red-500/10 p-4"
-                  >
-                    <div className="mb-2 flex items-center gap-2">
-                      <AlertCircle className="h-5 w-5 shrink-0 text-red-400" />
-                      <span className="font-mono text-sm font-semibold text-red-400">
-                        VAZAMENTO DETECTADO
-                      </span>
-                    </div>
-                    <p className="font-mono text-xs leading-6 text-red-300/90">
-                      Esta senha apareceu{" "}
-                      <span className="text-red-400 font-bold">{formatCount(count)}</span> vez
-                      {count > 1 ? "es" : ""} em vazamentos conhecidos.
-                    </p>
-                    <p className="mt-2 font-mono text-[11px] text-red-300/70">
-                      Recomenda-se trocar imediatamente e não reutilizar em outros serviços.
-                    </p>
-                  </motion.div>
-                )}
+              <div aria-live="polite" aria-atomic="true">
+                <AnimatePresence mode="wait">
+                  {status === "pwned" && (
+                    <motion.div
+                      key="pwned"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="mt-4 border border-red-500/30 bg-red-500/10 p-4"
+                    >
+                      <div className="mb-2 flex items-center gap-2">
+                        <AlertCircle className="h-5 w-5 shrink-0 text-red-400" />
+                        <span className="font-mono text-sm font-semibold text-red-400">
+                          VAZAMENTO DETECTADO
+                        </span>
+                      </div>
+                      <p className="font-mono text-xs leading-6 text-red-300/90">
+                        Esta senha apareceu{" "}
+                        <span className="text-red-400 font-bold">{formatCount(count)}</span> vez
+                        {count > 1 ? "es" : ""} em vazamentos conhecidos.
+                      </p>
+                      <p className="mt-2 font-mono text-[11px] text-red-300/70">
+                        Recomenda-se trocar imediatamente e não reutilizar em outros serviços.
+                      </p>
+                    </motion.div>
+                  )}
 
-                {status === "safe" && (
-                  <motion.div
-                    key="safe"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="mt-4 border border-green-500/30 bg-green-500/10 p-4"
-                  >
-                    <div className="mb-2 flex items-center gap-2">
-                      <ShieldCheck className="h-5 w-5 shrink-0 text-green-400" />
-                      <span className="font-mono text-sm font-semibold text-green-400">
-                        SENHA SEGURA
-                      </span>
-                    </div>
-                    <p className="font-mono text-xs leading-6 text-green-300/90">
-                      Nenhuma ocorrência desta senha foi encontrada nos vazamentos conhecidos.
-                    </p>
-                    <p className="mt-2 font-mono text-[11px] text-green-300/70">
-                      Mesmo assim, usar senhas únicas e fortes para cada serviço é a melhor prática.
-                    </p>
-                  </motion.div>
-                )}
+                  {status === "safe" && (
+                    <motion.div
+                      key="safe"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="mt-4 border border-green-500/30 bg-green-500/10 p-4"
+                    >
+                      <div className="mb-2 flex items-center gap-2">
+                        <ShieldCheck className="h-5 w-5 shrink-0 text-green-400" />
+                        <span className="font-mono text-sm font-semibold text-green-400">
+                          SENHA SEGURA
+                        </span>
+                      </div>
+                      <p className="font-mono text-xs leading-6 text-green-300/90">
+                        Nenhuma ocorrência desta senha foi encontrada nos vazamentos conhecidos.
+                      </p>
+                      <p className="mt-2 font-mono text-[11px] text-green-300/70">
+                        Mesmo assim, usar senhas únicas e fortes para cada serviço é a melhor prática.
+                      </p>
+                    </motion.div>
+                  )}
 
-                {status === "error" && (
-                  <motion.div
-                    key="error"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="mt-4 border border-yellow-500/30 bg-yellow-500/10 p-4"
-                  >
-                    <div className="mb-2 flex items-center gap-2">
-                      <AlertCircle className="h-5 w-5 shrink-0 text-yellow-400" />
-                      <span className="font-mono text-sm font-semibold text-yellow-400">
-                        ERRO NA CONSULTA
-                      </span>
-                    </div>
-                    <p className="font-mono text-xs leading-6 text-yellow-300/90">
-                      Não foi possível consultar a API. Verifique sua conexão e tente novamente.
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  {status === "error" && (
+                    <motion.div
+                      key="error"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="mt-4 border border-yellow-500/30 bg-yellow-500/10 p-4"
+                    >
+                      <div className="mb-2 flex items-center gap-2">
+                        <AlertCircle className="h-5 w-5 shrink-0 text-yellow-400" />
+                        <span className="font-mono text-sm font-semibold text-yellow-400">
+                          ERRO NA CONSULTA
+                        </span>
+                      </div>
+                      <p className="font-mono text-xs leading-6 text-yellow-300/90">
+                        Não foi possível consultar a API. Verifique sua conexão e tente novamente.
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
 
             <div className="border-t border-border bg-bg-secondary px-5 py-3 sm:px-6">
