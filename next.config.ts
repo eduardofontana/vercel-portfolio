@@ -60,10 +60,6 @@ const nextConfig: NextConfig = {
             value: "off",
           },
           {
-            key: "Access-Control-Allow-Origin",
-            value: "https://eduardofontana.com.br",
-          },
-          {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",

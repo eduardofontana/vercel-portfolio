@@ -31,13 +31,21 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
   const [status, setStatus] = useState<CheckStatus>("idle");
   const [count, setCount] = useState(0);
 
+  const handleClose = useCallback(() => {
+    setPassword("");
+    setShowPassword(false);
+    setStatus("idle");
+    setCount(0);
+    onClose();
+  }, [onClose]);
+
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape" && isOpen) onClose();
+      if (e.key === "Escape" && isOpen) handleClose();
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [handleClose, isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -51,18 +59,23 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
   }, [isOpen]);
 
   const checkPassword = useCallback(async () => {
-    const trimmed = password.trim();
-    if (!trimmed) return;
+    if (!password) return;
 
     setStatus("checking");
     setCount(0);
 
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 10_000);
+
     try {
-      const hash = await sha1Hex(trimmed);
+      const hash = await sha1Hex(password);
       const prefix = hash.slice(0, 5);
       const suffix = hash.slice(5);
 
-      const res = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`);
+      const res = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`, {
+        headers: { "Add-Padding": "true" },
+        signal: controller.signal,
+      });
       if (!res.ok) throw new Error("API request failed");
 
       const text = await res.text();
@@ -78,6 +91,9 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
       }
     } catch {
       setStatus("error");
+    } finally {
+      window.clearTimeout(timeout);
+      setPassword("");
     }
   }, [password]);
 
@@ -95,7 +111,7 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={handleClose}
             className="absolute inset-0 bg-black/70 backdrop-blur-sm cursor-default"
             aria-hidden="true"
             type="button"
@@ -117,7 +133,7 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
                 <span className="font-mono text-sm text-text-primary">HIBP Password Check</span>
               </div>
               <button
-                onClick={onClose}
+                onClick={handleClose}
                 type="button"
                 aria-label="Fechar"
                 className="rounded p-1 text-text-muted transition-colors hover:bg-border hover:text-text-primary"
@@ -151,7 +167,7 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
                     autoComplete="off"
                     spellCheck={false}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter" && password.trim()) checkPassword();
+                      if (e.key === "Enter" && password) checkPassword();
                     }}
                   />
                   <button
@@ -168,7 +184,7 @@ export default function PasswordCheckModal({ isOpen, onClose }: PasswordCheckMod
               <button
                 type="button"
                 onClick={checkPassword}
-                disabled={!password.trim() || status === "checking"}
+                disabled={!password || status === "checking"}
                 className="flex w-full items-center justify-center gap-2 rounded-lg border border-accent bg-accent/10 px-4 py-3 font-mono text-sm text-accent transition-all hover:bg-accent hover:text-bg-primary disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {status === "checking" ? (
