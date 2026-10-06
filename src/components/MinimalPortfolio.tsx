@@ -275,11 +275,13 @@ export default function MinimalPortfolio() {
             variants={reveal}
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h2>
-              Menos ruído.
-              <br />
-              Mais <em>sistema.</em>
-            </h2>
+            <div className="pair-heading pair-heading-dark">
+              <span className="pair-kicker">[ PRACTICE ]</span>
+              <h2>
+                <span>Engineering</span>
+                <span className="pair-second"><i>&</i> Experience</span>
+              </h2>
+            </div>
 
             <div className="intro-copy">
               <p className="large-copy">
@@ -421,11 +423,11 @@ export default function MinimalPortfolio() {
               <SectionIndex>004.</SectionIndex>
               <span>[ SECURITY LAB ]</span>
             </div>
-            <div className="lab-title">
+            <div className="lab-title pair-heading pair-heading-ink">
+              <span className="pair-kicker">[ SECURITY / SYSTEMS ]</span>
               <h2>
-                Security
-                <br />
-                <span className="outline-word">in practice.</span>
+                <span>Security</span>
+                <span className="pair-second"><i>&</i> Systems</span>
               </h2>
             </div>
             <motion.div
@@ -459,7 +461,13 @@ export default function MinimalPortfolio() {
               <SectionIndex>005.</SectionIndex>
               <span className="eyebrow">[ TOOLBOX ]</span>
             </div>
-            <h2>Tools I use.</h2>
+            <div className="pair-heading pair-heading-light">
+              <span className="pair-kicker">[ TOOLING / WORKFLOW ]</span>
+              <h2>
+                <span>Tools</span>
+                <span className="pair-second"><i>&</i> Workflow</span>
+              </h2>
+            </div>
           </div>
 
           <div className="stack-marquee">
