@@ -990,3 +990,81 @@ button { cursor: pointer; }
     transition-duration: .001ms !important;
   }
 }
+
+
+/* Editorial paired typography — inspired by art-direction systems, not job titles */
+.pair-heading {
+  position: relative;
+}
+
+.pair-heading .pair-kicker {
+  display: inline-block;
+  margin-bottom: 14px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  opacity: 0.58;
+}
+
+.pair-heading h2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pair-heading h2 > span {
+  display: block;
+}
+
+.pair-heading .pair-second {
+  display: flex;
+  align-items: baseline;
+  gap: 0.16em;
+  margin-left: 0.78em;
+}
+
+.pair-heading .pair-second i {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.72em;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: -0.04em;
+}
+
+.pair-heading-dark h2 {
+  color: var(--ink);
+}
+
+.pair-heading-light h2 {
+  color: var(--paper);
+}
+
+.pair-heading-ink h2 {
+  color: var(--ink);
+}
+
+.pair-heading-light .pair-second {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(242, 239, 231, 0.9);
+}
+
+.pair-heading-ink .pair-second {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(8, 10, 15, 0.72);
+}
+
+.pair-heading-dark .pair-second {
+  color: #4a3fa0;
+}
+
+@media (max-width: 640px) {
+  .pair-heading .pair-second {
+    margin-left: 0.34em;
+  }
+
+  .pair-heading .pair-kicker {
+    margin-bottom: 10px;
+  }
+}
