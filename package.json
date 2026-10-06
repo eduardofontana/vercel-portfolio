@@ -6,14 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.8.0",
-    "next": "^16.3.5",
+    "next": "^16.3.8",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "three": "^0.184.0"
@@ -24,12 +23,17 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.184.1",
-    "eslint": "^9",
-    "eslint-config-next": "^16.3.5",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
   "overrides": {
-    "postcss": "^8.5.14"
+    "postcss": "^8.5.14",
+    "source-map-js": "^1.2.2"
+  },
+  "allowScripts": {
+    "unrs-resolver@1.11.1": true
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
