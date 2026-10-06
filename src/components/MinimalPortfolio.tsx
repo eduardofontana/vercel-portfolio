@@ -3,8 +3,6 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import {
   ArrowUpRight,
-  Github,
-  Linkedin,
   Mail,
   ShieldCheck,
   Sparkles,
@@ -156,7 +154,7 @@ export default function MinimalPortfolio() {
               aria-label="GitHub"
               className="icon-link"
             >
-              <Github size={18} />
+              GitHub
             </a>
             <a
               href="https://www.linkedin.com/in/eduardo-fontana-b9b20b284/"
@@ -165,7 +163,7 @@ export default function MinimalPortfolio() {
               aria-label="LinkedIn"
               className="icon-link"
             >
-              <Linkedin size={18} />
+              LinkedIn
             </a>
             <a href="#contact" className="small-cta">
               Fale comigo
@@ -355,7 +353,7 @@ export default function MinimalPortfolio() {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Github size={17} />
+                
                 GitHub
               </a>
               <a
@@ -363,7 +361,7 @@ export default function MinimalPortfolio() {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Linkedin size={17} />
+                
                 LinkedIn
               </a>
             </div>
