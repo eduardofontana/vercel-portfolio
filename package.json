@@ -36,5 +36,8 @@
   },
   "allowScripts": {
     "unrs-resolver@1.11.1": true
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
