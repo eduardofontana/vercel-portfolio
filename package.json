@@ -31,5 +31,8 @@
   },
   "overrides": {
     "postcss": "^8.5.14"
+  },
+  "allowScripts": {
+    "unrs-resolver@1.11.1": true
   }
 }
