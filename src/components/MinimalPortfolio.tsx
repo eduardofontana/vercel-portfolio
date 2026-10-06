@@ -4,11 +4,16 @@ import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowDownRight,
   ArrowUpRight,
-  Mail,
   ShieldCheck,
   TerminalSquare,
 } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import PasswordCheckModal from "./PasswordCheckModal";
 
 type Repo = {
@@ -26,28 +31,32 @@ const focusAreas = [
   {
     number: "001.",
     title: "Web Development",
-    lead: "Interfaces e aplicações que priorizam clareza, performance e manutenção.",
+    lead:
+      "Aplicações web e interfaces responsivas com arquitetura simples, boa performance e atenção aos detalhes.",
     tags: ["Next.js", "React", "TypeScript", "APIs"],
     accent: "BUILD",
   },
   {
     number: "002.",
     title: "Automation & AI",
-    lead: "Fluxos, integrações e ferramentas internas que removem trabalho repetitivo.",
+    lead:
+      "Automações, integrações e ferramentas internas para conectar sistemas e reduzir tarefas manuais.",
     tags: ["Python", "Node.js", "Workflows", "Agents"],
     accent: "AUTOMATE",
   },
   {
     number: "003.",
     title: "Application Security",
-    lead: "Segurança web incorporada ao produto desde arquitetura até entrega.",
+    lead:
+      "Revisão de aplicações e práticas de desenvolvimento seguro para reduzir exposição e falhas evitáveis.",
     tags: ["Web Security", "Pentest", "Review", "Hardening"],
     accent: "SECURE",
   },
   {
     number: "004.",
     title: "Infrastructure",
-    lead: "Ambientes enxutos, observáveis e previsíveis para colocar software em produção.",
+    lead:
+      "Linux, containers e deploys com configuração previsível, observável e fácil de operar.",
     tags: ["Linux", "Docker", "Nginx", "Deploy"],
     accent: "SHIP",
   },
@@ -76,7 +85,7 @@ const fallbackRepos: Repo[] = [
     id: 1,
     name: "vercel-portfolio",
     description:
-      "Portfólio pessoal em Next.js com foco em experiência, integração com GitHub e segurança de aplicações.",
+      "Portfólio pessoal em Next.js com experiência editorial, integração com GitHub e recursos de segurança.",
     html_url: "https://github.com/eduardofontana/vercel-portfolio",
     homepage: "https://eduardofontana.com.br",
     language: "TypeScript",
@@ -86,7 +95,7 @@ const fallbackRepos: Repo[] = [
 ];
 
 const reveal = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -98,14 +107,20 @@ export default function MinimalPortfolio() {
   const [repos, setRepos] = useState<Repo[]>(fallbackRepos);
   const [hibpOpen, setHibpOpen] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
 
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.28]);
+  const heroYRaw = useTransform(scrollYProgress, [0, 1], [0, 84]);
+  const heroY = useSpring(heroYRaw, {
+    stiffness: 85,
+    damping: 28,
+    mass: 0.7,
+  });
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.92], [1, 0.38]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -151,7 +166,9 @@ export default function MinimalPortfolio() {
   return (
     <>
       <header className="editorial-nav">
-        <a href="#top" className="nav-mark">EF — 26</a>
+        <a href="#top" className="nav-mark">
+          EF — 26
+        </a>
         <nav aria-label="Navegação principal">
           <a href="#about">001. About</a>
           <a href="#focus">002. Focus</a>
@@ -170,20 +187,50 @@ export default function MinimalPortfolio() {
 
       <main id="top">
         <section ref={heroRef} className="tenora-hero">
+          <div className="hero-color-field" aria-hidden="true">
+            <motion.span
+              className="color-blob color-blob-cyan"
+              animate={
+                reduceMotion
+                  ? undefined
+                  : { x: [0, 26, 0], y: [0, -18, 0], scale: [1, 1.04, 1] }
+              }
+              transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.span
+              className="color-blob color-blob-violet"
+              animate={
+                reduceMotion
+                  ? undefined
+                  : { x: [0, -24, 0], y: [0, 16, 0], scale: [1, 1.05, 1] }
+              }
+              transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.span
+              className="color-blob color-blob-amber"
+              animate={
+                reduceMotion
+                  ? undefined
+                  : { x: [0, 18, 0], y: [0, 12, 0], scale: [1, 1.03, 1] }
+              }
+              transition={{ duration: 21, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
+
           <motion.div
             className="hero-stage"
-            style={{ y: heroY, opacity: heroOpacity }}
+            style={{ y: reduceMotion ? 0 : heroY, opacity: heroOpacity }}
           >
             <div className="hero-kicker">
               <span>Brazil / Remote</span>
-              <span>Independent Developer</span>
-              <span>2026</span>
+              <span>Web systems · automation · security</span>
+              <span>Portfolio / 2026</span>
             </div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 44 }}
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 36 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
               <span>Eduardo</span>
               <span className="outline-word">Fontana.</span>
@@ -191,11 +238,13 @@ export default function MinimalPortfolio() {
 
             <div className="hero-lower-grid">
               <p className="hero-role">
-                Web Developer · Automation · Application Security
+                Web Developer
+                <br />
+                Automation · Application Security
               </p>
               <p className="hero-statement">
-                Construo experiências digitais, automações e ferramentas
-                técnicas com foco em clareza, performance e segurança.
+                Transformo problemas operacionais em aplicações web claras,
+                automações confiáveis e ferramentas seguras.
               </p>
               <a href="#work" className="round-link" aria-label="Ver projetos">
                 <ArrowDownRight size={22} />
@@ -215,35 +264,36 @@ export default function MinimalPortfolio() {
           <div className="section-topline">
             <SectionIndex>001.</SectionIndex>
             <span>[ PROFILE ]</span>
-            <span>Available for freelance</span>
+            <span>Available for freelance · Remote</span>
           </div>
 
           <motion.div
             className="intro-grid"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-15%" }}
+            viewport={{ once: true, margin: "-14%" }}
             variants={reveal}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2>
-              Tecnologia com
+              Menos ruído.
               <br />
-              <em>intenção.</em>
+              Mais <em>sistema.</em>
             </h2>
 
             <div className="intro-copy">
               <p className="large-copy">
-                Desenvolvimento web, automação e segurança tratados como partes
-                do mesmo produto.
+                Gosto de projetos em que interface, código e segurança precisam
+                conversar.
               </p>
               <p>
-                Trabalho criando interfaces, sistemas e ferramentas que precisam
-                ser rápidas, compreensíveis e confiáveis. A estética importa, mas
-                estrutura, segurança e manutenção importam junto.
+                Trabalho entre desenvolvimento web, automação, segurança de
+                aplicações e infraestrutura. A ideia é construir soluções que
+                sejam agradáveis de usar, fáceis de manter e coerentes por
+                dentro — não apenas bonitas na superfície.
               </p>
               <div className="mini-meta">
-                <span>Frontend / Backend</span>
+                <span>Web / Product</span>
                 <span>Automation / AI</span>
                 <span>Security / Infra</span>
               </div>
@@ -268,11 +318,15 @@ export default function MinimalPortfolio() {
             {focusAreas.map((item, index) => (
               <motion.article
                 key={item.number}
-                className="focus-item"
-                initial={{ opacity: 0, y: 30 }}
+                className={`focus-item tone-${index + 1}`}
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.55, delay: index * 0.06 }}
+                viewport={{ once: true, margin: "-8%" }}
+                transition={{
+                  duration: 0.72,
+                  delay: index * 0.05,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
               >
                 <div className="focus-number">{item.number}</div>
                 <div className="focus-main">
@@ -308,10 +362,11 @@ export default function MinimalPortfolio() {
             target="_blank"
             rel="noreferrer"
             className="project-poster"
-            initial={{ opacity: 0, scale: 0.985 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={reduceMotion ? undefined : { y: -4 }}
             viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="poster-grid">
               <div className="poster-code">
@@ -332,8 +387,9 @@ export default function MinimalPortfolio() {
                 <span>EF</span>
               </div>
               <div className="poster-desc">
-                {primaryRepo.description ??
-                  "Portfólio técnico com integração ao GitHub e recursos de segurança."}
+                Um portfólio em Next.js que combina interface editorial,
+                integração com GitHub e recursos de segurança em uma experiência
+                responsiva.
               </div>
               <ArrowUpRight className="poster-arrow" size={30} />
             </div>
@@ -372,21 +428,28 @@ export default function MinimalPortfolio() {
                 <span className="outline-word">in practice.</span>
               </h2>
             </div>
-            <div className="lab-copy">
+            <motion.div
+              className="lab-copy"
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-12%" }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            >
               <ShieldCheck size={26} />
-              <h3>Have I Been Pwned?</h3>
+              <h3>HIBP Password Check</h3>
               <p>
-                Verifique se uma senha apareceu em vazamentos conhecidos usando
-                k-anonymity. A senha completa não é enviada para a API.
+                Uma demonstração prática de segurança: consulte se uma senha
+                apareceu em vazamentos conhecidos usando k-anonymity, sem enviar
+                a senha completa para a API.
               </p>
               <button
                 type="button"
                 className="text-action"
                 onClick={() => setHibpOpen(true)}
               >
-                Testar ferramenta <TerminalSquare size={16} />
+                Abrir ferramenta <TerminalSquare size={16} />
               </button>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -396,7 +459,7 @@ export default function MinimalPortfolio() {
               <SectionIndex>005.</SectionIndex>
               <span className="eyebrow">[ TOOLBOX ]</span>
             </div>
-            <h2>Stack.</h2>
+            <h2>Tools I use.</h2>
           </div>
 
           <div className="stack-marquee">
@@ -412,23 +475,33 @@ export default function MinimalPortfolio() {
           <div className="section-topline">
             <SectionIndex>006.</SectionIndex>
             <span>[ CONTACT ]</span>
-            <span>Open for selected projects</span>
+            <span>Freelance · Remote</span>
           </div>
 
           <div className="contact-big">
             <h2>
-              Let’s build
+              Tem algo que vale
               <br />
-              something <em>useful.</em>
+              <em>construir?</em>
             </h2>
-            <a href="mailto:duhduh.zip@proton.me" className="contact-email">
-              duhduh.zip@proton.me <ArrowUpRight size={28} />
-            </a>
+            <div className="contact-pitch">
+              <p>
+                Web, automação, segurança de aplicações ou infraestrutura.
+                Se o problema é claro, podemos começar por ele.
+              </p>
+              <a href="mailto:duhduh.zip@proton.me" className="contact-email">
+                duhduh.zip@proton.me <ArrowUpRight size={26} />
+              </a>
+            </div>
           </div>
 
           <div className="contact-bottom">
             <div className="contact-socials">
-              <a href="https://github.com/eduardofontana" target="_blank" rel="noreferrer">
+              <a
+                href="https://github.com/eduardofontana"
+                target="_blank"
+                rel="noreferrer"
+              >
                 GitHub ↗
               </a>
               <a
@@ -443,7 +516,12 @@ export default function MinimalPortfolio() {
             <form className="editorial-form" onSubmit={sendMessage}>
               <label>
                 <span>Email</span>
-                <input type="email" name="email" placeholder="voce@empresa.com" required />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="voce@empresa.com"
+                  required
+                />
               </label>
               <label>
                 <span>Projeto</span>
@@ -451,12 +529,12 @@ export default function MinimalPortfolio() {
                   name="message"
                   rows={4}
                   minLength={10}
-                  placeholder="O que você quer construir?"
+                  placeholder="Qual problema você quer resolver?"
                   required
                 />
               </label>
               <button type="submit">
-                Send inquiry <ArrowUpRight size={17} />
+                Enviar contato <ArrowUpRight size={17} />
               </button>
             </form>
           </div>
