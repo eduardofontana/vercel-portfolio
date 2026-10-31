@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" fill="none">
+<defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" stroke="#a9cdd3" stroke-opacity=".06"/></pattern></defs><rect width="900" height="520" fill="#1b252a"/><rect width="900" height="520" fill="url(#g)"/>
+<text x="45" y="55" fill="#acc5cb" font-family="monospace" font-size="13" letter-spacing="2">CLINICA.APP / CUIDADO CONECTADO</text>
+<path d="M225 225H450V330H675V225H450" stroke="#83b5bf" stroke-width="2"/>
+<rect x="110" y="150" width="230" height="145" rx="12" fill="#27373d" stroke="#50727b"/><rect x="560" y="150" width="230" height="145" rx="12" fill="#27373d" stroke="#50727b"/><rect x="335" y="330" width="230" height="76" rx="12" fill="#b4d7dd"/>
+<g stroke="#b4d7dd" stroke-width="2"><rect x="204" y="174" width="42" height="34" rx="3"/><path d="M204 184H246M214 168V178M236 168V178M213 193H220M230 193H237"/><circle cx="675" cy="184" r="12"/><path d="M652 216C652 194 698 194 698 216"/></g>
+<g font-family="Arial,sans-serif" text-anchor="middle"><text x="225" y="247" fill="#e2f1f3" font-size="24">Agenda</text><text x="225" y="273" fill="#acc5cb" font-size="13">Profissionais e horários</text><text x="675" y="247" fill="#e2f1f3" font-size="24">Paciente</text><text x="675" y="273" fill="#acc5cb" font-size="13">Consultas e orçamentos</text><text x="450" y="362" fill="#20373d" font-size="21" font-weight="bold">Atendimento</text><text x="450" y="388" fill="#35565e" font-size="13">Dados isolados por clínica</text></g>
+<path d="M45 450H855" stroke="#50727b" stroke-opacity=".6"/><text x="45" y="480" fill="#acc5cb" font-family="monospace" font-size="11" letter-spacing="1">GESTÃO / AGENDAMENTO / PORTAL DO PACIENTE</text><text x="810" y="480" fill="#b4d7dd" font-family="monospace" font-size="12">02 ↗</text>
+</svg>

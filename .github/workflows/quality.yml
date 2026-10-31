@@ -3,7 +3,8 @@ name: Quality
 on:
   push:
     branches:
-      - minimal-redesign
+      - main
+      - feat/personal-landing
   pull_request:
     branches:
       - main
@@ -37,3 +38,9 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Install test browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser and accessibility tests
+        run: npm run test:e2e
