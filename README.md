@@ -4,7 +4,7 @@ Portfólio em português com identidade grafite/lima, monograma EF interativo e 
 
 ## Executar localmente
 
-Requer Node.js 22 ou superior e npm.
+Requer Node.js 26 LTS e npm.
 
 ```sh
 npm ci
