@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" fill="none">
+<defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" stroke="#d7bd92" stroke-opacity=".06"/></pattern></defs><rect width="900" height="520" fill="#27231e"/><rect width="900" height="520" fill="url(#g)"/>
+<text x="45" y="55" fill="#cbbb9f" font-family="monospace" font-size="13" letter-spacing="2">SENTINEL FW / VISIBILIDADE EM TEMPO REAL</text>
+<circle cx="450" cy="255" r="132" stroke="#d7bd92" stroke-opacity=".17"/><circle cx="450" cy="255" r="170" stroke="#d7bd92" stroke-opacity=".09"/>
+<path d="M120 200H220L300 255H370M120 255H370M120 310H220L300 255M530 255H610L680 200H780M530 255H780M610 255L680 310H780" stroke="#9c8665" stroke-width="2"/>
+<g fill="#dfc093"><circle cx="120" cy="200" r="7"/><circle cx="120" cy="255" r="7"/><circle cx="120" cy="310" r="7"/><circle cx="780" cy="200" r="7"/><circle cx="780" cy="255" r="7"/><circle cx="780" cy="310" r="7"/></g>
+<path d="m450 145 82 35v85c0 55-82 99-82 99s-82-44-82-99v-85z" fill="#dfc093"/><path d="m450 174 58 25v64c0 35-58 73-58 73s-58-38-58-73v-64z" stroke="#54452f" stroke-width="2"/>
+<path d="M414 255H432L442 231L457 281L468 255H487" stroke="#30291e" stroke-width="4"/>
+<g font-family="monospace" font-size="13" text-anchor="middle" fill="#cbbb9f"><text x="164" y="367">TRÁFEGO</text><text x="450" y="403">DETECÇÃO &amp; REGRAS</text><text x="737" y="367">EVENTOS</text></g>
+<path d="M45 450H855" stroke="#9c8665" stroke-opacity=".4"/><text x="45" y="480" fill="#cbbb9f" font-family="monospace" font-size="11" letter-spacing="1">REDE / PROCESSAMENTO / DASHBOARD</text><text x="810" y="480" fill="#dfc093" font-family="monospace" font-size="12">03 ↗</text>
+</svg>

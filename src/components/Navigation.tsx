@@ -1,199 +1,142 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Swords } from "lucide-react";
-import SocialIcon from "./SocialIcon";
+import { useEffect, useRef, useState } from "react";
 
-const navItems = [
-  { name: "Sobre", section: "about" },
-  { name: "Projetos", section: "projects" },
-  { name: "Serviços", section: "skills" },
-  { name: "Contato", section: "contact" },
-];
+const links = [
+  ["#projects", "Projetos"],
+  ["#about", "Sobre"],
+  ["#contact", "Contato"],
+] as const;
 
 export default function Navigation() {
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+
+  function closeMenu() {
+    dialog.current?.close();
+    setOpen(false);
+    trigger.current?.focus();
+  }
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      const sections = ["contact", "skills", "projects", "about"];
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el && el.getBoundingClientRect().top <= 150) {
-          setActiveSection(section);
-          break;
-        }
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const query = window.matchMedia("(min-width: 768px)");
+    function resize() {
+      if (query.matches) {
+        dialog.current?.close();
+        setOpen(false);
       }
+    }
+    query.addEventListener("change", resize);
+    return () => {
+      document.body.style.overflow = previous;
+      query.removeEventListener("change", resize);
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (!mobileMenuOpen) {
-      return;
-    }
-
-    const closeMenu = () => setMobileMenuOpen(false);
-    window.addEventListener("resize", closeMenu);
-    return () => window.removeEventListener("resize", closeMenu);
-  }, [mobileMenuOpen]);
-
-  useEffect(() => {
-    const initialSection = window.location.hash.replace("#", "");
-
-    if (initialSection && navItems.some((item) => item.section === initialSection)) {
-      document.getElementById(initialSection)?.scrollIntoView({ block: "start" });
-    }
-
-    if (window.location.hash) {
-      window.history.replaceState(null, "", "/");
-    }
-  }, []);
-
-  const scrollToSection = (section: string) => {
-    const target = section === "home" ? document.body : document.getElementById(section);
-
-    target?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-
-    window.history.replaceState(null, "", "/");
-    setMobileMenuOpen(false);
-  };
+  }, [open]);
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-bg-primary/80 backdrop-blur-md border-b border-border" : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <motion.button
-            type="button"
-            onClick={() => scrollToSection("home")}
-            className="flex items-center gap-2 text-lg font-bold tracking-tight"
-            whileHover={{ scale: 1.05 }}
-          >
-            <Swords
-              size={28}
-              className="text-accent drop-shadow-[0_0_10px_rgba(0,255,136,0.5)]"
-              aria-hidden="true"
-            />
-            <span className="hidden sm:inline font-mono text-xs tracking-widest text-accent">EF</span>
-            <span className="sr-only">Inicio</span>
-          </motion.button>
-
-          <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <motion.button
-                key={item.name}
-                type="button"
-                onClick={() => scrollToSection(item.section)}
-                className={`px-4 py-2 text-sm font-mono transition-colors relative ${
-                  activeSection === item.section
-                    ? "text-accent"
-                    : "text-text-secondary hover:text-text-primary"
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {item.name}
-                {activeSection === item.section && (
-                  <motion.div
-                    layoutId="activeIndicator"
-                    className="absolute bottom-0 left-4 right-4 h-px bg-accent"
-                  />
-                )}
-              </motion.button>
-            ))}
-          </div>
-
-          <div className="hidden md:flex items-center gap-2 mr-2">
-            <SocialIcon href="https://github.com/eduardofontana" label="GitHub" icon="github" />
-            <SocialIcon href="https://www.linkedin.com/in/eduardo-fontana-b9b20b284/" label="LinkedIn" icon="linkedin" />
-            <SocialIcon href="https://www.instagram.com/duhduhfontana/" label="Instagram" icon="instagram" />
-          </div>
-
-          <motion.button
-            type="button"
-            onClick={() => scrollToSection("contact")}
-            className="hidden md:inline-flex px-4 py-2 rounded-lg border border-accent text-accent text-sm font-mono hover:bg-accent hover:text-bg-primary transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            FALE_COMIGO
-          </motion.button>
-
-          <motion.button
-            type="button"
-            aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-navigation"
-            aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
-            className="md:hidden p-2"
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setMobileMenuOpen((open) => !open)}
-          >
-            <div className="w-6 h-5 flex flex-col justify-between">
-              <span
-                className={`w-full h-0.5 bg-text-primary transition-transform duration-300 ${
-                  mobileMenuOpen ? "translate-y-[9px] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`w-full h-0.5 bg-text-primary transition-opacity duration-300 ${
-                  mobileMenuOpen ? "opacity-0" : ""
-                }`}
-              />
-              <span
-                className={`w-full h-0.5 bg-text-primary transition-transform duration-300 ${
-                  mobileMenuOpen ? "-translate-y-[9px] -rotate-45" : ""
-                }`}
-              />
-            </div>
-          </motion.button>
-        </div>
-
-        {mobileMenuOpen && (
-          <motion.div
-            id="mobile-navigation"
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            className="md:hidden pb-4"
-          >
-            <div className="rounded-lg border border-border bg-bg-secondary/95 backdrop-blur-md">
-              <div className="flex flex-col p-2">
-                {navItems.map((item) => (
-                  <button
-                    key={item.name}
-                    type="button"
-                    onClick={() => scrollToSection(item.section)}
-                    className={`px-4 py-3 text-left font-mono text-sm transition-colors ${
-                      activeSection === item.section
-                        ? "text-accent"
-                        : "text-text-secondary"
-                    }`}
-                  >
-                    {item.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
+    <header className="site-header">
+      <div className="container nav-inner">
+        <a
+          className="wordmark"
+          href="#top"
+          aria-label="ef. — Eduardo Fontana, início"
+        >
+          ef<span>.</span>
+        </a>
+        <nav className="desktop-nav" aria-label="Navegação principal">
+          {links.map(([href, label]) => (
+            <a key={href} href={href}>
+              {label}
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </nav>
+        <span className="nav-location mono">
+          BRASIL <span aria-hidden="true">↗</span> REMOTO
+        </span>
+        <button
+          className="menu-trigger"
+          ref={trigger}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          aria-haspopup="dialog"
+          onClick={() => {
+            dialog.current?.showModal();
+            setOpen(true);
+          }}
+        >
+          Menu <span aria-hidden="true">＋</span>
+        </button>
       </div>
-    </motion.nav>
+      <dialog
+        id="mobile-menu"
+        ref={dialog}
+        className="mobile-menu"
+        aria-labelledby="menu-title"
+        onKeyDown={(event) => {
+          if (event.key !== "Tab") return;
+          const items =
+            event.currentTarget.querySelectorAll<HTMLElement>(
+              "button, a[href]",
+            );
+          const first = items[0];
+          const last = items[items.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last?.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first?.focus();
+          }
+        }}
+        onCancel={(event) => {
+          event.preventDefault();
+          closeMenu();
+        }}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) closeMenu();
+        }}
+      >
+        <div className="mobile-menu-heading">
+          <span id="menu-title" className="mono">
+            NAVEGAÇÃO
+          </span>
+          <button autoFocus onClick={closeMenu} aria-label="Fechar menu">
+            Fechar ×
+          </button>
+        </div>
+        <nav aria-label="Navegação móvel">
+          {links.map(([href, label], index) => (
+            <a
+              href={href}
+              key={href}
+              onClick={(event) => {
+                event.preventDefault();
+                closeMenu();
+                const target = document.querySelector<HTMLElement>(href);
+                target?.focus({ preventScroll: true });
+                target?.scrollIntoView({
+                  behavior: window.matchMedia(
+                    "(prefers-reduced-motion: reduce)",
+                  ).matches
+                    ? "instant"
+                    : "smooth",
+                });
+                history.replaceState(null, "", href);
+              }}
+            >
+              <span className="mono">0{index + 1}</span>
+              {label}
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </nav>
+        <p>Ideias boas merecem sair do papel.</p>
+      </dialog>
+    </header>
   );
 }

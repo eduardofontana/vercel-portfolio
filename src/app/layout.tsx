@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { profile } from "@/data/portfolio";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -15,11 +16,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Eduardo Fontana | Web Developer · Automation · Application Security",
+  title: "Eduardo Fontana | Desenvolvedor Full Stack",
   description:
-    "Portfólio de Eduardo Fontana — desenvolvimento web, automação, segurança de aplicações e infraestrutura.",
+    "Transformo ideias em aplicações web, automações e sistemas seguros. Conheça os projetos de Eduardo Fontana, desenvolvedor full stack.",
   keywords: [
-    "Web Developer",
+    "Desenvolvedor Full Stack",
     "Next.js",
     "React",
     "TypeScript",
@@ -30,9 +31,10 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Eduardo Fontana" }],
   creator: "Eduardo Fontana",
-  metadataBase: new URL("https://eduardofontana.com.br"),
+  metadataBase: new URL(profile.url),
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Eduardo Fontana | Web Developer",
+    title: "Eduardo Fontana | Desenvolvedor Full Stack",
     description:
       "Aplicações web, automações e ferramentas com foco em performance, clareza e segurança.",
     type: "website",
@@ -42,9 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Eduardo Fontana | Web Developer",
-    description:
-      "Aplicações web, automações e segurança de aplicações.",
+    title: "Eduardo Fontana | Desenvolvedor Full Stack",
+    description: "Aplicações web, automações e segurança de aplicações.",
   },
 };
 
