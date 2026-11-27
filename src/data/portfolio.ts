@@ -21,7 +21,7 @@ export type Project = {
 export const projects: readonly Project[] = [
   {
     name: "Vitrine App",
-    category: "01 / Marketplace de produtos digitais",
+    category: "Marketplace de produtos digitais",
     summary: "Um lugar para descobrir e vender o próximo projeto digital.",
     contribution:
       "Catálogo de micro-SaaS, apps e templates, com autenticação, perfis e um fluxo de aprovação antes da publicação.",
@@ -33,7 +33,7 @@ export const projects: readonly Project[] = [
   },
   {
     name: "Clinica.app",
-    category: "02 / Sistema de gestão",
+    category: "Sistema de gestão",
     summary: "Da agenda ao atendimento, tudo conectado.",
     contribution:
       "Gestão odontológica com agendamento online, portal do paciente e isolamento dos dados de cada clínica por RLS.",
@@ -45,7 +45,7 @@ export const projects: readonly Project[] = [
   },
   {
     name: "SentinelFW",
-    category: "03 / Segurança de rede",
+    category: "Segurança de rede",
     summary: "Eventos de rede transformados em visibilidade.",
     contribution:
       "Captura de pacotes, regras de firewall e detecção de intrusão, com eventos apresentados em um dashboard em tempo real.",
@@ -59,21 +59,18 @@ export const projects: readonly Project[] = [
 
 export const capabilities = [
   {
-    number: "01",
     title: "Aplicações web",
     text: "Interfaces claras, fluxos completos e atenção ao que acontece depois do clique.",
     tools: "React · Next.js · TypeScript",
     evidence: "Na prática: Vitrine App e Clinica.app",
   },
   {
-    number: "02",
     title: "Backend & dados",
     text: "Autenticação, regras de negócio e dados organizados para sustentar o produto.",
     tools: "PostgreSQL · Supabase · FastAPI",
     evidence: "Na prática: Clinica.app e SentinelFW",
   },
   {
-    number: "03",
     title: "Automação & segurança",
     text: "Processamento de eventos e sistemas que tornam o trabalho mais confiável.",
     tools: "Python · WebSocket · Linux",

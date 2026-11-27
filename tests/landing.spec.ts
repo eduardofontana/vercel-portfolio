@@ -1,5 +1,18 @@
+import { readFileSync, readdirSync } from "node:fs";
+import { basename, join } from "node:path";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+
+function webglChunk() {
+  const chunks = ".next/static/chunks";
+  const file = readdirSync(chunks).find(
+    (name) =>
+      name.endsWith(".js") &&
+      readFileSync(join(chunks, name), "utf8").includes("isWebGLRenderer"),
+  );
+  if (!file) throw new Error("O build não contém um módulo WebGL.");
+  return file;
+}
 
 for (const width of [360, 390, 768, 1440]) {
   test(`layout, recursos e acessibilidade em ${width}px`, async ({ page }) => {
@@ -20,8 +33,11 @@ for (const width of [360, 390, 768, 1440]) {
     await page.goto("/");
     await page.evaluate(() => document.fonts.ready);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-      "EduardoFontana.",
+      "Eduardo Fontana.",
     );
+    const title = (await page.locator("#hero-title").boundingBox())!;
+    const art = (await page.locator(".monogram-scene").boundingBox())!;
+    expect(art.y).toBeGreaterThan(title.y + title.height);
     await expect(page.locator(".project")).toHaveCount(3);
     for (const image of await page.locator(".project-image img").all()) {
       await image.scrollIntoViewIfNeeded();
@@ -62,6 +78,10 @@ for (const width of [360, 390, 768, 1440]) {
       ),
     ).toEqual([]);
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    if (width === 1440) {
+      await expect(page.locator(".monogram-scene")).toHaveAttribute("data-renderer", "webgl");
+      await page.screenshot({ path: ".qa/hero-1440.png", animations: "disabled" });
+    }
     await page.screenshot({
       path: `.qa/landing-${width}.png`,
       fullPage: true,
@@ -146,33 +166,112 @@ test("copiar e-mail confirma sucesso e explica permissão negada", async ({
   );
 });
 
-test("monograma responde ao mouse e respeita movimento reduzido", async ({
+test("monograma 3D carrega ao entrar na tela e responde ao mouse", async ({
   page,
 }) => {
-  await page.setViewportSize({ width: 1440, height: 1000 });
+  const chunk = webglChunk();
+  const scripts = new Set<string>();
+  page.on("request", (request) => scripts.add(basename(new URL(request.url()).pathname)));
+  await page.setViewportSize({ width: 1440, height: 120 });
+  await page.addInitScript(() => {
+    const { drawArrays, drawElements } = WebGL2RenderingContext.prototype;
+    let draws = 0;
+    Object.defineProperty(window, "monogramDraws", { get: () => draws });
+    WebGL2RenderingContext.prototype.drawArrays = function (...args) {
+      draws++;
+      drawArrays.apply(this, args);
+    };
+    WebGL2RenderingContext.prototype.drawElements = function (...args) {
+      draws++;
+      drawElements.apply(this, args);
+    };
+  });
   await page.goto("/");
   const scene = page.locator(".monogram-scene");
+  const canvas = scene.locator("canvas");
+  const draws = () =>
+    page.evaluate(() => Reflect.get(window, "monogramDraws") as number);
+  await expect(scene).toHaveAttribute("data-renderer", "static");
+  await expect(scene.locator("svg")).toBeVisible();
+  await expect(canvas).toBeHidden();
+  expect(await draws()).toBe(0);
+  expect(scripts.has(chunk)).toBe(false);
+
+  await page.evaluate(() => window.scrollTo({ top: 300, behavior: "instant" }));
+  await expect(scene).toHaveAttribute("data-renderer", "webgl");
+  await expect(canvas).toBeVisible();
+  await expect.poll(draws).toBeGreaterThan(0);
+  expect(scripts.has(chunk)).toBe(true);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  const bounds = await scene.boundingBox();
+  const before = await draws();
   await scene.hover({ position: { x: 60, y: 70 } });
-  await expect
-    .poll(() =>
-      page
-        .locator(".monogram-plane")
-        .evaluate((el) => getComputedStyle(el).transform),
-    )
-    .not.toBe("none");
+  await expect.poll(draws).toBeGreaterThan(before);
+
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await scene.hover({ position: { x: 200, y: 250 } });
-  expect(
-    await page
-      .locator(".monogram-plane")
-      .evaluate((el) => getComputedStyle(el).transform),
-  ).toBe("none");
+  await expect(scene).toHaveAttribute("data-renderer", "static");
+  await expect(canvas).toBeHidden();
+  await expect(scene.locator("svg")).toBeVisible();
+  const staticBounds = await scene.boundingBox();
+  expect(staticBounds?.width).toBe(bounds?.width);
+  expect(staticBounds?.height).toBe(bounds?.height);
   expect(
     await page.evaluate(
       () => getComputedStyle(document.documentElement).scrollBehavior,
     ),
   ).toBe("auto");
 });
+
+test("monograma usa arte estática se WebGL não estiver disponível", async ({ page }) => {
+  const chunk = webglChunk();
+  const scripts = new Set<string>();
+  page.on("request", (request) => scripts.add(basename(new URL(request.url()).pathname)));
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.addInitScript(() => {
+    const { getContext } = HTMLCanvasElement.prototype;
+    Object.defineProperty(HTMLCanvasElement.prototype, "getContext", {
+      value(this: HTMLCanvasElement, kind: string, attributes?: unknown) {
+        if (kind === "webgl2") {
+          document.documentElement.setAttribute("data-webgl-unavailable", "");
+          return null;
+        }
+        return Reflect.apply(getContext, this, [kind, attributes]);
+      },
+    });
+  });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-webgl-unavailable", "");
+  await expect(page.locator(".monogram-scene")).toHaveAttribute("data-renderer", "static");
+  await expect(page.locator(".monogram-poster")).toBeVisible();
+  await expect(page.locator(".monogram-canvas")).toBeHidden();
+  expect(scripts.has(chunk)).toBe(false);
+});
+
+for (const mode of ["toque", "movimento reduzido"] as const) {
+  test(`monograma mantém a arte estática em ${mode}`, async ({ browser }) => {
+    const context = await browser.newContext({
+      viewport: { width: 1440, height: 900 },
+      hasTouch: mode === "toque",
+      isMobile: mode === "toque",
+      reducedMotion: mode === "movimento reduzido" ? "reduce" : "no-preference",
+    });
+    try {
+      const page = await context.newPage();
+      const chunk = webglChunk();
+      const scripts = new Set<string>();
+      page.on("request", (request) => scripts.add(basename(new URL(request.url()).pathname)));
+      await page.goto("http://127.0.0.1:3100/");
+      await expect(page.locator(".monogram-poster")).toBeVisible();
+      await expect(page.locator(".monogram-canvas")).toBeHidden();
+      // Remain in the static mode beyond the scene's deferred initialization.
+      await page.waitForTimeout(400);
+      expect(scripts.has(chunk)).toBe(false);
+    } finally {
+      await context.close();
+    }
+  });
+}
 
 test("conteúdo e links essenciais funcionam sem JavaScript", async ({
   browser,
@@ -192,6 +291,8 @@ test("conteúdo e links essenciais funcionam sem JavaScript", async ({
     "https://github.com/eduardofontana/sentinel",
   ]);
   await expect(page.locator(".email-link")).toBeVisible();
+  await expect(page.locator(".monogram-poster")).toBeVisible();
+  await expect(page.locator(".monogram-canvas")).toBeHidden();
   await context.close();
 });
 

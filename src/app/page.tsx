@@ -2,6 +2,7 @@ import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Monogram from "@/components/Monogram";
 import CopyEmail from "@/components/CopyEmail";
+import SectionAccent from "@/components/SectionAccent";
 import { capabilities, profile, projects } from "@/data/portfolio";
 
 const Arrow = () => <span aria-hidden="true">↗</span>;
@@ -19,35 +20,32 @@ export default function Home() {
           id="top"
           aria-labelledby="hero-title"
         >
-          <div className="hero-copy">
+          <div className="hero-masthead">
             <p className="eyebrow">
               <span className="status-dot" /> DESENVOLVEDOR FULL STACK
             </p>
             <h1 id="hero-title">
-              Eduardo
-              <br />
+              Eduardo{" "}
               <span>Fontana</span>
               <span className="hero-period">.</span>
             </h1>
-            <p className="hero-description">
-              Transformo ideias em <strong>aplicações web</strong>, automações e
-              sistemas seguros.
-            </p>
-            <div className="hero-actions">
-              <a href="#projects" className="button button-primary">
-                Explorar projetos <span aria-hidden="true">↓</span>
-              </a>
-              <a href="#contact" className="text-link">
-                Entrar em contato <Arrow />
-              </a>
-            </div>
           </div>
-          <Monogram />
-          <div className="hero-bottom mono">
-            <span>CÓDIGO COM PROPÓSITO. ATENÇÃO AOS DETALHES.</span>
-            <a href="#projects">
-              CONTINUE EXPLORANDO <span aria-hidden="true">↓</span>
-            </a>
+          <div className="hero-feature">
+            <div className="hero-copy">
+              <p className="hero-description">
+                Desenvolvo aplicações web, automatizo processos e construo
+                sistemas com foco em segurança.
+              </p>
+              <div className="hero-actions">
+                <a href="#projects" className="button button-primary">
+                  Explorar projetos <span aria-hidden="true">↓</span>
+                </a>
+                <a href="#contact" className="text-link">
+                  Entrar em contato <Arrow />
+                </a>
+              </div>
+            </div>
+            <Monogram />
           </div>
         </section>
 
@@ -57,13 +55,11 @@ export default function Home() {
           tabIndex={-1}
           aria-labelledby="projects-title"
         >
+          <SectionAccent />
           <div className="section-heading">
             <div>
-              <p className="eyebrow">01 / TRABALHOS SELECIONADOS</p>
               <h2 id="projects-title">
-                Ideias que viraram
-                <br />
-                <span className="muted">código de verdade.</span>
+                Projetos selecionados<span className="title-period">.</span>
               </h2>
             </div>
             <a
@@ -77,28 +73,7 @@ export default function Home() {
           </div>
           <div className="project-grid">
             {projects.map((project, index) => (
-              <article
-                className={`project project-${index + 1}`}
-                key={project.name}
-              >
-                <figure className="project-figure">
-                  <div className="project-image">
-                    <Image
-                      src={project.image}
-                      alt={project.imageAlt}
-                      width={900}
-                      height={520}
-                      sizes={
-                        index === 0
-                          ? "(max-width: 767px) 100vw, 60vw"
-                          : "(max-width: 767px) 100vw, 50vw"
-                      }
-                    />
-                  </div>
-                  <figcaption className="mono">
-                    DIAGRAMA ILUSTRATIVO / {project.name}
-                  </figcaption>
-                </figure>
+              <article className={`project project-${index + 1}`} key={project.name}>
                 <div className="project-info">
                   <p className="eyebrow">{project.category}</p>
                   <h3>{project.name}</h3>
@@ -130,6 +105,18 @@ export default function Home() {
                     )}
                   </div>
                 </div>
+                <figure className="project-figure">
+                  <div className="project-image">
+                    <Image
+                      src={project.image}
+                      alt={project.imageAlt}
+                      width={900}
+                      height={520}
+                      sizes="(max-width: 767px) 85vw, 55vw"
+                    />
+                  </div>
+                  <figcaption className="mono">Diagrama ilustrativo</figcaption>
+                </figure>
               </article>
             ))}
           </div>
@@ -144,11 +131,9 @@ export default function Home() {
           <div className="container">
             <div className="about-intro">
               <div>
-                <p className="eyebrow">02 / QUEM ESTÁ POR TRÁS</p>
+                <SectionAccent />
                 <h2 id="about-title">
-                  Curiosidade para entender.
-                  <br />
-                  <span className="muted">Código para resolver.</span>
+                  Sobre mim<span className="title-period">.</span>
                 </h2>
               </div>
               <div className="about-copy">
@@ -174,8 +159,7 @@ export default function Home() {
             </div>
             <div className="capabilities">
               {capabilities.map((item) => (
-                <article className="capability" key={item.number}>
-                  <span className="capability-number mono">/{item.number}</span>
+                <article className="capability" key={item.title}>
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
                   <span className="capability-tools mono">{item.tools}</span>
@@ -187,53 +171,40 @@ export default function Home() {
         </section>
 
         <section
-          className="contact-section section container"
+          className="contact-section section"
           id="contact"
           tabIndex={-1}
           aria-labelledby="contact-title"
         >
-          <p className="eyebrow">03 / A PRÓXIMA CONVERSA</p>
-          <div className="contact-heading">
-            <h2 id="contact-title">
-              Vamos construir
-              <br />
-              <span>algo que importa.</span>
-            </h2>
-            <a
-              href={`mailto:${profile.email}`}
-              className="contact-arrow"
-              aria-label="Entrar em contato por e-mail"
-            >
-              <Arrow />
-            </a>
-          </div>
-          <div className="contact-details">
-            <div>
-              <p>
-                Uma ideia, um projeto ou uma boa troca.
-                <br />
-                Minha caixa de entrada está aberta.
-              </p>
-              <a className="email-link" href={`mailto:${profile.email}`}>
-                {profile.email}
+          <div className="container">
+            <SectionAccent />
+            <div className="contact-heading">
+              <h2 id="contact-title">
+                Vamos conversar<span className="title-period">?</span>
+              </h2>
+              <a
+                href={`mailto:${profile.email}`}
+                className="contact-arrow"
+                aria-label="Entrar em contato por e-mail"
+              >
+                <Arrow />
               </a>
-              <CopyEmail email={profile.email} />
             </div>
-            <div className="social-links">
-              <a
-                href={profile.github}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub <Arrow />
-              </a>
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn <Arrow />
-              </a>
+            <div className="contact-details">
+              <div>
+                <a className="email-link" href={`mailto:${profile.email}`}>
+                  {profile.email}
+                </a>
+                <CopyEmail email={profile.email} />
+              </div>
+              <div className="social-links">
+                <a href={profile.github} target="_blank" rel="noopener noreferrer">
+                  GitHub <Arrow />
+                </a>
+                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+                  LinkedIn <Arrow />
+                </a>
+              </div>
             </div>
           </div>
         </section>
