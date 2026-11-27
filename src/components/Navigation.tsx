@@ -110,7 +110,7 @@ export default function Navigation() {
           </button>
         </div>
         <nav aria-label="Navegação móvel">
-          {links.map(([href, label], index) => (
+          {links.map(([href, label]) => (
             <a
               href={href}
               key={href}
@@ -129,13 +129,11 @@ export default function Navigation() {
                 history.replaceState(null, "", href);
               }}
             >
-              <span className="mono">0{index + 1}</span>
               {label}
               <span aria-hidden="true">↗</span>
             </a>
           ))}
         </nav>
-        <p>Ideias boas merecem sair do papel.</p>
       </dialog>
     </header>
   );

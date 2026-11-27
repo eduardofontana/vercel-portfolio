@@ -17,9 +17,9 @@ Abra http://localhost:3000. As fontes Space Grotesk e JetBrains Mono são baixad
 
 - Next.js App Router, React, TypeScript e Tailwind CSS.
 - Página pré-renderizada, com conteúdo disponível sem JavaScript.
-- JavaScript isolado na navegação móvel, no monograma com Framer Motion e na cópia de e-mail.
+- JavaScript isolado na navegação móvel, na cópia de e-mail, no monograma e nos acentos decorativos com Framer Motion.
 - Menu com diálogo nativo, foco contido, fechamento por Escape e foco direcionado à seção selecionada.
-- Monograma estático em toque e com `prefers-reduced-motion`; sem WebGL ou Three.js.
+- Monograma EF extrudado com Three.js, carregado quando visível com WebGL2 e ponteiro preciso. A arte estática cobre o carregamento, toque, movimento reduzido e falhas de WebGL.
 - Projetos locais e tipados, sem consulta à API do GitHub durante a visita.
 - Contato por `mailto:` e cópia de endereço, com feedback acessível para sucesso e falha. Não há serviço de envio de mensagens.
 - Metadados em português, URL canônica, sitemap, robots e imagens Open Graph/Twitter geradas no build.
@@ -50,7 +50,7 @@ Os testes iniciam e encerram um servidor de produção em `127.0.0.1:3100`. Cobr
 
 O projeto continua usando o preset Next.js, com `npm ci` e `npm run build`. Não depende de banco, chaves ou variáveis de ambiente para funcionar. O domínio canônico é `https://eduardofontana.com.br`.
 
-Validar a branch `feat/personal-landing` em preview antes de incorporar à `main`. Esta implementação não altera o domínio nem promove automaticamente uma versão para produção.
+Validar o preview da branch de trabalho antes de incorporar as alterações à `main`.
 
 A política de segurança permite recursos da própria origem. Em desenvolvimento, libera avaliação de código e WebSocket local para o Next.js; em produção essas exceções não são incluídas. Os redirecionamentos legados `/about`, `/projects`, `/skills` e `/contact` continuam apontando para `/`.
 

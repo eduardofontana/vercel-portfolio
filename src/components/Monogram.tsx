@@ -1,113 +1,161 @@
 "use client";
 
-import {
-  LazyMotion,
-  domAnimation,
-  m,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import type { PointerEvent } from "react";
+import type { createMonogramScene } from "./monogram-scene";
+import { letterOutlines } from "./monogram-shapes";
+
+const desktopMotion =
+  "(min-width: 768px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
+
+const letterPaths = letterOutlines.map(
+  (outline) => `M${outline.map(([x, y]) => `${x} ${y}`).join("L")}Z`,
+);
 
 export default function Monogram() {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rotateX = useSpring(x, { stiffness: 90, damping: 22 });
-  const rotateY = useSpring(y, { stiffness: 90, damping: 22 });
-  function move(event: PointerEvent<HTMLDivElement>) {
-    if (
-      event.pointerType !== "mouse" ||
-      !window.matchMedia(
-        "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
-      ).matches
-    )
-      return;
-    const bounds = event.currentTarget.getBoundingClientRect();
-    x.set(
-      (-(event.clientY - bounds.top - bounds.height / 2) / bounds.height) * 12,
-    );
-    y.set(
-      ((event.clientX - bounds.left - bounds.width / 2) / bounds.width) * 12,
+  const stage = useRef<HTMLDivElement>(null);
+  const surface = useRef<HTMLCanvasElement>(null);
+  const scene = useRef<ReturnType<typeof createMonogramScene> | null>(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (!stage.current || !surface.current) return;
+    const element = stage.current;
+    const canvas = surface.current;
+
+    const media = window.matchMedia(desktopMotion);
+    let inView = false;
+    let failed = false;
+    let pending = false;
+    let disposed = false;
+    let scheduled: number | undefined;
+
+    function pageVisible() {
+      return inView && !document.hidden;
+    }
+
+    async function activate() {
+      if (disposed || pending || failed || !media.matches || !pageVisible()) return;
+      pending = true;
+      try {
+        const context = canvas.getContext("webgl2", {
+          alpha: true,
+          antialias: true,
+          powerPreference: "low-power",
+        });
+        if (!context) {
+          failed = true;
+          return;
+        }
+
+        const { createMonogramScene: create } = await import("./monogram-scene");
+        if (disposed || failed || !media.matches || !pageVisible()) return;
+        scene.current = create(canvas, context, element);
+        setActive(true);
+      } catch {
+        failed = true;
+      } finally {
+        pending = false;
+      }
+    }
+
+    function sync() {
+      if (!media.matches) {
+        scene.current?.dispose();
+        scene.current = null;
+        setActive(false);
+      }
+      scene.current?.setVisible(pageVisible());
+      if (
+        scheduled === undefined &&
+        !scene.current &&
+        !pending &&
+        !failed &&
+        media.matches &&
+        pageVisible()
+      ) {
+        scheduled = window.setTimeout(() => {
+          scheduled = undefined;
+          void activate();
+        }, 180);
+      }
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      sync();
+    });
+    observer.observe(element);
+
+    function loseContext(event: Event) {
+      event.preventDefault();
+      failed = true;
+      scene.current?.dispose();
+      scene.current = null;
+      setActive(false);
+    }
+
+    media.addEventListener("change", sync);
+    document.addEventListener("visibilitychange", sync);
+    canvas.addEventListener("webglcontextlost", loseContext);
+
+    return () => {
+      disposed = true;
+      if (scheduled !== undefined) window.clearTimeout(scheduled);
+      observer.disconnect();
+      media.removeEventListener("change", sync);
+      document.removeEventListener("visibilitychange", sync);
+      canvas.removeEventListener("webglcontextlost", loseContext);
+      scene.current?.dispose();
+      scene.current = null;
+    };
+  }, []);
+
+  function tilt(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse" || !scene.current) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    scene.current.tilt(
+      ((event.clientX - rect.left) / rect.width) * 2 - 1,
+      ((event.clientY - rect.top) / rect.height) * 2 - 1,
     );
   }
+
   return (
     <div
       className="monogram-scene"
+      data-renderer={active ? "webgl" : "static"}
+      ref={stage}
       aria-hidden="true"
-      onPointerMove={move}
-      onPointerLeave={() => {
-        x.set(0);
-        y.set(0);
-      }}
+      onPointerMove={tilt}
+      onPointerLeave={() => scene.current?.tilt(0, 0)}
     >
-      <span className="art-coordinate mono">EF / SISTEMAS & INTERFACES</span>
-      <LazyMotion features={domAnimation}>
-        <m.div className="monogram-plane" style={{ rotateX, rotateY }}>
-          <svg className="monogram-svg" viewBox="0 0 500 500" fill="none">
-            <defs>
-              <pattern
-                id="grid"
-                width="40"
-                height="40"
-                patternUnits="userSpaceOnUse"
-              >
-                <path d="M40 0H0V40" stroke="#30332e" strokeWidth=".7" />
-              </pattern>
-              <linearGradient
-                id="metal"
-                x1="95"
-                y1="105"
-                x2="400"
-                y2="390"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#e0ffad" />
-                <stop offset=".5" stopColor="#c4f06b" />
-                <stop offset="1" stopColor="#76943c" />
-              </linearGradient>
-            </defs>
-            <rect x="30" y="30" width="440" height="440" fill="url(#grid)" />
-            <circle
-              cx="250"
-              cy="250"
-              r="205"
-              stroke="#444c37"
-              strokeDasharray="3 8"
-            />
-            <ellipse
-              cx="250"
-              cy="250"
-              rx="228"
-              ry="100"
-              transform="rotate(-35 250 250)"
-              stroke="#758653"
-            />
-            <path
-              d="M73 250H427M250 73V427"
-              stroke="#444c37"
-              strokeDasharray="4 8"
-            />
-            <g transform="translate(0 12)" fill="#405026">
-              <path d="M106 146H239V188H153V225H223V266H153V307H239V350H106Z" />
-              <path d="M267 146H400V188H314V225H385V267H314V350H267Z" />
-            </g>
-            <g fill="url(#metal)">
-              <path d="M106 134H239V176H153V213H223V254H153V295H239V338H106Z" />
-              <path d="M267 134H400V176H314V213H385V255H314V338H267Z" />
-            </g>
-            <circle cx="410" cy="146" r="6" fill="#c4f06b" />
-            <circle cx="82" cy="332" r="4" fill="#c4f06b" />
-            <path
-              d="M30 50V30H50M450 30H470V50M470 450V470H450M50 470H30V450"
-              stroke="#9aab7b"
-            />
-          </svg>
-        </m.div>
-      </LazyMotion>
-      <div className="art-caption mono">
-        <span>DO CONCEITO AO CÓDIGO</span>
-        <span>01 — ∞</span>
-      </div>
+      <div className="monogram-orbit" />
+      <svg className="monogram-poster" viewBox="0 0 500 420" fill="none">
+        <defs>
+          <linearGradient id="ef-face" x1="116" y1="134" x2="401" y2="330" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#4a5549" />
+            <stop offset=".45" stopColor="#232c25" />
+            <stop offset="1" stopColor="#161d18" />
+          </linearGradient>
+          <linearGradient id="ef-edge" x1="100" y1="140" x2="406" y2="340" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#7b8f4c" />
+            <stop offset="1" stopColor="#37492a" />
+          </linearGradient>
+        </defs>
+        <g transform="translate(-3 -25) rotate(-7 253 236)">
+          <g fill="url(#ef-edge)" stroke="url(#ef-edge)" strokeWidth="1.5" strokeLinejoin="round">
+            {Array.from({ length: 9 }, (_, depth) => (
+              <g key={depth} transform={`translate(${(9 - depth) * 2} ${(9 - depth) * 1.6})`}>
+                {letterPaths.map((path) => <path key={path} d={path} />)}
+              </g>
+            ))}
+          </g>
+          <g fill="url(#ef-face)" stroke="#d5e9ba" strokeOpacity=".52" strokeLinejoin="round">
+            {letterPaths.map((path) => <path key={path} d={path} />)}
+          </g>
+        </g>
+      </svg>
+      <canvas className="monogram-canvas" ref={surface} />
     </div>
   );
 }
